@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>我的第一篇博客</title>
-    <url>/2022/07/26/helloworld/</url>
-    <content><![CDATA[<p>[toc]</p>
-<h1 id="helloworld"><a href="#helloworld" class="headerlink" title="helloworld"></a>helloworld</h1><ul>
-<li>testing…</li>
-</ul>
-<h2 id="code-test"><a href="#code-test" class="headerlink" title="code_test"></a>code_test</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>m</code><ul>
-<li>‘A &#x3D; B’</li>
+    <title>【leetcode】【2022/7/25】919.完全二叉树插入器</title>
+    <url>/p/3aca790c.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>实现 CBTInserter 类的操作：<ul>
+<li>CBTInserter(TreeNode root) 使用完全二叉树 root 来对该数据结构进行初始化。</li>
+<li>CBTInserter.insert(int v) 向该数据结构插入一个值为 v 的新节点，插入后仍保持完全二叉树状态，并且返回插入节点的父节点的值。</li>
+<li>CBTInserter.get_root() 返回完全二叉树的头节点。</li>
 </ul>
 </li>
 </ul>
-<h2 id="list-test"><a href="#list-test" class="headerlink" title="list test"></a>list test</h2><ol>
-<li>first</li>
-<li>second</li>
-</ol>
-]]></content>
+<h2 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h2><ul>
+<li>用数组来保存完全二叉树。【数组的索引可以用来确定节点在完全二叉树中的顺序】<ul>
+<li>插入一个新值，就相当于在数组尾部插入一个节点，然后根据索引计算得到 parent 的索引。</li>
+<li>还要将当前新值连接到真正的树上，找到 parent 索引之后，就可以根据当前索引是奇数还是偶数来判断是连接到 parent 的左子还是右子。【因为 root 是索引 0 ，所以当前索引为奇数则是父节点的左子，当前索引为偶数则是父节点的右子】</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CBTInserter</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;TreeNode*&gt; vec;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">CBTInserter</span>(TreeNode* root)</span><br><span class="line">    &#123;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line">        q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> sz = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">while</span>(sz-- &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* tmp = q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">                vec.<span class="built_in">push_back</span>(tmp);</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;left) q.<span class="built_in">push</span>(tmp-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;right) q.<span class="built_in">push</span>(tmp-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">insert</span><span class="params">(<span class="type">int</span> val)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        vec.<span class="built_in">push_back</span>(<span class="keyword">new</span> <span class="built_in">TreeNode</span>(val));</span><br><span class="line">        <span class="type">int</span> idx = vec.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> parent_idx = (idx - <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(idx &amp; <span class="number">1</span>) vec[parent_idx]-&gt;left = vec[idx];</span><br><span class="line">        <span class="keyword">else</span> vec[parent_idx]-&gt;right = vec[idx];</span><br><span class="line">        <span class="keyword">return</span> vec[parent_idx]-&gt;val;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">TreeNode* <span class="title">get_root</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> vec[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>leetcode每日一题</category>
+      </categories>
       <tags>
-        <tag>testing</tag>
+        <tag>leetcode</tag>
       </tags>
   </entry>
 </search>
