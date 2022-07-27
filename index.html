@@ -189,6 +189,105 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/d9efbaf4.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/d9efbaf4.html" class="post-title-link" itemprop="url">【SICP】 test_3_23</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-07-27 13:55:28 / 修改时间：14:20:43" itemprop="dateCreated datePublished" datetime="2022-07-27T13:55:28+08:00">2022-07-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SICP/" itemprop="url" rel="index"><span itemprop="name">SICP</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SICP/test-3-23/" itemprop="url" rel="index"><span itemprop="name">test_3_23</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>用序列实现双端队列 deque ，即可从前或从后插入或删除。<ul>
+<li>构造函数 <code>make_deque</code> ;</li>
+<li>选择函数 <code>front_deque</code> 、 <code>rear_deque</code> ;</li>
+<li>改变函数 <code>front_isnert_deque!</code> 、<code>rear_insert_deque!</code> 、<code>front_delete_deque!</code> 、<code>rear_delete_deque!</code> 。</li>
+</ul>
+</li>
+<li>要求是所有操作都需要在 <code>O(1)</code> 步骤内完成。</li>
+</ul>
+<h2 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h2><ul>
+<li><p>SIPC 3.3.2 实现了队列 queue ，其为链表实现，队列的链表节点包括 data 指针和 next 指针：<img src="/p/d9efbaf4/SICP_queue.jpg" alt="SICP_queue"></p>
+</li>
+<li><p>所以不难想象出要实现双端队列，其节点需要三个指针，包括 data 指针、next 指针和 last 指针：<img src="/p/d9efbaf4/SICP_deque.jpg" alt="SICP_deque"></p>
+</li>
+<li><p>有了前面序列实现双端队列节点的假设之后，其他操作都比较容易推导写出，但这里还存在一个问题，即需要重现实现 deque 的打印。</p>
+<ul>
+<li>要注意的是，为了结果展示，在所有改变函数中最后都会返回打印结果，但原改变操作仍然是 <code>O(1)</code> 时间内完成的。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/d9efbaf4.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/p/3aca790c.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -214,7 +313,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-07-27 00:58:04 / 修改时间：01:32:44" itemprop="dateCreated datePublished" datetime="2022-07-27T00:58:04+08:00">2022-07-27</time>
+              <time title="创建时间：2022-07-27 00:58:04 / 修改时间：14:00:23" itemprop="dateCreated datePublished" datetime="2022-07-27T00:58:04+08:00">2022-07-27</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -222,7 +321,11 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leetcode每日一题</span></a>
+                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leetcode每日一题</span></a>
                 </span>
             </span>
 
@@ -343,20 +446,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
