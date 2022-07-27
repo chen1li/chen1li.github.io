@@ -64,7 +64,7 @@
     <url>/p/d930f5e8.html</url>
     <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
 <li>字符串中只包含分数和加减运算，返回字符串的计算结果。<ul>
-<li>输入和输出分数格式均为’±分子&#x2F;分母’。</li>
+<li>输入和输出分数格式均为 <code>±分子/分母</code>。</li>
 <li>第一个分数的正号会被省略。</li>
 <li>输入中只包含合法的最简分数。</li>
 </ul>
@@ -99,6 +99,119 @@
       </categories>
       <tags>
         <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【leetcode】【2022/7/28】1331. 数组序号转换</title>
+    <url>/p/4c1de1ba.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一个整数数组，将数组中每个元素替换为排序后的序号。<ul>
+<li>数组中有重复值，重复值有相同的序号。</li>
+<li>序号从 <code>1</code> 开始。</li>
+</ul>
+</li>
+</ul>
+<h2 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h2><ul>
+<li>该题理解映射关系即可。<ul>
+<li>用 <code>map</code> 来进行排序，其中 <code>map</code> 的 <code>key</code> 为数组中的数值，<code>value</code> 为该数值的所有索引（因为可能重复，所以索引的保存用 <code>vector</code>），即用 <code>map&lt;int, vector&lt;int&gt;&gt;</code> 来保存映射关系。</li>
+<li>存入 <code>map</code> 之后再进行一次遍历即可取出排序后的序号。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">arrayRankTransform</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; arr)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        map&lt;<span class="type">int</span>, vector&lt;<span class="type">int</span>&gt;&gt; mapped;</span><br><span class="line">        <span class="type">int</span> i;</span><br><span class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; arr.<span class="built_in">size</span>(); ++i)</span><br><span class="line">            mapped[arr[i]].<span class="built_in">push_back</span>(i);</span><br><span class="line">        i = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span>&amp; [_, vec] : mapped)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> idx : vec) arr[idx] = i;</span><br><span class="line">            ++i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>leetcode每日一题</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>拓扑排序</title>
+    <url>/p/fb40efc5.html</url>
+    <content><![CDATA[<h2 id="相关概念："><a href="#相关概念：" class="headerlink" title="相关概念："></a>相关概念：</h2><ul>
+<li><strong>拓扑排序</strong>，就是在有向图中找到一条拓扑序列，序列中排列在前的节点相较于排列在后的节点有更高的优先级。<ul>
+<li>首先要理解优先级，优先级是有向图中边的方向性带来的结果，如 <code>a -&gt; b</code> 表示节点 <code>a</code> 指向节点 <code>b</code>，则可以认为 <code>a</code> 的优先级优于 <code>b</code>，在特定语境下可以说 <code>a</code> 必须在 <code>b</code> 之前完成，如下图所示，该有向图的拓扑排序结果为 <code>14325</code> 或 <code>41325</code>。<img src="/p/fb40efc5/leetcode_20220728.jpg" alt="topo_sort"></li>
+<li>拓扑排序算法可以用来判断有向图是否有环，可以生成拓扑序列。<ul>
+<li>网络中可能存在多个拓扑排序结果。</li>
+<li>如果网络中不存在环，则结果中会包括所有节点。</li>
+<li>但如果网络中存在环，则结果中可能会缺少某些节点。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>图可以有不同的表现形式，如邻接矩阵表示形式和邻接表表示形式，有向图的<strong>邻接表</strong>表示形式。<ul>
+<li>简单来说，假设图中有 <code>m</code> 个节点，邻接表就是维护一个 <code>m</code> 大小的数组 <code>vec</code>，其中数组元素为当前节点的外接节点链表。【例如在网络中 <code>a -&gt; b</code> 且 <code>a -&gt; c</code>，则数组中 <code>a</code> 节点对应的位置就保存一个链表 <code>b =&gt; c</code>，相当于 <code>vec(a) =&gt; b =&gt; c</code> （此处用 <code>=&gt;</code> 表示链表指针，<code>b</code> 和 <code>c</code> 在链表中的顺序不分先后）】</li>
+<li>也就是说，数组中第 <code>i</code> 个元素（记住数组元素为链表）保存的是网络中第 <code>i</code> 个节点的 one-hop neighbor。【即节点跳一步就可以达到的邻居节点】</li>
+</ul>
+</li>
+<li>进行后续算法的介绍前，还需要理解<strong>节点的入度</strong>。<ul>
+<li>当前节点的入度，指的就是网络中有多少节点直接指向当前节点。【如上图所示，节点 <code>3</code> 的入度为 <code>2</code> 】</li>
+<li>可用一个数组统计每个节点的入度。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>拓扑排序问题有两种解决方案：<strong>Kahn 算法</strong>和 <strong>dfs 着色解法</strong>。</li>
+<li><strong>Kahn 算法</strong>的核心思想就是每次删除一个当前入度为 <code>0</code> 的节点，并删除该节点对链出邻居的影响（即其指向邻居的入度数减一）。<ul>
+<li>Kahn 算法需要图的邻接表形式。</li>
+<li>可以用 <code>stack</code> 或 <code>queue</code> 来保存当前入度为 <code>0</code> 的节点。【即用 <code>stack</code> 或 <code>queue</code> 维护当前入度为 <code>0</code> 的点集】</li>
+<li>用上面的图来理解，Kahn 算法的第一步就是把节点 <code>1</code> 带来的影响消去，留下其余的节点和边作为子图进行拓扑排序：<img src="/p/fb40efc5/leetcode_20220728_2.jpg" alt="topo_sort_kahn"></li>
+</ul>
+</li>
+<li><strong>dfs 着色解法</strong>即利用深度优先算法的方法以任意顺序遍历图中所有节点，但<strong>遍历的过程中需要对节点着色</strong>。<ul>
+<li>不同的颜色代表访问的程度深浅，过程中遇到不同颜色的节点会有相应的处理；需要一个数组维护网络中节点的颜色，颜色的状态可以为 <code>0</code>、<code>-1</code> 和 <code>1</code>。<ul>
+<li><code>-1</code> 表示访问过，如果重复遇上，则说明存在环。</li>
+</ul>
+</li>
+<li>最后需要把结果数组进行 <code>reverse</code> 操作，得出来的才是拓扑序列。【因为 dfs 着色解法会优先深度搜索到优先级最低的节点，所以最先存入结果数组的就是优先级最低的节点，最后结果数组就需要翻转过来才可】</li>
+</ul>
+</li>
+</ul>
+<h2 id="算法步骤："><a href="#算法步骤：" class="headerlink" title="算法步骤："></a>算法步骤：</h2><ul>
+<li><p><strong>Kahn 算法</strong>的算法步骤如下：【假设用栈来维护点集】</p>
+<ol>
+<li>初始化，所有入度为 <code>0</code> 的节点入栈。</li>
+<li>每次从栈中 <code>pop</code> 出一个节点放入结果数组。<ol>
+<li>同时该节点指向的所有节点都需要进行入度减一操作。</li>
+<li>如果邻居的入度变为 <code>0</code> 则邻居入栈。</li>
+</ol>
+</li>
+<li>不断重复 2 过程直到栈为空。</li>
+<li>如果结果数组个数为网络中节点个数，则说明网络中无环，否则说明网络中有环。</li>
+</ol>
+</li>
+<li><p><strong>dfs 着色解法</strong>的算法步骤如下：</p>
+<ol>
+<li>初始化，所有点染色为 <code>0</code>。</li>
+<li>遍历每个节点进入 <code>dfs</code> 函数。【如果要遍历的点颜色不为 <code>0</code>，则不进入递归】<ol>
+<li>假设当前节点为 <code>x</code>，将其染色为 <code>-1</code>，接着遍历 <code>x</code> 的邻居。</li>
+<li>假若当前邻居 <code>y</code> 的颜色为 <code>0</code> ，则递归进入 <code>dfs(y)</code>；假若当前邻居 <code>y</code> 的颜色为 <code>-1</code>，则说明网络中存在环。</li>
+<li>假若当前节点 <code>x</code> 的所有邻居都走完且没有发现环，则把 <code>x</code> 保存进结果数组中。</li>
+</ol>
+</li>
+<li>将结果数组进行翻转操作。</li>
+</ol>
+</li>
+</ul>
+<h2 id="实现代码："><a href="#实现代码：" class="headerlink" title="实现代码："></a>实现代码：</h2><ul>
+<li><p><strong>Kahn 算法</strong>的实现代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">kahn_algorithm</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; &amp;graph, vector&lt;<span class="type">int</span>&gt; &amp;in, <span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  vector&lt;<span class="type">int</span>&gt; ans;</span><br><span class="line">  stack&lt;<span class="type">int</span>&gt; stk;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 第一步，初始化</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    <span class="keyword">if</span> (in[i] == <span class="number">0</span>)</span><br><span class="line">      stk.<span class="built_in">push</span>(i);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 第二步，从栈中一直 pop 出元素并存放到结果中</span></span><br><span class="line">  <span class="keyword">while</span> (!stk.<span class="built_in">empty</span>())</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="type">int</span> x = stk.<span class="built_in">top</span>();</span><br><span class="line">    stk.<span class="built_in">pop</span>();</span><br><span class="line">    ans.<span class="built_in">push_back</span>(x);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;next : graph[x])</span><br><span class="line">      <span class="keyword">if</span> (--in[next] == <span class="number">0</span>)</span><br><span class="line">        stk.<span class="built_in">push</span>(next);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>dfs 着色解法</strong>的实现代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; ans;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">dfs</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; graph, vector&lt;<span class="type">int</span>&gt;&amp; color, <span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  color[x] = <span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> y : graph[x])</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span>(color[y] == <span class="number">-1</span> <span class="built_in">or</span> (color[y] == <span class="number">0</span> <span class="keyword">and</span> <span class="built_in">dfs</span>(graph, color, y) == <span class="literal">false</span>)) <span class="comment">// 有环</span></span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  color[x] = <span class="number">1</span>;</span><br><span class="line">  ans.<span class="built_in">push_back</span>(x);</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">dfs_color</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; &amp;graph, <span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">color</span><span class="params">(n+<span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> x = <span class="number">1</span>; x &lt;= n; ++x) <span class="keyword">if</span>(color[x] == <span class="number">0</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">dfs</span>(graph, color, x) == <span class="literal">false</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">reverse</span>(ans.<span class="built_in">begin</span>(), ans.<span class="built_in">end</span>());</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> m, n; <span class="comment">// 输入 m 条边，n 个节点，节点标记为 1~n</span></span><br><span class="line">  cin &gt;&gt; m &gt;&gt; n;</span><br><span class="line">  vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">graph</span>(n + <span class="number">1</span>); <span class="comment">// 邻接表</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; ++i)       <span class="comment">// 输入 m 条边的具体情况</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="type">int</span> a, b;</span><br><span class="line">    cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">    graph[a].<span class="built_in">push_back</span>(b);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(<span class="built_in">dfs_color</span>(graph, n) == <span class="literal">false</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;有环&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> num : ans)</span><br><span class="line">    cout &lt;&lt; num &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">  cout &lt;&lt; endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="部分题目："><a href="#部分题目：" class="headerlink" title="部分题目："></a>部分题目：</h2><ul>
+<li>leetcode - 剑指 Offer Ⅱ 115.重建序列</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+        <category>图论</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
       </tags>
   </entry>
 </search>

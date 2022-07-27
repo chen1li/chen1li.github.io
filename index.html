@@ -189,7 +189,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/p/d930f5e8.html">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/fb40efc5.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/maomao.jpg">
@@ -203,7 +203,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/p/d930f5e8.html" class="post-title-link" itemprop="url">【leetcode】【2022/7/27】592.分数加减运算</a>
+            <a href="/p/fb40efc5.html" class="post-title-link" itemprop="url">拓扑排序</a>
         </h2>
 
         <div class="post-meta">
@@ -214,7 +214,125 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-07-27 18:15:29 / 修改时间：18:16:30" itemprop="dateCreated datePublished" datetime="2022-07-27T18:15:29+08:00">2022-07-27</time>
+              <time title="创建时间：2022-07-28 02:49:25 / 修改时间：02:58:46" itemprop="dateCreated datePublished" datetime="2022-07-28T02:49:25+08:00">2022-07-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">图论</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="相关概念："><a href="#相关概念：" class="headerlink" title="相关概念："></a>相关概念：</h2><ul>
+<li><strong>拓扑排序</strong>，就是在有向图中找到一条拓扑序列，序列中排列在前的节点相较于排列在后的节点有更高的优先级。<ul>
+<li>首先要理解优先级，优先级是有向图中边的方向性带来的结果，如 <code>a -&gt; b</code> 表示节点 <code>a</code> 指向节点 <code>b</code>，则可以认为 <code>a</code> 的优先级优于 <code>b</code>，在特定语境下可以说 <code>a</code> 必须在 <code>b</code> 之前完成，如下图所示，该有向图的拓扑排序结果为 <code>14325</code> 或 <code>41325</code>。<img src="/p/fb40efc5/leetcode_20220728.jpg" alt="topo_sort"></li>
+<li>拓扑排序算法可以用来判断有向图是否有环，可以生成拓扑序列。<ul>
+<li>网络中可能存在多个拓扑排序结果。</li>
+<li>如果网络中不存在环，则结果中会包括所有节点。</li>
+<li>但如果网络中存在环，则结果中可能会缺少某些节点。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>图可以有不同的表现形式，如邻接矩阵表示形式和邻接表表示形式，有向图的<strong>邻接表</strong>表示形式。<ul>
+<li>简单来说，假设图中有 <code>m</code> 个节点，邻接表就是维护一个 <code>m</code> 大小的数组 <code>vec</code>，其中数组元素为当前节点的外接节点链表。【例如在网络中 <code>a -&gt; b</code> 且 <code>a -&gt; c</code>，则数组中 <code>a</code> 节点对应的位置就保存一个链表 <code>b =&gt; c</code>，相当于 <code>vec(a) =&gt; b =&gt; c</code> （此处用 <code>=&gt;</code> 表示链表指针，<code>b</code> 和 <code>c</code> 在链表中的顺序不分先后）】</li>
+<li>也就是说，数组中第 <code>i</code> 个元素（记住数组元素为链表）保存的是网络中第 <code>i</code> 个节点的 one-hop neighbor。【即节点跳一步就可以达到的邻居节点】</li>
+</ul>
+</li>
+<li>进行后续算法的介绍前，还需要理解<strong>节点的入度</strong>。<ul>
+<li>当前节点的入度，指的就是网络中有多少节点直接指向当前节点。【如上图所示，节点 <code>3</code> 的入度为 <code>2</code> 】</li>
+<li>可用一个数组统计每个节点的入度。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>拓扑排序问题有两种解决方案：<strong>Kahn 算法</strong>和 <strong>dfs 着色解法</strong>。</li>
+<li><strong>Kahn 算法</strong>的核心思想就是每次删除一个当前入度为 <code>0</code> 的节点，并删除该节点对链出邻居的影响（即其指向邻居的入度数减一）。<ul>
+<li>Kahn 算法需要图的邻接表形式。</li>
+<li>可以用 <code>stack</code> 或 <code>queue</code> 来保存当前入度为 <code>0</code> 的节点。【即用 <code>stack</code> 或 <code>queue</code> 维护当前入度为 <code>0</code> 的点集】</li>
+<li>用上面的图来理解，Kahn 算法的第一步就是把节点 <code>1</code> 带来的影响消去，留下其余的节点和边作为子图进行拓扑排序：<img src="/p/fb40efc5/leetcode_20220728_2.jpg" alt="topo_sort_kahn"></li>
+</ul>
+</li>
+<li><strong>dfs 着色解法</strong>即利用深度优先算法的方法以任意顺序遍历图中所有节点，但<strong>遍历的过程中需要对节点着色</strong>。<ul>
+<li>不同的颜色代表访问的程度深浅，过程中遇到不同颜色的节点会有相应的处理；需要一个数组维护网络中节点的颜色，颜色的状态可以为 <code>0</code>、<code>-1</code> 和 <code>1</code>。<ul>
+<li><code>-1</code> 表示访问过，如果重复遇上，则说明存在环。</li>
+</ul>
+</li>
+<li>最后需要把结果数组进行 <code>reverse</code> 操作，得出来的才是拓扑序列。【因为 dfs 着色解法会优先深度搜索到优先级最低的节点，所以最先存入结果数组的就是优先级最低的节点，最后结果数组就需要翻转过来才可】</li>
+</ul>
+</li>
+</ul>
+<h2 id="算法步骤："><a href="#算法步骤：" class="headerlink" title="算法步骤："></a>算法步骤：</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/fb40efc5.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/4c1de1ba.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/4c1de1ba.html" class="post-title-link" itemprop="url">【leetcode】【2022/7/28】1331. 数组序号转换</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-07-28 00:31:57 / 修改时间：00:38:20" itemprop="dateCreated datePublished" datetime="2022-07-28T00:31:57+08:00">2022-07-28</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -242,8 +360,107 @@
 
       
           <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一个整数数组，将数组中每个元素替换为排序后的序号。<ul>
+<li>数组中有重复值，重复值有相同的序号。</li>
+<li>序号从 <code>1</code> 开始。</li>
+</ul>
+</li>
+</ul>
+<h2 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h2><ul>
+<li>该题理解映射关系即可。<ul>
+<li>用 <code>map</code> 来进行排序，其中 <code>map</code> 的 <code>key</code> 为数组中的数值，<code>value</code> 为该数值的所有索引（因为可能重复，所以索引的保存用 <code>vector</code>），即用 <code>map&lt;int, vector&lt;int&gt;&gt;</code> 来保存映射关系。</li>
+<li>存入 <code>map</code> 之后再进行一次遍历即可取出排序后的序号。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/4c1de1ba.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/d930f5e8.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/d930f5e8.html" class="post-title-link" itemprop="url">【leetcode】【2022/7/27】592.分数加减运算</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-07-27 18:15:29" itemprop="dateCreated datePublished" datetime="2022-07-27T18:15:29+08:00">2022-07-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-07-28 02:52:15" itemprop="dateModified" datetime="2022-07-28T02:52:15+08:00">2022-07-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leetcode每日一题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
 <li>字符串中只包含分数和加减运算，返回字符串的计算结果。<ul>
-<li>输入和输出分数格式均为’±分子&#x2F;分母’。</li>
+<li>输入和输出分数格式均为 <code>±分子/分母</code>。</li>
 <li>第一个分数的正号会被省略。</li>
 <li>输入中只包含合法的最简分数。</li>
 </ul>
@@ -555,20 +772,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
