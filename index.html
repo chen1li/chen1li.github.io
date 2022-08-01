@@ -189,6 +189,122 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/ca3dd10c.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/ca3dd10c.html" class="post-title-link" itemprop="url">【leetcode】【2022/8/1】622. 设计循环队列</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-08-02 01:18:01 / 修改时间：02:13:37" itemprop="dateCreated datePublished" datetime="2022-08-02T01:18:01+08:00">2022-08-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leetcode每日一题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>设计循环队列。<ul>
+<li>循环队列是一种线性数据结构，其操作表现基于 FIFO（先进先出）原则并且队尾被连接在队首之后以形成一个循环。</li>
+</ul>
+</li>
+<li>该实现类 <code>MyCircularQueue</code> 支持如下操作：<ul>
+<li><code>MyCircularQueue(k)</code>：构造器，<code>k</code> 为队列的长度。</li>
+<li><code>Front()</code>：从队首获取元素，如果队列为空，返回 <code>-1</code>。</li>
+<li><code>Rear()</code>：获取队尾元素，如果队列为空，返回 <code>-1</code>。</li>
+<li><code>enQueue(value)</code>：向循环队列插入一个元素，如果成功插入则返回真。</li>
+<li><code>deQueue()</code>：从循环队列中删除一个元素，如果成功删除则返回真。</li>
+<li><code>isEmpty()</code>：检查循环队列是否为空。</li>
+<li><code>isFull()</code>：检查循环队列是否已满。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>初始的模拟思路很直观：<ul>
+<li><code>MyCircularQueue</code> 中包含三个成员，<code>vec</code>（固定大小的数组）、 <code>head</code>（队列头位置索引）和 <code>tail</code>（队列尾位置索引）。【注意 <code>tail</code> 代表尾后位置】</li>
+<li>初始化 <code>MyCircularQueue(k)</code> 中将 <code>vec</code> 置为大小为 <code>k</code> 的数组，再将 <code>head</code> 和 <code>tail</code> 均置为 <code>0</code>。</li>
+<li>很自然地，初始化后 <code>head == tail == 0</code>，此时循环队列为空，则至少说明 <code>isEmpty()</code> 可以根据 <code>head</code> 和 <code>tail</code> 的值是否相等来返回结果。</li>
+<li>向循环队列插入或删除操作也不难推导出来，插入操作在设置值的同时把 <code>tail</code> 后移一位，删除操作直接将 <code>head</code> 后移一位。【插入操作需要提前判断循环队列是否已满，删除操作需要提前判断循环队列是否为空】【<code>head</code> 的后移一位操作在遇到边界的时候需要重新回到索引 <code>0</code>，所以后移操作做一个取模操作即可，即 <code>(head+1)%sz</code>（其中 <code>sz</code> 为 <code>vec.size()</code>）】【<code>tail</code> 的后移操作同理】</li>
+<li><code>Front()</code> 首先判断队列是否为空，不为空则返回 <code>head</code> 索引上的值。</li>
+<li><code>rear()</code> 首先判断队列是否为空，不为空则返回 <code>(tail+sz-1)%sz</code> 索引上的值（其中 <code>sz</code> 为 <code>vec.size()</code>）。</li>
+<li>到目前为止，这个思路的方向还算正确，但是在判断循环队列是否为满时会出现问题：<ul>
+<li>如下图所示，循环队列在 <code>enQueue(3)</code> 后使得循环队列为满，但此时再次出现 <code>head == tail</code>：<img src="/p/ca3dd10c/leetcode_20220802.jpg" alt="leetcode_20220802"></li>
+<li>这种情况说明如果按目前的假设， <code>isEmpty()</code> 的实现和 <code>isFull()</code> 的实现会产生矛盾。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>为了避免判空和判满的矛盾，有两种方法：【两种方法均是延续原来的思路，对原来的数据结构进行补充】<ol>
+<li>设置一个 <code>bool</code> 类型值 <code>flag</code>，<code>flag</code> 在 <code>enQueue(value)</code> 和 <code>deQueue()</code> 中维护更新，则判满操作就可以根据 <code>flag</code> 值的不同与判空操作进行区分。</li>
+<li>在初始化中将 <code>vec</code> 设置为大小为 <code>k+1</code> 的数组，则判满操作可以设置为返回 <code>head == (tail+1)%capacity</code>，其他操作仍然和上述思路保持一致。【后面代码实现是依据方法二】</li>
+</ol>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/ca3dd10c.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/p/d752fe72.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1143,7 +1259,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

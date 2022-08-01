@@ -59,28 +59,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【leetcode】【2022/7/29】593. 有效的正方形</title>
-    <url>/p/5fa4169f.html</url>
-    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>给定四个点，判断是否构成一个正方形。</li>
-</ul>
-<h2 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h2><ul>
-<li>统计<strong>正方形四条边</strong>和<strong>两条对角线</strong>的长度，并存入 <code>set</code> 中去重。<ul>
-<li>最后 <code>set</code> 中不存在长度为 <code>0</code> 的边；【即避免出现点重合的情况】</li>
-<li>且 <code>set</code> 大小为 <code>2</code>。【即只存在两种长度】</li>
-</ul>
-</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">count_len</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; vec)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> vec[<span class="number">0</span>]*vec[<span class="number">0</span>]+vec[<span class="number">1</span>]*vec[<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">validSquare</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; p1, vector&lt;<span class="type">int</span>&gt;&amp; p2, vector&lt;<span class="type">int</span>&gt;&amp; p3, vector&lt;<span class="type">int</span>&gt;&amp; p4)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        unordered_set&lt;<span class="type">int</span>&gt; ss;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; vec = &#123;p2[<span class="number">0</span>] - p1[<span class="number">0</span>], p2[<span class="number">1</span>] - p1[<span class="number">1</span>]&#125;; ss.<span class="built_in">insert</span>(<span class="built_in">count_len</span>(vec));</span><br><span class="line">        vec = &#123;p3[<span class="number">0</span>] - p1[<span class="number">0</span>], p3[<span class="number">1</span>] - p1[<span class="number">1</span>]&#125;; ss.<span class="built_in">insert</span>(<span class="built_in">count_len</span>(vec));</span><br><span class="line">        vec = &#123;p4[<span class="number">0</span>] - p1[<span class="number">0</span>], p4[<span class="number">1</span>] - p1[<span class="number">1</span>]&#125;; ss.<span class="built_in">insert</span>(<span class="built_in">count_len</span>(vec));</span><br><span class="line">        vec = &#123;p3[<span class="number">0</span>] - p2[<span class="number">0</span>], p3[<span class="number">1</span>] - p2[<span class="number">1</span>]&#125;; ss.<span class="built_in">insert</span>(<span class="built_in">count_len</span>(vec));</span><br><span class="line">        vec = &#123;p4[<span class="number">0</span>] - p3[<span class="number">0</span>], p4[<span class="number">1</span>] - p3[<span class="number">1</span>]&#125;; ss.<span class="built_in">insert</span>(<span class="built_in">count_len</span>(vec));</span><br><span class="line">        vec = &#123;p4[<span class="number">0</span>] - p2[<span class="number">0</span>], p4[<span class="number">1</span>] - p2[<span class="number">1</span>]&#125;; ss.<span class="built_in">insert</span>(<span class="built_in">count_len</span>(vec));</span><br><span class="line">        <span class="keyword">return</span> !ss.<span class="built_in">count</span>(<span class="number">0</span>) <span class="keyword">and</span> ss.<span class="built_in">size</span>() == <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>刷题</category>
-        <category>leetcode每日一题</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【leetcode】【2022/7/27】592.分数加减运算</title>
     <url>/p/d930f5e8.html</url>
     <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
@@ -140,6 +118,28 @@
 </li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">arrayRankTransform</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; arr)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        map&lt;<span class="type">int</span>, vector&lt;<span class="type">int</span>&gt;&gt; mapped;</span><br><span class="line">        <span class="type">int</span> i;</span><br><span class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; arr.<span class="built_in">size</span>(); ++i)</span><br><span class="line">            mapped[arr[i]].<span class="built_in">push_back</span>(i);</span><br><span class="line">        i = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span>&amp; [_, vec] : mapped)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> idx : vec) arr[idx] = i;</span><br><span class="line">            ++i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>leetcode每日一题</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【leetcode】【2022/7/29】593. 有效的正方形</title>
+    <url>/p/5fa4169f.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定四个点，判断是否构成一个正方形。</li>
+</ul>
+<h2 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h2><ul>
+<li>统计<strong>正方形四条边</strong>和<strong>两条对角线</strong>的长度，并存入 <code>set</code> 中去重。<ul>
+<li>最后 <code>set</code> 中不存在长度为 <code>0</code> 的边；【即避免出现点重合的情况】</li>
+<li>且 <code>set</code> 大小为 <code>2</code>。【即只存在两种长度】</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">count_len</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; vec)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> vec[<span class="number">0</span>]*vec[<span class="number">0</span>]+vec[<span class="number">1</span>]*vec[<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">validSquare</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; p1, vector&lt;<span class="type">int</span>&gt;&amp; p2, vector&lt;<span class="type">int</span>&gt;&amp; p3, vector&lt;<span class="type">int</span>&gt;&amp; p4)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        unordered_set&lt;<span class="type">int</span>&gt; ss;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; vec = &#123;p2[<span class="number">0</span>] - p1[<span class="number">0</span>], p2[<span class="number">1</span>] - p1[<span class="number">1</span>]&#125;; ss.<span class="built_in">insert</span>(<span class="built_in">count_len</span>(vec));</span><br><span class="line">        vec = &#123;p3[<span class="number">0</span>] - p1[<span class="number">0</span>], p3[<span class="number">1</span>] - p1[<span class="number">1</span>]&#125;; ss.<span class="built_in">insert</span>(<span class="built_in">count_len</span>(vec));</span><br><span class="line">        vec = &#123;p4[<span class="number">0</span>] - p1[<span class="number">0</span>], p4[<span class="number">1</span>] - p1[<span class="number">1</span>]&#125;; ss.<span class="built_in">insert</span>(<span class="built_in">count_len</span>(vec));</span><br><span class="line">        vec = &#123;p3[<span class="number">0</span>] - p2[<span class="number">0</span>], p3[<span class="number">1</span>] - p2[<span class="number">1</span>]&#125;; ss.<span class="built_in">insert</span>(<span class="built_in">count_len</span>(vec));</span><br><span class="line">        vec = &#123;p4[<span class="number">0</span>] - p3[<span class="number">0</span>], p4[<span class="number">1</span>] - p3[<span class="number">1</span>]&#125;; ss.<span class="built_in">insert</span>(<span class="built_in">count_len</span>(vec));</span><br><span class="line">        vec = &#123;p4[<span class="number">0</span>] - p2[<span class="number">0</span>], p4[<span class="number">1</span>] - p2[<span class="number">1</span>]&#125;; ss.<span class="built_in">insert</span>(<span class="built_in">count_len</span>(vec));</span><br><span class="line">        <span class="keyword">return</span> !ss.<span class="built_in">count</span>(<span class="number">0</span>) <span class="keyword">and</span> ss.<span class="built_in">size</span>() == <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>刷题</category>
         <category>leetcode每日一题</category>
@@ -220,6 +220,55 @@
 <li>该题毫无意义。</li>
 </ul>
 <h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">generateTheString</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        string ans = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span>(n % <span class="number">2</span> == <span class="number">0</span>) ans += <span class="string">&#x27;a&#x27;</span>, --n;</span><br><span class="line">        <span class="keyword">while</span>(n-- &gt; <span class="number">0</span>) ans += <span class="string">&#x27;b&#x27;</span>;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>leetcode每日一题</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【leetcode】【2022/8/1】622. 设计循环队列</title>
+    <url>/p/ca3dd10c.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>设计循环队列。<ul>
+<li>循环队列是一种线性数据结构，其操作表现基于 FIFO（先进先出）原则并且队尾被连接在队首之后以形成一个循环。</li>
+</ul>
+</li>
+<li>该实现类 <code>MyCircularQueue</code> 支持如下操作：<ul>
+<li><code>MyCircularQueue(k)</code>：构造器，<code>k</code> 为队列的长度。</li>
+<li><code>Front()</code>：从队首获取元素，如果队列为空，返回 <code>-1</code>。</li>
+<li><code>Rear()</code>：获取队尾元素，如果队列为空，返回 <code>-1</code>。</li>
+<li><code>enQueue(value)</code>：向循环队列插入一个元素，如果成功插入则返回真。</li>
+<li><code>deQueue()</code>：从循环队列中删除一个元素，如果成功删除则返回真。</li>
+<li><code>isEmpty()</code>：检查循环队列是否为空。</li>
+<li><code>isFull()</code>：检查循环队列是否已满。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>初始的模拟思路很直观：<ul>
+<li><code>MyCircularQueue</code> 中包含三个成员，<code>vec</code>（固定大小的数组）、 <code>head</code>（队列头位置索引）和 <code>tail</code>（队列尾位置索引）。【注意 <code>tail</code> 代表尾后位置】</li>
+<li>初始化 <code>MyCircularQueue(k)</code> 中将 <code>vec</code> 置为大小为 <code>k</code> 的数组，再将 <code>head</code> 和 <code>tail</code> 均置为 <code>0</code>。</li>
+<li>很自然地，初始化后 <code>head == tail == 0</code>，此时循环队列为空，则至少说明 <code>isEmpty()</code> 可以根据 <code>head</code> 和 <code>tail</code> 的值是否相等来返回结果。</li>
+<li>向循环队列插入或删除操作也不难推导出来，插入操作在设置值的同时把 <code>tail</code> 后移一位，删除操作直接将 <code>head</code> 后移一位。【插入操作需要提前判断循环队列是否已满，删除操作需要提前判断循环队列是否为空】【<code>head</code> 的后移一位操作在遇到边界的时候需要重新回到索引 <code>0</code>，所以后移操作做一个取模操作即可，即 <code>(head+1)%sz</code>（其中 <code>sz</code> 为 <code>vec.size()</code>）】【<code>tail</code> 的后移操作同理】</li>
+<li><code>Front()</code> 首先判断队列是否为空，不为空则返回 <code>head</code> 索引上的值。</li>
+<li><code>rear()</code> 首先判断队列是否为空，不为空则返回 <code>(tail+sz-1)%sz</code> 索引上的值（其中 <code>sz</code> 为 <code>vec.size()</code>）。</li>
+<li>到目前为止，这个思路的方向还算正确，但是在判断循环队列是否为满时会出现问题：<ul>
+<li>如下图所示，循环队列在 <code>enQueue(3)</code> 后使得循环队列为满，但此时再次出现 <code>head == tail</code>：<img src="/p/ca3dd10c/leetcode_20220802.jpg" alt="leetcode_20220802"></li>
+<li>这种情况说明如果按目前的假设， <code>isEmpty()</code> 的实现和 <code>isFull()</code> 的实现会产生矛盾。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>为了避免判空和判满的矛盾，有两种方法：【两种方法均是延续原来的思路，对原来的数据结构进行补充】<ol>
+<li>设置一个 <code>bool</code> 类型值 <code>flag</code>，<code>flag</code> 在 <code>enQueue(value)</code> 和 <code>deQueue()</code> 中维护更新，则判满操作就可以根据 <code>flag</code> 值的不同与判空操作进行区分。</li>
+<li>在初始化中将 <code>vec</code> 设置为大小为 <code>k+1</code> 的数组，则判满操作可以设置为返回 <code>head == (tail+1)%capacity</code>，其他操作仍然和上述思路保持一致。【后面代码实现是依据方法二】</li>
+</ol>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyCircularQueue</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; vec; <span class="comment">// vec在这里是固定大小数组，容量不会扩增</span></span><br><span class="line">    <span class="type">int</span> head;</span><br><span class="line">    <span class="type">int</span> tail;</span><br><span class="line">    <span class="type">int</span> capacity; <span class="comment">// 其实就是vec.size()</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">MyCircularQueue</span>(<span class="type">int</span> k) : <span class="built_in">vec</span>(k+<span class="number">1</span>), <span class="built_in">head</span>(<span class="number">0</span>), <span class="built_in">tail</span>(<span class="number">0</span>), <span class="built_in">capacity</span>(k+<span class="number">1</span>) &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">enQueue</span><span class="params">(<span class="type">int</span> value)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isFull</span>()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        vec[tail%capacity] = value;</span><br><span class="line">        tail = (tail+<span class="number">1</span>)%capacity;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">deQueue</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isEmpty</span>()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        head = (head+<span class="number">1</span>)%capacity;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">Front</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isEmpty</span>()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> vec[head];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">Rear</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isEmpty</span>()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> vec[(tail+capacity<span class="number">-1</span>)%capacity];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isEmpty</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> head == tail;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isFull</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> head == (tail+<span class="number">1</span>)%capacity;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>刷题</category>
         <category>leetcode每日一题</category>

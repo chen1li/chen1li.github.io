@@ -20,20 +20,22 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="问题描述： 给定一个数组 nums，当 nums[i] 和 nums[j] 有一个大于 1 的公因数时，认为两个数存在有一条边，返回图中最大连通组件的大小。 满足 $ 1 &lt;&#x3D; nums.length &lt;&#x3D; 2 * 10^4 $。 满足 $ 1 &lt;&#x3D; nums[i] &lt;&#x3D; 10^5 $。 nums 中所有值都不同。    核心思路： 第一反应是并查集 + gcd： 以 nu">
+  <meta name="description" content="问题描述： 设计循环队列。 循环队列是一种线性数据结构，其操作表现基于 FIFO（先进先出）原则并且队尾被连接在队首之后以形成一个循环。   该实现类 MyCircularQueue 支持如下操作： MyCircularQueue(k)：构造器，k 为队列的长度。 Front()：从队首获取元素，如果队列为空，返回 -1。 Rear()：获取队尾元素，如果队列为空，返回 -1。 enQueue(v">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【leetcode】【2022&#x2F;7&#x2F;30】952. 按公因数计算最大组件大小">
-<meta property="og:url" content="http://example.com/p/691feb55.html">
+<meta property="og:title" content="【leetcode】【2022&#x2F;8&#x2F;1】622. 设计循环队列">
+<meta property="og:url" content="http://example.com/p/ca3dd10c.html">
 <meta property="og:site_name" content="Cyl&#39;s Blog">
-<meta property="og:description" content="问题描述： 给定一个数组 nums，当 nums[i] 和 nums[j] 有一个大于 1 的公因数时，认为两个数存在有一条边，返回图中最大连通组件的大小。 满足 $ 1 &lt;&#x3D; nums.length &lt;&#x3D; 2 * 10^4 $。 满足 $ 1 &lt;&#x3D; nums[i] &lt;&#x3D; 10^5 $。 nums 中所有值都不同。    核心思路： 第一反应是并查集 + gcd： 以 nu">
+<meta property="og:description" content="问题描述： 设计循环队列。 循环队列是一种线性数据结构，其操作表现基于 FIFO（先进先出）原则并且队尾被连接在队首之后以形成一个循环。   该实现类 MyCircularQueue 支持如下操作： MyCircularQueue(k)：构造器，k 为队列的长度。 Front()：从队首获取元素，如果队列为空，返回 -1。 Rear()：获取队尾元素，如果队列为空，返回 -1。 enQueue(v">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-07-30T02:20:06.000Z">
-<meta property="article:modified_time" content="2022-08-01T08:13:44.764Z">
+<meta property="og:image" content="http://example.com/p/ca3dd10c/leetcode_20220802.jpg">
+<meta property="article:published_time" content="2022-08-01T17:18:01.000Z">
+<meta property="article:modified_time" content="2022-08-01T18:13:37.392Z">
 <meta property="article:author" content="伊利">
 <meta property="article:tag" content="leetcode">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/p/ca3dd10c/leetcode_20220802.jpg">
 
-<link rel="canonical" href="http://example.com/p/691feb55.html">
+<link rel="canonical" href="http://example.com/p/ca3dd10c.html">
 
 
 <script id="page-configurations">
@@ -46,7 +48,7 @@
   };
 </script>
 
-  <title>【leetcode】【2022/7/30】952. 按公因数计算最大组件大小 | Cyl's Blog</title>
+  <title>【leetcode】【2022/8/1】622. 设计循环队列 | Cyl's Blog</title>
   
 
 
@@ -195,7 +197,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/p/691feb55.html">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/ca3dd10c.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/maomao.jpg">
@@ -208,7 +210,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          【leetcode】【2022/7/30】952. 按公因数计算最大组件大小
+          【leetcode】【2022/8/1】622. 设计循环队列
         </h1>
 
         <div class="post-meta">
@@ -217,16 +219,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2022-07-30 10:20:06" itemprop="dateCreated datePublished" datetime="2022-07-30T10:20:06+08:00">2022-07-30</time>
+              <time title="创建时间：2022-08-02 01:18:01 / 修改时间：02:13:37" itemprop="dateCreated datePublished" datetime="2022-08-02T01:18:01+08:00">2022-08-02</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-01 16:13:44" itemprop="dateModified" datetime="2022-08-01T16:13:44+08:00">2022-08-01</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -260,28 +256,43 @@
 
       
         <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>给定一个数组 <code>nums</code>，当 <code>nums[i]</code> 和 <code>nums[j]</code> 有一个大于 <code>1</code> 的公因数时，认为两个数存在有一条边，返回图中最大连通组件的大小。<ul>
-<li>满足 $ 1 &lt;= nums.length &lt;= 2 * 10^4 $。</li>
-<li>满足 $ 1 &lt;= nums[i] &lt;= 10^5 $。</li>
-<li><code>nums</code> 中所有值都不同。</li>
+<li>设计循环队列。<ul>
+<li>循环队列是一种线性数据结构，其操作表现基于 FIFO（先进先出）原则并且队尾被连接在队首之后以形成一个循环。</li>
+</ul>
+</li>
+<li>该实现类 <code>MyCircularQueue</code> 支持如下操作：<ul>
+<li><code>MyCircularQueue(k)</code>：构造器，<code>k</code> 为队列的长度。</li>
+<li><code>Front()</code>：从队首获取元素，如果队列为空，返回 <code>-1</code>。</li>
+<li><code>Rear()</code>：获取队尾元素，如果队列为空，返回 <code>-1</code>。</li>
+<li><code>enQueue(value)</code>：向循环队列插入一个元素，如果成功插入则返回真。</li>
+<li><code>deQueue()</code>：从循环队列中删除一个元素，如果成功删除则返回真。</li>
+<li><code>isEmpty()</code>：检查循环队列是否为空。</li>
+<li><code>isFull()</code>：检查循环队列是否已满。</li>
 </ul>
 </li>
 </ul>
 <h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
-<li>第一反应是<strong>并查集 + gcd</strong>：<ul>
-<li>以 <code>nums.size()</code> 作为并查集的大小，尝试连通 <code>nums</code> 中各个数值。</li>
-<li>用 <code>gcd</code> 来求得两个数的最大公约数，判断结果是否大于 <code>1</code>。</li>
-<li>但用这个方法进行模拟会超时，只通过了部分案例。【关键应该在于 <code>nums[i]</code> 的取值范围达到 $10^5$，假设是两个很大的质数，用来求 <code>gcd</code> 的过程就会很耗时间】</li>
+<li>初始的模拟思路很直观：<ul>
+<li><code>MyCircularQueue</code> 中包含三个成员，<code>vec</code>（固定大小的数组）、 <code>head</code>（队列头位置索引）和 <code>tail</code>（队列尾位置索引）。【注意 <code>tail</code> 代表尾后位置】</li>
+<li>初始化 <code>MyCircularQueue(k)</code> 中将 <code>vec</code> 置为大小为 <code>k</code> 的数组，再将 <code>head</code> 和 <code>tail</code> 均置为 <code>0</code>。</li>
+<li>很自然地，初始化后 <code>head == tail == 0</code>，此时循环队列为空，则至少说明 <code>isEmpty()</code> 可以根据 <code>head</code> 和 <code>tail</code> 的值是否相等来返回结果。</li>
+<li>向循环队列插入或删除操作也不难推导出来，插入操作在设置值的同时把 <code>tail</code> 后移一位，删除操作直接将 <code>head</code> 后移一位。【插入操作需要提前判断循环队列是否已满，删除操作需要提前判断循环队列是否为空】【<code>head</code> 的后移一位操作在遇到边界的时候需要重新回到索引 <code>0</code>，所以后移操作做一个取模操作即可，即 <code>(head+1)%sz</code>（其中 <code>sz</code> 为 <code>vec.size()</code>）】【<code>tail</code> 的后移操作同理】</li>
+<li><code>Front()</code> 首先判断队列是否为空，不为空则返回 <code>head</code> 索引上的值。</li>
+<li><code>rear()</code> 首先判断队列是否为空，不为空则返回 <code>(tail+sz-1)%sz</code> 索引上的值（其中 <code>sz</code> 为 <code>vec.size()</code>）。</li>
+<li>到目前为止，这个思路的方向还算正确，但是在判断循环队列是否为满时会出现问题：<ul>
+<li>如下图所示，循环队列在 <code>enQueue(3)</code> 后使得循环队列为满，但此时再次出现 <code>head == tail</code>：<img src="/p/ca3dd10c/leetcode_20220802.jpg" alt="leetcode_20220802"></li>
+<li>这种情况说明如果按目前的假设， <code>isEmpty()</code> 的实现和 <code>isFull()</code> 的实现会产生矛盾。</li>
 </ul>
 </li>
-<li>官方题解中的思路也是利用并查集，但判断连通组件大小之前会将 <code>nums[i]</code> 与各自的因数先连通。<ul>
-<li>以 <code>max(nums) + 1</code> 作为并查集的大小。</li>
-<li>接着遍历 <code>nums</code> 数组，将 <code>nums[i]</code> 的因子与 <code>nums[i]</code> 进行连通。【将 <code>sqrt(nums[i])</code> 往下的因子进行连通即可（即进行 <code>union</code> 操作），因为因子是成对的，每次能将 <code>nums[i]</code> 分别与两个数连通】</li>
-<li>最后就是遍历 <code>nums</code> 数组，在并查集中搜索 <code>nums[i]</code> 的 <code>root</code> 进行大小上的累加，过程中确认最大值即可。<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2></li>
 </ul>
 </li>
+<li>为了避免判空和判满的矛盾，有两种方法：【两种方法均是延续原来的思路，对原来的数据结构进行补充】<ol>
+<li>设置一个 <code>bool</code> 类型值 <code>flag</code>，<code>flag</code> 在 <code>enQueue(value)</code> 和 <code>deQueue()</code> 中维护更新，则判满操作就可以根据 <code>flag</code> 值的不同与判空操作进行区分。</li>
+<li>在初始化中将 <code>vec</code> 设置为大小为 <code>k+1</code> 的数组，则判满操作可以设置为返回 <code>head == (tail+1)%capacity</code>，其他操作仍然和上述思路保持一致。【后面代码实现是依据方法二】</li>
+</ol>
+</li>
 </ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DSU</span> <span class="comment">// 并查集/rank优化</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; rank;</span><br><span class="line">    <span class="built_in">DSU</span>(<span class="type">int</span> N) : <span class="built_in">parent</span>(N), <span class="built_in">rank</span>(N)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i) parent[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> _find(<span class="type">int</span> x) <span class="comment">// 找root</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(parent[x] != x) parent[x] = _find(parent[x]);</span><br><span class="line">        <span class="keyword">return</span> parent[x];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">void</span> _union(<span class="type">int</span> x, <span class="type">int</span> y)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// parent[_find(x)] = _find(y);</span></span><br><span class="line">        <span class="type">int</span> px = _find(x), py = _find(y);</span><br><span class="line">        <span class="keyword">if</span>(px == py) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(rank[px] &lt; rank[py])</span><br><span class="line">            parent[px] = py;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(rank[px] &gt; rank[py])</span><br><span class="line">            parent[py] = px;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            parent[py] = px;</span><br><span class="line">            ++rank[px];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">largestComponentSize</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> m = *<span class="built_in">max_element</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="function">DSU <span class="title">dsu</span><span class="params">(m+<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> num : nums) <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>; i * i &lt;= num; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(num % i == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                dsu._union(num, i);</span><br><span class="line">                dsu._union(num, num/i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">cnts</span><span class="params">(m+<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> num : nums)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> p = dsu._find(num);</span><br><span class="line">            ++cnts[p];</span><br><span class="line">            ans = <span class="built_in">max</span>(ans, cnts[p]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyCircularQueue</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; vec; <span class="comment">// vec在这里是固定大小数组，容量不会扩增</span></span><br><span class="line">    <span class="type">int</span> head;</span><br><span class="line">    <span class="type">int</span> tail;</span><br><span class="line">    <span class="type">int</span> capacity; <span class="comment">// 其实就是vec.size()</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">MyCircularQueue</span>(<span class="type">int</span> k) : <span class="built_in">vec</span>(k+<span class="number">1</span>), <span class="built_in">head</span>(<span class="number">0</span>), <span class="built_in">tail</span>(<span class="number">0</span>), <span class="built_in">capacity</span>(k+<span class="number">1</span>) &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">enQueue</span><span class="params">(<span class="type">int</span> value)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isFull</span>()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        vec[tail%capacity] = value;</span><br><span class="line">        tail = (tail+<span class="number">1</span>)%capacity;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">deQueue</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isEmpty</span>()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        head = (head+<span class="number">1</span>)%capacity;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">Front</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isEmpty</span>()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> vec[head];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">Rear</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isEmpty</span>()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> vec[(tail+capacity<span class="number">-1</span>)%capacity];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isEmpty</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> head == tail;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isFull</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> head == (tail+<span class="number">1</span>)%capacity;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -300,13 +311,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/p/5fa4169f.html" rel="prev" title="【leetcode】【2022/7/29】593. 有效的正方形">
-      <i class="fa fa-chevron-left"></i> 【leetcode】【2022/7/29】593. 有效的正方形
+    <a href="/p/d752fe72.html" rel="prev" title="【leetcode】【2022/8/1】1374. 生成每种字符都是奇数个的字符串">
+      <i class="fa fa-chevron-left"></i> 【leetcode】【2022/8/1】1374. 生成每种字符都是奇数个的字符串
     </a></div>
-      <div class="post-nav-item">
-    <a href="/p/bd0155e2.html" rel="next" title="【leetcode】【2022/7/31】1161. 最大层内元素和">
-      【leetcode】【2022/7/31】1161. 最大层内元素和 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -506,59 +514,6 @@
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 
