@@ -21,30 +21,27 @@
   </script>
 
   <meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="http://example.com/categories/index.html">
+<meta property="og:title" content="Cyl&#39;s Blog">
+<meta property="og:url" content="http://example.com/page/2/index.html">
 <meta property="og:site_name" content="Cyl&#39;s Blog">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-07-26T16:54:33.000Z">
-<meta property="article:modified_time" content="2022-07-26T17:09:11.630Z">
 <meta property="article:author" content="伊利">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/categories/">
+<link rel="canonical" href="http://example.com/page/2/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : false,
+    isHome : true,
     isPost : false,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>categories | Cyl's Blog
-</title>
+  <title>Cyl's Blog</title>
   
 
 
@@ -185,51 +182,207 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
-          <div class="content page posts-expand">
+          <div class="content index posts-expand">
             
-
-    
-    
-    
-    <div class="post-block" lang="zh-CN">
-      <header class="post-header">
-
-<h1 class="post-title" itemprop="name headline">categories
-</h1>
-
-<div class="post-meta">
+      
   
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/d9efbaf4.html">
 
-</div>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
 
-</header>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/d9efbaf4.html" class="post-title-link" itemprop="url">【SICP】 test_3_23</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-07-27 13:55:28 / 修改时间：14:20:43" itemprop="dateCreated datePublished" datetime="2022-07-27T13:55:28+08:00">2022-07-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SICP/" itemprop="url" rel="index"><span itemprop="name">SICP</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SICP/test-3-23/" itemprop="url" rel="index"><span itemprop="name">test_3_23</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-      
-      
-      <div class="post-body">
-          <div class="category-all-page">
-            <div class="category-all-title">
-              目前共计 7 个分类
+          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>用序列实现双端队列 deque ，即可从前或从后插入或删除。<ul>
+<li>构造函数 <code>make_deque</code> ;</li>
+<li>选择函数 <code>front_deque</code> 、 <code>rear_deque</code> ;</li>
+<li>改变函数 <code>front_isnert_deque!</code> 、<code>rear_insert_deque!</code> 、<code>front_delete_deque!</code> 、<code>rear_delete_deque!</code> 。</li>
+</ul>
+</li>
+<li>要求是所有操作都需要在 <code>O(1)</code> 步骤内完成。</li>
+</ul>
+<h2 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h2><ul>
+<li>SIPC 3.3.2 实现了队列 queue ，其为链表实现，队列的链表节点包括 data 指针和 next 指针：<img src="/p/d9efbaf4/SICP_queue.jpg" alt="SICP_queue"></li>
+<li><p>所以不难想象出要实现双端队列，其节点需要三个指针，包括 data 指针、next 指针和 last 指针：<img src="/p/d9efbaf4/SICP_deque.jpg" alt="SICP_deque"></p>
+</li>
+<li><p>有了前面序列实现双端队列节点的假设之后，其他操作都比较容易推导写出，但这里还存在一个问题，即需要重现实现 deque 的打印。</p>
+<ul>
+<li>要注意的是，为了结果展示，在所有改变函数中最后都会返回打印结果，但原改变操作仍然是 <code>O(1)</code> 时间内完成的。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/d9efbaf4.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
             </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/SICP/">SICP</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/SICP/test-3-23/">test_3_23</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%B7%E9%A2%98/">刷题</a><span class="category-list-count">10</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%B7%E9%A2%98/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">leetcode每日一题</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%B7%E9%A2%98/%E5%89%91%E6%8C%87offer-%E2%85%A1/">剑指offer Ⅱ</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA/">图论</a><span class="category-list-count">1</span></li></ul></li></ul>
-            </div>
-          </div>
+          <!--/noindex-->
         
-      </div>
-      
-      
       
     </div>
-    
 
     
     
     
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/3aca790c.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/3aca790c.html" class="post-title-link" itemprop="url">【leetcode】【2022/7/25】919.完全二叉树插入器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-07-27 00:58:04 / 修改时间：18:18:16" itemprop="dateCreated datePublished" datetime="2022-07-27T00:58:04+08:00">2022-07-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leetcode每日一题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>实现 <code>CBTInserter</code> 类的操作：<ul>
+<li><code>CBTInserter(TreeNode root)</code> 使用完全二叉树 <code>root</code> 来对该数据结构进行初始化。</li>
+<li><code>CBTInserter.insert(int v)</code> 向该数据结构插入一个值为 <code>v</code> 的新节点，插入后仍保持完全二叉树状态，并且返回插入节点的父节点的值。</li>
+<li><code>CBTInserter.get_root()</code> 返回完全二叉树的头节点。</li>
+</ul>
+</li>
+</ul>
+<h2 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h2><ul>
+<li>用数组来保存完全二叉树。【数组的索引可以用来确定节点在完全二叉树中的顺序】<ul>
+<li>插入一个新值，就相当于在数组尾部插入一个节点，然后根据索引计算得到 <code>parent</code> 的索引。</li>
+<li>还要将当前新值连接到真正的树上，找到 <code>parent</code> 索引之后，就可以根据当前索引是奇数还是偶数来判断是连接到 <code>parent</code> 的左子还是右子。【因为 <code>root</code> 是索引 <code>0</code>，所以当前索引为奇数则是父节点的左子，当前索引为偶数则是父节点的右子】</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/3aca790c.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>

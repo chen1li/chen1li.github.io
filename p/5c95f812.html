@@ -20,17 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="http://example.com/categories/index.html">
+  <meta name="description" content="问题描述： 给定一个字符串 s 和一个整数 k，可以从 s 的前 k 个字母中选择一个并把它加到字符串的末尾，经过多次前述操作后字符串可以达到字典序最小。 返回多次操作后字典序最小的字符串。    核心思路： 初看难度是困难，以为不是模拟题，看了多个实例，当 k&#x3D;1 时情况其实只能通过模拟来判断。【k&#x3D;1 时操作是确定的，每次只能移动队首元素】 看了题解之后才意识到是脑筋急转弯，只要 k!&#x3D;1，都">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【leetcode】【20220803】899. 有序队列">
+<meta property="og:url" content="http://example.com/p/5c95f812.html">
 <meta property="og:site_name" content="Cyl&#39;s Blog">
+<meta property="og:description" content="问题描述： 给定一个字符串 s 和一个整数 k，可以从 s 的前 k 个字母中选择一个并把它加到字符串的末尾，经过多次前述操作后字符串可以达到字典序最小。 返回多次操作后字典序最小的字符串。    核心思路： 初看难度是困难，以为不是模拟题，看了多个实例，当 k&#x3D;1 时情况其实只能通过模拟来判断。【k&#x3D;1 时操作是确定的，每次只能移动队首元素】 看了题解之后才意识到是脑筋急转弯，只要 k!&#x3D;1，都">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-07-26T16:54:33.000Z">
-<meta property="article:modified_time" content="2022-07-26T17:09:11.630Z">
+<meta property="article:published_time" content="2022-08-02T16:41:26.000Z">
+<meta property="article:modified_time" content="2022-08-02T16:56:25.904Z">
 <meta property="article:author" content="伊利">
+<meta property="article:tag" content="leetcode">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/categories/">
+<link rel="canonical" href="http://example.com/p/5c95f812.html">
 
 
 <script id="page-configurations">
@@ -38,13 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>categories | Cyl's Blog
-</title>
+  <title>【leetcode】【20220803】899. 有序队列 | Cyl's Blog</title>
   
 
 
@@ -185,51 +187,120 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
-          <div class="content page posts-expand">
+          <div class="content post posts-expand">
             
 
     
-    
-    
-    <div class="post-block" lang="zh-CN">
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/5c95f812.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【leetcode】【20220803】899. 有序队列
+        </h1>
 
-<h1 class="post-title" itemprop="name headline">categories
-</h1>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
 
-<div class="post-meta">
+              <time title="创建时间：2022-08-03 00:41:26 / 修改时间：00:56:25" itemprop="dateCreated datePublished" datetime="2022-08-03T00:41:26+08:00">2022-08-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leetcode每日一题</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一个字符串 <code>s</code> 和一个整数 <code>k</code>，可以从 <code>s</code> 的前 <code>k</code> 个字母中选择一个并把它加到字符串的末尾，经过多次前述操作后字符串可以达到字典序最小。<ul>
+<li>返回多次操作后字典序最小的字符串。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>初看难度是困难，以为不是模拟题，看了多个实例，当 <code>k=1</code> 时情况其实只能通过模拟来判断。【<code>k=1</code> 时操作是确定的，每次只能移动队首元素】<ul>
+<li>看了题解之后才意识到是脑筋急转弯，只要 <code>k!=1</code>，都能够通过有限的操作使得字符串转变成排序后的结果。</li>
+<li>代码实现不难，难在证明该思路的准确性。</li>
+</ul>
+</li>
+<li>官方题解也提及当 <code>k=1</code> 的时候可以通过 <code>O(n^2)</code> 的时间复杂度来模拟整个过程，也可以通过使用<strong>最小表示法</strong>来将时间复杂度降低到 <code>O(n)</code>。<ul>
+<li>懒得去看了，直接模拟吧。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">orderlyQueue</span><span class="params">(string s, <span class="type">int</span> k)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(k &gt; <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">sort</span>(s.<span class="built_in">begin</span>(), s.<span class="built_in">end</span>());</span><br><span class="line">            <span class="keyword">return</span> s;</span><br><span class="line">        &#125;</span><br><span class="line">        string ans = s;</span><br><span class="line">        <span class="type">int</span> m = (<span class="type">int</span>)s.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(m-- &gt; <span class="number">0</span>) <span class="comment">// 执行 s.size()-1 次模拟</span></span><br><span class="line">        &#123;</span><br><span class="line">            s += s[<span class="number">0</span>]; <span class="comment">// 把队首元素添至队尾</span></span><br><span class="line">            s.<span class="built_in">erase</span>(<span class="number">0</span>, <span class="number">1</span>); <span class="comment">// erase(0, 1) 表示从位置 0 开始，earse 掉 1 个元素</span></span><br><span class="line">            ans = <span class="built_in">min</span>(s, ans);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/leetcode/" rel="tag"><i class="fa fa-tag"></i> leetcode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/p/48dd08e5.html" rel="prev" title="【leetcode】【剑指offer Ⅱ】001.整数除法">
+      <i class="fa fa-chevron-left"></i> 【leetcode】【剑指offer Ⅱ】001.整数除法
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
-          <div class="category-all-page">
-            <div class="category-all-title">
-              目前共计 7 个分类
-            </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/SICP/">SICP</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/SICP/test-3-23/">test_3_23</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%B7%E9%A2%98/">刷题</a><span class="category-list-count">10</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%B7%E9%A2%98/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">leetcode每日一题</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%B7%E9%A2%98/%E5%89%91%E6%8C%87offer-%E2%85%A1/">剑指offer Ⅱ</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA/">图论</a><span class="category-list-count">1</span></li></ul></li></ul>
-            </div>
-          </div>
-        
-      </div>
-      
-      
-      
-    </div>
-    
-
-    
-    
-    
 
 
           </div>
@@ -280,6 +351,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">问题描述：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">核心思路：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">代码实现：</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

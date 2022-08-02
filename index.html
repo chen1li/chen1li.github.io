@@ -189,6 +189,209 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/5c95f812.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/5c95f812.html" class="post-title-link" itemprop="url">【leetcode】【20220803】899. 有序队列</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-08-03 00:41:26 / 修改时间：00:56:25" itemprop="dateCreated datePublished" datetime="2022-08-03T00:41:26+08:00">2022-08-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leetcode每日一题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一个字符串 <code>s</code> 和一个整数 <code>k</code>，可以从 <code>s</code> 的前 <code>k</code> 个字母中选择一个并把它加到字符串的末尾，经过多次前述操作后字符串可以达到字典序最小。<ul>
+<li>返回多次操作后字典序最小的字符串。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>初看难度是困难，以为不是模拟题，看了多个实例，当 <code>k=1</code> 时情况其实只能通过模拟来判断。【<code>k=1</code> 时操作是确定的，每次只能移动队首元素】<ul>
+<li>看了题解之后才意识到是脑筋急转弯，只要 <code>k!=1</code>，都能够通过有限的操作使得字符串转变成排序后的结果。</li>
+<li>代码实现不难，难在证明该思路的准确性。</li>
+</ul>
+</li>
+<li>官方题解也提及当 <code>k=1</code> 的时候可以通过 <code>O(n^2)</code> 的时间复杂度来模拟整个过程，也可以通过使用<strong>最小表示法</strong>来将时间复杂度降低到 <code>O(n)</code>。<ul>
+<li>懒得去看了，直接模拟吧。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/5c95f812.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/48dd08e5.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/48dd08e5.html" class="post-title-link" itemprop="url">【leetcode】【剑指offer Ⅱ】001.整数除法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-02 21:17:41" itemprop="dateCreated datePublished" datetime="2022-08-02T21:17:41+08:00">2022-08-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-03 00:17:05" itemprop="dateModified" datetime="2022-08-03T00:17:05+08:00">2022-08-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/%E5%89%91%E6%8C%87offer-%E2%85%A1/" itemprop="url" rel="index"><span itemprop="name">剑指offer Ⅱ</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定两个整数 <code>a</code> 和 <code>b</code>，求它们的除法的商 <code>a/b</code>，要求不得使用乘号、除号以及求余符号。<ul>
+<li>整数除法的结果应当截去其小数部分。【即向下取整】</li>
+<li>假设环境只能存储 32 位有符号整数，其数值范围是 $[−2^{31}, 2^{31}−1]$。</li>
+<li>如果除法结果溢出，则返回 $2^{31}−1$。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>最朴素的方法是很直观的，首先假设 <code>a</code> 和 <code>b</code> 均为正整数，一直使用除数 <code>a</code> 减去被除数 <code>b</code>，直到 <code>a &lt; b</code>，其中记录并更新进行减操作的次数，相当于以步进的方式更新商：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> ans = <span class="number">0</span>; <span class="comment">// 商</span></span><br><span class="line"><span class="keyword">while</span>(a &gt;= b)</span><br><span class="line">&#123;</span><br><span class="line">  a -= b;</span><br><span class="line">  ++ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>但步进的实现只能通过部分案例，因为假若分子分母相差较大，则很容易超时，此时需要考虑如何加快搜索，而利用<strong>快速乘</strong>的思想（类似于<strong>快速幂</strong>）可以对算法进行优化。<ul>
+<li>优化后不再采取步进的方式，而是通过<strong>倍增</strong>被除数 <code>b</code> 来找到商：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> ans = <span class="number">0</span>; <span class="comment">// 最终的商</span></span><br><span class="line"><span class="keyword">while</span>(a &gt;= b)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> tmp = b; <span class="comment">// 被除数需要倍增，所以用一个新的变量来进行更新</span></span><br><span class="line">  <span class="type">int</span> c = <span class="number">1</span>; <span class="comment">// 当前的商，用来倍增作记录，后续会更新到ans中去</span></span><br><span class="line">  <span class="keyword">while</span>(tmp+tmp &lt;= a)</span><br><span class="line">  &#123;</span><br><span class="line">    tmp += tmp; <span class="comment">// tmp &lt;&lt;= 1</span></span><br><span class="line">    c += c; <span class="comment">// c &lt;&lt;= 1</span></span><br><span class="line">  &#125;</span><br><span class="line">  a -= tmp;</span><br><span class="line">  ans += c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>目前的思路只考虑 <code>a</code> 和 <code>b</code> 均为正整数的情况，且没有考虑很多的溢出情况，后续只需要对所有可能溢出的地方进行处理即可。【但通常处理溢出都很繁琐】</li>
+<li>后续代码实现需要注意的地方有：<ol>
+<li>将 <code>a</code> 和 <code>b</code> 均置为负数，是因为 <code>INT_MIN</code> 的绝对值要比 <code>INT_MAX</code> 更大，因而为了避免将 <code>INT_MIN</code> 取反导致溢出，则将两个数置为负数，最后再将结果添上负号更方便。【取为负数后，前面的思路很多地方需要修改，如 <code>while(a &gt;= b)</code> 需要改为判断 <code>while(a &lt;= b)</code>】</li>
+<li>在 while 循环中需要判断 <code>tmp &lt;= INT_MIN &gt;&gt; 1</code>，避免 <code>tmp + tmp</code> 溢出。</li>
+<li>还要注意在代码中 <code>ans</code> 和 <code>c</code> 均为 <code>unsigned</code>，这是因为 leetcode 中带的 C++ 编译器不允许 int 溢出，如果溢出会直接报错。【这里倍增 <code>c</code> 时产生的溢出对于题目来说是允许的】</li>
+</ol>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/48dd08e5.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/p/ca3dd10c.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -999,200 +1202,11 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/p/d9efbaf4.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/maomao.jpg">
-      <meta itemprop="name" content="伊利">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cyl's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/p/d9efbaf4.html" class="post-title-link" itemprop="url">【SICP】 test_3_23</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-07-27 13:55:28 / 修改时间：14:20:43" itemprop="dateCreated datePublished" datetime="2022-07-27T13:55:28+08:00">2022-07-27</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SICP/" itemprop="url" rel="index"><span itemprop="name">SICP</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SICP/test-3-23/" itemprop="url" rel="index"><span itemprop="name">test_3_23</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>用序列实现双端队列 deque ，即可从前或从后插入或删除。<ul>
-<li>构造函数 <code>make_deque</code> ;</li>
-<li>选择函数 <code>front_deque</code> 、 <code>rear_deque</code> ;</li>
-<li>改变函数 <code>front_isnert_deque!</code> 、<code>rear_insert_deque!</code> 、<code>front_delete_deque!</code> 、<code>rear_delete_deque!</code> 。</li>
-</ul>
-</li>
-<li>要求是所有操作都需要在 <code>O(1)</code> 步骤内完成。</li>
-</ul>
-<h2 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h2><ul>
-<li>SIPC 3.3.2 实现了队列 queue ，其为链表实现，队列的链表节点包括 data 指针和 next 指针：<img src="/p/d9efbaf4/SICP_queue.jpg" alt="SICP_queue"></li>
-<li><p>所以不难想象出要实现双端队列，其节点需要三个指针，包括 data 指针、next 指针和 last 指针：<img src="/p/d9efbaf4/SICP_deque.jpg" alt="SICP_deque"></p>
-</li>
-<li><p>有了前面序列实现双端队列节点的假设之后，其他操作都比较容易推导写出，但这里还存在一个问题，即需要重现实现 deque 的打印。</p>
-<ul>
-<li>要注意的是，为了结果展示，在所有改变函数中最后都会返回打印结果，但原改变操作仍然是 <code>O(1)</code> 时间内完成的。</li>
-</ul>
-</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/p/d9efbaf4.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/p/3aca790c.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/maomao.jpg">
-      <meta itemprop="name" content="伊利">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cyl's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/p/3aca790c.html" class="post-title-link" itemprop="url">【leetcode】【2022/7/25】919.完全二叉树插入器</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-07-27 00:58:04 / 修改时间：18:18:16" itemprop="dateCreated datePublished" datetime="2022-07-27T00:58:04+08:00">2022-07-27</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leetcode每日一题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>实现 <code>CBTInserter</code> 类的操作：<ul>
-<li><code>CBTInserter(TreeNode root)</code> 使用完全二叉树 <code>root</code> 来对该数据结构进行初始化。</li>
-<li><code>CBTInserter.insert(int v)</code> 向该数据结构插入一个值为 <code>v</code> 的新节点，插入后仍保持完全二叉树状态，并且返回插入节点的父节点的值。</li>
-<li><code>CBTInserter.get_root()</code> 返回完全二叉树的头节点。</li>
-</ul>
-</li>
-</ul>
-<h2 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h2><ul>
-<li>用数组来保存完全二叉树。【数组的索引可以用来确定节点在完全二叉树中的顺序】<ul>
-<li>插入一个新值，就相当于在数组尾部插入一个节点，然后根据索引计算得到 <code>parent</code> 的索引。</li>
-<li>还要将当前新值连接到真正的树上，找到 <code>parent</code> 索引之后，就可以根据当前索引是奇数还是偶数来判断是连接到 <code>parent</code> 的左子还是右子。【因为 <code>root</code> 是索引 <code>0</code>，所以当前索引为奇数则是父节点的左子，当前索引为偶数则是父节点的右子】</li>
-</ul>
-</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/p/3aca790c.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
 
 
 
@@ -1259,20 +1273,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

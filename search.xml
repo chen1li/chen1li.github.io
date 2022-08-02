@@ -32,33 +32,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【leetcode】【2022/7/25】919.完全二叉树插入器</title>
-    <url>/p/3aca790c.html</url>
-    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>实现 <code>CBTInserter</code> 类的操作：<ul>
-<li><code>CBTInserter(TreeNode root)</code> 使用完全二叉树 <code>root</code> 来对该数据结构进行初始化。</li>
-<li><code>CBTInserter.insert(int v)</code> 向该数据结构插入一个值为 <code>v</code> 的新节点，插入后仍保持完全二叉树状态，并且返回插入节点的父节点的值。</li>
-<li><code>CBTInserter.get_root()</code> 返回完全二叉树的头节点。</li>
-</ul>
-</li>
-</ul>
-<h2 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h2><ul>
-<li>用数组来保存完全二叉树。【数组的索引可以用来确定节点在完全二叉树中的顺序】<ul>
-<li>插入一个新值，就相当于在数组尾部插入一个节点，然后根据索引计算得到 <code>parent</code> 的索引。</li>
-<li>还要将当前新值连接到真正的树上，找到 <code>parent</code> 索引之后，就可以根据当前索引是奇数还是偶数来判断是连接到 <code>parent</code> 的左子还是右子。【因为 <code>root</code> 是索引 <code>0</code>，所以当前索引为奇数则是父节点的左子，当前索引为偶数则是父节点的右子】</li>
-</ul>
-</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CBTInserter</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;TreeNode*&gt; vec;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">CBTInserter</span>(TreeNode* root)</span><br><span class="line">    &#123;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line">        q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> sz = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">while</span>(sz-- &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* tmp = q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">                vec.<span class="built_in">push_back</span>(tmp);</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;left) q.<span class="built_in">push</span>(tmp-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;right) q.<span class="built_in">push</span>(tmp-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">insert</span><span class="params">(<span class="type">int</span> val)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        vec.<span class="built_in">push_back</span>(<span class="keyword">new</span> <span class="built_in">TreeNode</span>(val));</span><br><span class="line">        <span class="type">int</span> idx = vec.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> parent_idx = (idx - <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(idx &amp; <span class="number">1</span>) vec[parent_idx]-&gt;left = vec[idx];</span><br><span class="line">        <span class="keyword">else</span> vec[parent_idx]-&gt;right = vec[idx];</span><br><span class="line">        <span class="keyword">return</span> vec[parent_idx]-&gt;val;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">TreeNode* <span class="title">get_root</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> vec[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>刷题</category>
-        <category>leetcode每日一题</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【leetcode】【2022/7/27】592.分数加减运算</title>
     <url>/p/d930f5e8.html</url>
     <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
@@ -149,6 +122,33 @@
       </tags>
   </entry>
   <entry>
+    <title>【leetcode】【2022/7/25】919.完全二叉树插入器</title>
+    <url>/p/3aca790c.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>实现 <code>CBTInserter</code> 类的操作：<ul>
+<li><code>CBTInserter(TreeNode root)</code> 使用完全二叉树 <code>root</code> 来对该数据结构进行初始化。</li>
+<li><code>CBTInserter.insert(int v)</code> 向该数据结构插入一个值为 <code>v</code> 的新节点，插入后仍保持完全二叉树状态，并且返回插入节点的父节点的值。</li>
+<li><code>CBTInserter.get_root()</code> 返回完全二叉树的头节点。</li>
+</ul>
+</li>
+</ul>
+<h2 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h2><ul>
+<li>用数组来保存完全二叉树。【数组的索引可以用来确定节点在完全二叉树中的顺序】<ul>
+<li>插入一个新值，就相当于在数组尾部插入一个节点，然后根据索引计算得到 <code>parent</code> 的索引。</li>
+<li>还要将当前新值连接到真正的树上，找到 <code>parent</code> 索引之后，就可以根据当前索引是奇数还是偶数来判断是连接到 <code>parent</code> 的左子还是右子。【因为 <code>root</code> 是索引 <code>0</code>，所以当前索引为奇数则是父节点的左子，当前索引为偶数则是父节点的右子】</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CBTInserter</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;TreeNode*&gt; vec;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">CBTInserter</span>(TreeNode* root)</span><br><span class="line">    &#123;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line">        q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> sz = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">while</span>(sz-- &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* tmp = q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">                vec.<span class="built_in">push_back</span>(tmp);</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;left) q.<span class="built_in">push</span>(tmp-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;right) q.<span class="built_in">push</span>(tmp-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">insert</span><span class="params">(<span class="type">int</span> val)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        vec.<span class="built_in">push_back</span>(<span class="keyword">new</span> <span class="built_in">TreeNode</span>(val));</span><br><span class="line">        <span class="type">int</span> idx = vec.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> parent_idx = (idx - <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(idx &amp; <span class="number">1</span>) vec[parent_idx]-&gt;left = vec[idx];</span><br><span class="line">        <span class="keyword">else</span> vec[parent_idx]-&gt;right = vec[idx];</span><br><span class="line">        <span class="keyword">return</span> vec[parent_idx]-&gt;val;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">TreeNode* <span class="title">get_root</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> vec[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>leetcode每日一题</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【leetcode】【2022/7/30】952. 按公因数计算最大组件大小</title>
     <url>/p/691feb55.html</url>
     <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
@@ -207,6 +207,28 @@
       </tags>
   </entry>
   <entry>
+    <title>【leetcode】【2022/8/1】1374. 生成每种字符都是奇数个的字符串</title>
+    <url>/p/d752fe72.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一个整数 <code>n</code>，返回一个含 <code>n</code> 个字符的字符串，其中每种字符在字符串中都恰好出现奇数次。<ul>
+<li>只含小写英文字母。</li>
+<li>返回一种可能性即可。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>该题毫无意义。</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">generateTheString</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        string ans = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span>(n % <span class="number">2</span> == <span class="number">0</span>) ans += <span class="string">&#x27;a&#x27;</span>, --n;</span><br><span class="line">        <span class="keyword">while</span>(n-- &gt; <span class="number">0</span>) ans += <span class="string">&#x27;b&#x27;</span>;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>leetcode每日一题</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【leetcode】【2022/8/2】622. 设计循环队列</title>
     <url>/p/ca3dd10c.html</url>
     <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
@@ -256,19 +278,61 @@
       </tags>
   </entry>
   <entry>
-    <title>【leetcode】【2022/8/1】1374. 生成每种字符都是奇数个的字符串</title>
-    <url>/p/d752fe72.html</url>
+    <title>【leetcode】【剑指offer Ⅱ】001.整数除法</title>
+    <url>/p/48dd08e5.html</url>
     <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>给定一个整数 <code>n</code>，返回一个含 <code>n</code> 个字符的字符串，其中每种字符在字符串中都恰好出现奇数次。<ul>
-<li>只含小写英文字母。</li>
-<li>返回一种可能性即可。</li>
+<li>给定两个整数 <code>a</code> 和 <code>b</code>，求它们的除法的商 <code>a/b</code>，要求不得使用乘号、除号以及求余符号。<ul>
+<li>整数除法的结果应当截去其小数部分。【即向下取整】</li>
+<li>假设环境只能存储 32 位有符号整数，其数值范围是 $[−2^{31}, 2^{31}−1]$。</li>
+<li>如果除法结果溢出，则返回 $2^{31}−1$。</li>
 </ul>
 </li>
 </ul>
 <h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
-<li>该题毫无意义。</li>
+<li>最朴素的方法是很直观的，首先假设 <code>a</code> 和 <code>b</code> 均为正整数，一直使用除数 <code>a</code> 减去被除数 <code>b</code>，直到 <code>a &lt; b</code>，其中记录并更新进行减操作的次数，相当于以步进的方式更新商：<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> ans = <span class="number">0</span>; <span class="comment">// 商</span></span><br><span class="line"><span class="keyword">while</span>(a &gt;= b)</span><br><span class="line">&#123;</span><br><span class="line">  a -= b;</span><br><span class="line">  ++ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>但步进的实现只能通过部分案例，因为假若分子分母相差较大，则很容易超时，此时需要考虑如何加快搜索，而利用<strong>快速乘</strong>的思想（类似于<strong>快速幂</strong>）可以对算法进行优化。<ul>
+<li>优化后不再采取步进的方式，而是通过<strong>倍增</strong>被除数 <code>b</code> 来找到商：<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> ans = <span class="number">0</span>; <span class="comment">// 最终的商</span></span><br><span class="line"><span class="keyword">while</span>(a &gt;= b)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> tmp = b; <span class="comment">// 被除数需要倍增，所以用一个新的变量来进行更新</span></span><br><span class="line">  <span class="type">int</span> c = <span class="number">1</span>; <span class="comment">// 当前的商，用来倍增作记录，后续会更新到ans中去</span></span><br><span class="line">  <span class="keyword">while</span>(tmp+tmp &lt;= a)</span><br><span class="line">  &#123;</span><br><span class="line">    tmp += tmp; <span class="comment">// tmp &lt;&lt;= 1</span></span><br><span class="line">    c += c; <span class="comment">// c &lt;&lt;= 1</span></span><br><span class="line">  &#125;</span><br><span class="line">  a -= tmp;</span><br><span class="line">  ans += c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">generateTheString</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        string ans = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span>(n % <span class="number">2</span> == <span class="number">0</span>) ans += <span class="string">&#x27;a&#x27;</span>, --n;</span><br><span class="line">        <span class="keyword">while</span>(n-- &gt; <span class="number">0</span>) ans += <span class="string">&#x27;b&#x27;</span>;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+</li>
+<li>目前的思路只考虑 <code>a</code> 和 <code>b</code> 均为正整数的情况，且没有考虑很多的溢出情况，后续只需要对所有可能溢出的地方进行处理即可。【但通常处理溢出都很繁琐】</li>
+<li>后续代码实现需要注意的地方有：<ol>
+<li>将 <code>a</code> 和 <code>b</code> 均置为负数，是因为 <code>INT_MIN</code> 的绝对值要比 <code>INT_MAX</code> 更大，因而为了避免将 <code>INT_MIN</code> 取反导致溢出，则将两个数置为负数，最后再将结果添上负号更方便。【取为负数后，前面的思路很多地方需要修改，如 <code>while(a &gt;= b)</code> 需要改为判断 <code>while(a &lt;= b)</code>】</li>
+<li>在 while 循环中需要判断 <code>tmp &lt;= INT_MIN &gt;&gt; 1</code>，避免 <code>tmp + tmp</code> 溢出。</li>
+<li>还要注意在代码中 <code>ans</code> 和 <code>c</code> 均为 <code>unsigned</code>，这是因为 leetcode 中带的 C++ 编译器不允许 int 溢出，如果溢出会直接报错。【这里倍增 <code>c</code> 时产生的溢出对于题目来说是允许的】</li>
+</ol>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> INT_LIMIT = INT_MIN &gt;&gt; <span class="number">1</span>; <span class="comment">// -1073741824</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">divide</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(a == INT_MIN <span class="keyword">and</span> b == <span class="number">-1</span>) <span class="keyword">return</span> INT_MAX;</span><br><span class="line">        <span class="type">bool</span> neg = ((a &gt;&gt; <span class="number">31</span>) ^ (b &gt;&gt; <span class="number">31</span>)) != <span class="number">0</span>; <span class="comment">// 位运算确定符号</span></span><br><span class="line">        <span class="keyword">if</span>(a &gt; <span class="number">0</span>) a = -a;</span><br><span class="line">        <span class="keyword">if</span>(b &gt; <span class="number">0</span>) b = -b;</span><br><span class="line">        <span class="type">unsigned</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(a &lt;= b)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> tmp = b; <span class="comment">// 当前除数</span></span><br><span class="line">            <span class="type">unsigned</span> c = <span class="number">1</span>; <span class="comment">// 当前商</span></span><br><span class="line">            <span class="keyword">while</span>(tmp &gt;= INT_LIMIT <span class="keyword">and</span> a &lt;= tmp + tmp) <span class="comment">// 快速乘法</span></span><br><span class="line">            &#123;</span><br><span class="line">                tmp += tmp;</span><br><span class="line">                c += c;</span><br><span class="line">            &#125;</span><br><span class="line">            a -= tmp; <span class="comment">// 求得a剩余部分</span></span><br><span class="line">            ans += c; <span class="comment">// 累计商</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> neg ? -ans : ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>剑指offer Ⅱ</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>剑指offer Ⅱ</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【leetcode】【20220803】899. 有序队列</title>
+    <url>/p/5c95f812.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一个字符串 <code>s</code> 和一个整数 <code>k</code>，可以从 <code>s</code> 的前 <code>k</code> 个字母中选择一个并把它加到字符串的末尾，经过多次前述操作后字符串可以达到字典序最小。<ul>
+<li>返回多次操作后字典序最小的字符串。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>初看难度是困难，以为不是模拟题，看了多个实例，当 <code>k=1</code> 时情况其实只能通过模拟来判断。【<code>k=1</code> 时操作是确定的，每次只能移动队首元素】<ul>
+<li>看了题解之后才意识到是脑筋急转弯，只要 <code>k!=1</code>，都能够通过有限的操作使得字符串转变成排序后的结果。</li>
+<li>代码实现不难，难在证明该思路的准确性。</li>
+</ul>
+</li>
+<li>官方题解也提及当 <code>k=1</code> 的时候可以通过 <code>O(n^2)</code> 的时间复杂度来模拟整个过程，也可以通过使用<strong>最小表示法</strong>来将时间复杂度降低到 <code>O(n)</code>。<ul>
+<li>懒得去看了，直接模拟吧。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">orderlyQueue</span><span class="params">(string s, <span class="type">int</span> k)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(k &gt; <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">sort</span>(s.<span class="built_in">begin</span>(), s.<span class="built_in">end</span>());</span><br><span class="line">            <span class="keyword">return</span> s;</span><br><span class="line">        &#125;</span><br><span class="line">        string ans = s;</span><br><span class="line">        <span class="type">int</span> m = (<span class="type">int</span>)s.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(m-- &gt; <span class="number">0</span>) <span class="comment">// 执行 s.size()-1 次模拟</span></span><br><span class="line">        &#123;</span><br><span class="line">            s += s[<span class="number">0</span>]; <span class="comment">// 把队首元素添至队尾</span></span><br><span class="line">            s.<span class="built_in">erase</span>(<span class="number">0</span>, <span class="number">1</span>); <span class="comment">// erase(0, 1) 表示从位置 0 开始，earse 掉 1 个元素</span></span><br><span class="line">            ans = <span class="built_in">min</span>(s, ans);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>刷题</category>
         <category>leetcode每日一题</category>
