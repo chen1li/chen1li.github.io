@@ -1,33 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>【leetcode】【2022/7/25】919.完全二叉树插入器</title>
-    <url>/p/3aca790c.html</url>
-    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>实现 <code>CBTInserter</code> 类的操作：<ul>
-<li><code>CBTInserter(TreeNode root)</code> 使用完全二叉树 <code>root</code> 来对该数据结构进行初始化。</li>
-<li><code>CBTInserter.insert(int v)</code> 向该数据结构插入一个值为 <code>v</code> 的新节点，插入后仍保持完全二叉树状态，并且返回插入节点的父节点的值。</li>
-<li><code>CBTInserter.get_root()</code> 返回完全二叉树的头节点。</li>
-</ul>
-</li>
-</ul>
-<h2 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h2><ul>
-<li>用数组来保存完全二叉树。【数组的索引可以用来确定节点在完全二叉树中的顺序】<ul>
-<li>插入一个新值，就相当于在数组尾部插入一个节点，然后根据索引计算得到 <code>parent</code> 的索引。</li>
-<li>还要将当前新值连接到真正的树上，找到 <code>parent</code> 索引之后，就可以根据当前索引是奇数还是偶数来判断是连接到 <code>parent</code> 的左子还是右子。【因为 <code>root</code> 是索引 <code>0</code>，所以当前索引为奇数则是父节点的左子，当前索引为偶数则是父节点的右子】</li>
-</ul>
-</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CBTInserter</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;TreeNode*&gt; vec;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">CBTInserter</span>(TreeNode* root)</span><br><span class="line">    &#123;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line">        q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> sz = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">while</span>(sz-- &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* tmp = q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">                vec.<span class="built_in">push_back</span>(tmp);</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;left) q.<span class="built_in">push</span>(tmp-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;right) q.<span class="built_in">push</span>(tmp-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">insert</span><span class="params">(<span class="type">int</span> val)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        vec.<span class="built_in">push_back</span>(<span class="keyword">new</span> <span class="built_in">TreeNode</span>(val));</span><br><span class="line">        <span class="type">int</span> idx = vec.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> parent_idx = (idx - <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(idx &amp; <span class="number">1</span>) vec[parent_idx]-&gt;left = vec[idx];</span><br><span class="line">        <span class="keyword">else</span> vec[parent_idx]-&gt;right = vec[idx];</span><br><span class="line">        <span class="keyword">return</span> vec[parent_idx]-&gt;val;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">TreeNode* <span class="title">get_root</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> vec[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>刷题</category>
-        <category>leetcode每日一题</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【SICP】 test_3_23</title>
     <url>/p/d9efbaf4.html</url>
     <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
@@ -56,6 +29,33 @@
       </categories>
       <tags>
         <tag>SICP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【leetcode】【2022/7/25】919.完全二叉树插入器</title>
+    <url>/p/3aca790c.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>实现 <code>CBTInserter</code> 类的操作：<ul>
+<li><code>CBTInserter(TreeNode root)</code> 使用完全二叉树 <code>root</code> 来对该数据结构进行初始化。</li>
+<li><code>CBTInserter.insert(int v)</code> 向该数据结构插入一个值为 <code>v</code> 的新节点，插入后仍保持完全二叉树状态，并且返回插入节点的父节点的值。</li>
+<li><code>CBTInserter.get_root()</code> 返回完全二叉树的头节点。</li>
+</ul>
+</li>
+</ul>
+<h2 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h2><ul>
+<li>用数组来保存完全二叉树。【数组的索引可以用来确定节点在完全二叉树中的顺序】<ul>
+<li>插入一个新值，就相当于在数组尾部插入一个节点，然后根据索引计算得到 <code>parent</code> 的索引。</li>
+<li>还要将当前新值连接到真正的树上，找到 <code>parent</code> 索引之后，就可以根据当前索引是奇数还是偶数来判断是连接到 <code>parent</code> 的左子还是右子。【因为 <code>root</code> 是索引 <code>0</code>，所以当前索引为奇数则是父节点的左子，当前索引为偶数则是父节点的右子】</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CBTInserter</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;TreeNode*&gt; vec;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">CBTInserter</span>(TreeNode* root)</span><br><span class="line">    &#123;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line">        q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> sz = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">while</span>(sz-- &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* tmp = q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">                vec.<span class="built_in">push_back</span>(tmp);</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;left) q.<span class="built_in">push</span>(tmp-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;right) q.<span class="built_in">push</span>(tmp-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">insert</span><span class="params">(<span class="type">int</span> val)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        vec.<span class="built_in">push_back</span>(<span class="keyword">new</span> <span class="built_in">TreeNode</span>(val));</span><br><span class="line">        <span class="type">int</span> idx = vec.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> parent_idx = (idx - <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(idx &amp; <span class="number">1</span>) vec[parent_idx]-&gt;left = vec[idx];</span><br><span class="line">        <span class="keyword">else</span> vec[parent_idx]-&gt;right = vec[idx];</span><br><span class="line">        <span class="keyword">return</span> vec[parent_idx]-&gt;val;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">TreeNode* <span class="title">get_root</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> vec[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>leetcode每日一题</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -342,6 +342,68 @@
       </tags>
   </entry>
   <entry>
+    <title>【数据结构】并查集</title>
+    <url>/p/2e7813af.html</url>
+    <content><![CDATA[<h2 id="相关概念："><a href="#相关概念：" class="headerlink" title="相关概念："></a>相关概念：</h2><ul>
+<li><strong>并查集</strong>是一种树形的数据结构，用于处理集合相关的问题。<ul>
+<li>通常集合中的元素都不具备层次关系，而是因为共通的性质而被划分在一起。</li>
+<li>当存在多个集合，而又需要判断任意两个元素是否处在同一个集合中时，就需要使用并查集来维护集合元素之间的关系。</li>
+</ul>
+</li>
+<li><strong>并查集</strong>有两个主要的操作：<ol>
+<li><strong>合并</strong>操作：将两个子集合并成一个子集。</li>
+<li><strong>查找</strong>操作：确定某个元素处在哪个集合。</li>
+</ol>
+</li>
+<li>一般用固定大小的数组来实现并查集，但可以用森林的模型来解释并查集的操作。【森林即多棵树】<ul>
+<li>假设题目中元素只有 <code>m</code> 个，则并查集底层只需维护一个 <code>m</code> 大小的数组 <code>parent</code> 即可。【<code>parent</code> 数组保存对应元素的父节点】</li>
+<li>对于合并操作的解释：将两个元素合并在同一个子集，就相当于<strong>将两棵树合并成一棵树</strong>。</li>
+<li>对于查找操作的解释：要确定两个元素处于同一个集合只需要<strong>确定两个元素是否处于同一棵树</strong>即可。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>并查集的实现非常简洁。<ul>
+<li>初始化：设置每个元素为一个集合，即设置每个元素的父节点为自己。<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; parent.<span class="built_in">size</span>(); ++i)</span><br><span class="line">  parent[i] = i;</span><br></pre></td></tr></table></figure></li>
+<li>查找：找到元素所在集合的根，即所在树的根。【从代码中看出，<code>find</code> 函数会递归调用，直到找到集合的根】【此处的 <code>find</code> 函数已经进行<strong>路径压缩</strong>，简单来说，就是<strong>把当前搜索路径上的所有元素都连接到最顶部的根上去</strong>，这样每一棵树的高度都不会过分高】<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> <span class="comment">// 找root</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(parent[x] != x) parent[x] = <span class="built_in">find</span>(parent[x]); <span class="comment">// 路径压缩，此处可以用 while 语句来实现路径压缩的非递归版本</span></span><br><span class="line">    <span class="keyword">return</span> parent[x];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>合并：分别找出两个元素的根进行连接即可。<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">union</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    parent[<span class="built_in">find</span>(x)] = <span class="built_in">find</span>(y);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>可以通过下述例子来加深理解。<ol>
+<li>假设有 <code>5</code> 个元素，则初始化一个大小为 <code>5</code> 的 <code>parent</code> 数组：<img src="/p/2e7813af/union_find.jpg" alt="union_find"></li>
+<li>假设元素 <code>0</code> 和元素 <code>1</code> 有关系，则调用 <code>union(0, 1)</code>，注意此时 <code>find(0)</code> 或 <code>find(1)</code> 都是简单地返回 <code>0</code> 或 <code>1</code>：<img src="/p/2e7813af/union_find_2.jpg" alt="union_find_2"></li>
+<li>假设元素 <code>0</code> 分别和元素 <code>2</code> 、元素 <code>3</code> 有关系，则分别调用 <code>union(2, 0)</code> 和 <code>union(3, 0)</code>，注意 <code>find(0)</code> 会返回 <code>1</code>：<img src="/p/2e7813af/union_find_3.jpg" alt="union_find_3"></li>
+</ol>
+</li>
+<li>最后要提及的是关于并查集的一些<strong>优化</strong>：<ul>
+<li>可以注意到，上面例子的最后结果中留下了两棵树（即两个集合），其中 <code>root 1</code> 体型较大，<code>root 4</code> 体型较小，如果后续调用 <code>union(1, 4)</code> 则会把大树放置到小树底下（这样显然是不够平衡的），然而调用 <code>union(4, 1)</code> 就会避免前面的情况。【这样说明了不同的参数调用顺序会给 <code>union</code> 带来不同的结果】</li>
+<li>有两种优化思路，一种是 <strong>with size</strong>，一种是 <strong>with rank</strong>。</li>
+<li>简单来说，<strong>with size</strong> 方法就是并查集中维护一个 <code>size</code> 数组（记录元素所在树的大小），在 <code>union</code> 操作中进行更新；同理，<strong>with rank</strong> 方法就是维护一个 <code>rank</code> 数组（记录元素所在树的高度），同样是在 <code>union</code> 操作中进行更新。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><ul>
+<li><strong>并查集</strong>实现如下：<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DSU</span> <span class="comment">// 并查集</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line">    <span class="built_in">DSU</span>(<span class="type">int</span> N) : <span class="built_in">parent</span>(N)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// parent = vector&lt;int&gt;(N);</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i) parent[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> <span class="comment">// 找root</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(parent[x] != x) parent[x] = <span class="built_in">find</span>(parent[x]);</span><br><span class="line">        <span class="keyword">return</span> parent[x];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">void</span> _union(<span class="type">int</span> x, <span class="type">int</span> y)</span><br><span class="line">    &#123;</span><br><span class="line">        parent[<span class="built_in">find</span>(x)] = <span class="built_in">find</span>(y);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li><strong>并查集 with size</strong> 实现如下：<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DSU</span> <span class="comment">// 并查集 with size</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; size;</span><br><span class="line">    <span class="built_in">DSU</span>(<span class="type">int</span> N) : <span class="built_in">max_size</span>(<span class="number">1</span>), <span class="built_in">parent</span>(N), <span class="built_in">size</span>(N, <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i) parent[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> <span class="comment">// 找root</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(parent[x] != x) parent[x] = <span class="built_in">find</span>(parent[x]);</span><br><span class="line">        <span class="keyword">return</span> parent[x];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">union</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// parent[find(x)] = find(y);</span></span><br><span class="line">        <span class="type">int</span> px = <span class="built_in">find</span>(x), py = <span class="built_in">find</span>(y);</span><br><span class="line">        <span class="keyword">if</span>(px == py) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(size[px] &lt;= size[py])</span><br><span class="line">        &#123;</span><br><span class="line">            parent[px] = py;</span><br><span class="line">            size[py] += size[px];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            parent[py] = px;</span><br><span class="line">            size[px] += size[py];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li><strong>并查集 with rank</strong> 实现如下：<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DSU</span> <span class="comment">// 并查集 with rank</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; rank;</span><br><span class="line">    <span class="built_in">DSU</span>(<span class="type">int</span> N) : <span class="built_in">parent</span>(N), <span class="built_in">rank</span>(N)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i) parent[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> <span class="comment">// 找root</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(parent[x] != x) parent[x] = <span class="built_in">find</span>(parent[x]);</span><br><span class="line">        <span class="keyword">return</span> parent[x];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">void</span> _union(<span class="type">int</span> x, <span class="type">int</span> y)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> px = <span class="built_in">find</span>(x), py = <span class="built_in">find</span>(y);</span><br><span class="line">        <span class="keyword">if</span>(px == py) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(rank[px] &lt; rank[py])</span><br><span class="line">            parent[px] = py;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(rank[px] &gt; rank[py])</span><br><span class="line">            parent[py] = px;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            parent[py] = px;</span><br><span class="line">            ++rank[px];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="部分题目："><a href="#部分题目：" class="headerlink" title="部分题目："></a>部分题目：</h2><ul>
+<li>leetcode - 305.岛屿数量 Ⅱ（会员题）</li>
+<li>leetcode - 547.省份数量</li>
+<li>leetcode - 128.最长连续序列</li>
+<li>luogu - P1551.亲戚</li>
+<li>luogu - P1536.村村通</li>
+</ul>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【leetcode】【剑指offer Ⅱ】002.二进制加法</title>
     <url>/p/d4c26b3a.html</url>
     <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
@@ -372,68 +434,6 @@
       <tags>
         <tag>leetcode</tag>
         <tag>剑指offer Ⅱ</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【数据结构】并查集</title>
-    <url>/p/2e7813af.html</url>
-    <content><![CDATA[<h2 id="相关概念："><a href="#相关概念：" class="headerlink" title="相关概念："></a>相关概念：</h2><ul>
-<li><strong>并查集</strong>是一种树形的数据结构，用于处理集合相关的问题。<ul>
-<li>通常集合中的元素都不具备层次关系，而是因为共通的性质而被划分在一起。</li>
-<li>当存在多个集合，而又需要判断任意两个元素是否处在同一个集合中时，就需要使用并查集来维护集合元素之间的关系。</li>
-</ul>
-</li>
-<li><strong>并查集</strong>有两个主要的操作：<ol>
-<li><strong>合并</strong>操作：将两个子集合并成一个子集。</li>
-<li><strong>查找</strong>操作：确定某个元素处在哪个集合。</li>
-</ol>
-</li>
-<li>一般用固定大小的数组来实现并查集，但可以用森林的模型来解释并查集的操作。【森林即多棵树】<ul>
-<li>假设题目中元素只有 <code>m</code> 个，则并查集底层只需维护一个 <code>m</code> 大小的数组 <code>parent</code> 即可。【<code>parent</code> 数组保存对应元素的父节点】</li>
-<li>对于合并操作的解释：将两个元素合并在同一个子集，就相当于<strong>将两棵树合并成一棵树</strong>。</li>
-<li>对于查找操作的解释：要确定两个元素处于同一个集合只需要<strong>确定两个元素是否处于同一棵树</strong>即可。</li>
-</ul>
-</li>
-</ul>
-<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
-<li>并查集的实现非常简洁。<ul>
-<li>初始化：设置每个元素为一个集合，即设置每个元素的父节点为自己。<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; parent.<span class="built_in">size</span>(); ++i)</span><br><span class="line">  parent[i] = i;</span><br></pre></td></tr></table></figure></li>
-<li>查找：找到元素所在集合的根，即所在树的根。【从代码中看出，<code>find</code> 函数会递归调用，直到找到集合的根】【此处的 <code>find</code> 函数已经进行<strong>路径压缩</strong>，简单来说，就是<strong>把当前搜索路径上的所有元素都连接到最顶部的根上去</strong>，这样每一棵树的高度都不会过分高】<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> <span class="comment">// 找root</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(parent[x] != x) parent[x] = <span class="built_in">find</span>(parent[x]); <span class="comment">// 路径压缩，此处可以用 while 语句来实现路径压缩的非递归版本</span></span><br><span class="line">    <span class="keyword">return</span> parent[x];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>合并：分别找出两个元素的根进行连接即可。<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">union</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    parent[<span class="built_in">find</span>(x)] = <span class="built_in">find</span>(y);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li>可以通过下述例子来加深理解。<ol>
-<li>假设有 <code>5</code> 个元素，则初始化一个大小为 <code>5</code> 的 <code>parent</code> 数组：<img src="/p/2e7813af/并查集\union_find.jpg" alt="union_find"></li>
-<li>假设元素 <code>0</code> 和元素 <code>1</code> 有关系，则调用 <code>union(0, 1)</code>，注意此时 <code>find(0)</code> 或 <code>find(1)</code> 都是简单地返回 <code>0</code> 或 <code>1</code>：<img src="/p/2e7813af/并查集\union_find_2.jpg" alt="union_find_2"></li>
-<li>假设元素 <code>0</code> 分别和元素 <code>2</code> 、元素 <code>3</code> 有关系，则分别调用 <code>union(0, 2)</code> 和 <code>union(0, 3)</code>，注意 <code>find(0)</code> 会返回 <code>1</code>：<img src="/p/2e7813af/并查集\union_find_3.jpg" alt="union_find_3"></li>
-</ol>
-</li>
-<li>最后要提及的是关于并查集的一些<strong>优化</strong>：<ul>
-<li>可以注意到，上面例子的最后结果中留下了两棵树（即两个集合），其中 <code>root 1</code> 体型较大，<code>root 4</code> 体型较小，如果后续调用 <code>union(1, 4)</code> 则会把大树放置到小树底下（这样显然是不够平衡的），然而调用 <code>union(4, 1)</code> 就会避免前面的情况。【这样说明了不同的参数调用顺序会给 <code>union</code> 带来不同的结果】</li>
-<li>有两种优化思路，一种是 <strong>with size</strong>，一种是 <strong>with rank</strong>。</li>
-<li>简单来说，<strong>with size</strong> 方法就是并查集中维护一个 <code>size</code> 数组（记录元素所在树的大小），在 <code>union</code> 操作中进行更新；同理，<strong>with rank</strong> 方法就是维护一个 <code>rank</code> 数组（记录元素所在树的高度），同样是在 <code>union</code> 操作中进行更新。</li>
-</ul>
-</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><ul>
-<li><strong>并查集</strong>实现如下：<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DSU</span> <span class="comment">// 并查集</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line">    <span class="built_in">DSU</span>(<span class="type">int</span> N) : <span class="built_in">parent</span>(N)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// parent = vector&lt;int&gt;(N);</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i) parent[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> <span class="comment">// 找root</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(parent[x] != x) parent[x] = <span class="built_in">find</span>(parent[x]);</span><br><span class="line">        <span class="keyword">return</span> parent[x];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">void</span> _union(<span class="type">int</span> x, <span class="type">int</span> y)</span><br><span class="line">    &#123;</span><br><span class="line">        parent[<span class="built_in">find</span>(x)] = <span class="built_in">find</span>(y);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
-<li><strong>并查集 with size</strong> 实现如下：<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DSU</span> <span class="comment">// 并查集 with size</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; size;</span><br><span class="line">    <span class="built_in">DSU</span>(<span class="type">int</span> N) : <span class="built_in">max_size</span>(<span class="number">1</span>), <span class="built_in">parent</span>(N), <span class="built_in">size</span>(N, <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i) parent[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> <span class="comment">// 找root</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(parent[x] != x) parent[x] = <span class="built_in">find</span>(parent[x]);</span><br><span class="line">        <span class="keyword">return</span> parent[x];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">union</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// parent[find(x)] = find(y);</span></span><br><span class="line">        <span class="type">int</span> px = <span class="built_in">find</span>(x), py = <span class="built_in">find</span>(y);</span><br><span class="line">        <span class="keyword">if</span>(px == py) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(size[px] &lt;= size[py])</span><br><span class="line">        &#123;</span><br><span class="line">            parent[px] = py;</span><br><span class="line">            size[py] += size[px];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            parent[py] = px;</span><br><span class="line">            size[px] += size[py];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
-<li><strong>并查集 with rank</strong> 实现如下：<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DSU</span> <span class="comment">// 并查集 with rank</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; rank;</span><br><span class="line">    <span class="built_in">DSU</span>(<span class="type">int</span> N) : <span class="built_in">parent</span>(N), <span class="built_in">rank</span>(N)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i) parent[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> <span class="comment">// 找root</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(parent[x] != x) parent[x] = <span class="built_in">find</span>(parent[x]);</span><br><span class="line">        <span class="keyword">return</span> parent[x];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">void</span> _union(<span class="type">int</span> x, <span class="type">int</span> y)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> px = <span class="built_in">find</span>(x), py = <span class="built_in">find</span>(y);</span><br><span class="line">        <span class="keyword">if</span>(px == py) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(rank[px] &lt; rank[py])</span><br><span class="line">            parent[px] = py;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(rank[px] &gt; rank[py])</span><br><span class="line">            parent[py] = px;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            parent[py] = px;</span><br><span class="line">            ++rank[px];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="部分题目："><a href="#部分题目：" class="headerlink" title="部分题目："></a>部分题目：</h2><ul>
-<li>leetcode - 305.岛屿数量 Ⅱ（vip题）</li>
-<li>leetcode - 547.省份数量</li>
-<li>leetcode - 128.最长连续序列</li>
-<li>luogu - P1551.亲戚</li>
-<li>luogu - P1536.村村通</li>
-</ul>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>

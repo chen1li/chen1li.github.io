@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="Cyl&#39;s Blog">
 <meta property="og:description" content="相关概念： 并查集是一种树形的数据结构，用于处理集合相关的问题。 通常集合中的元素都不具备层次关系，而是因为共通的性质而被划分在一起。 当存在多个集合，而又需要判断任意两个元素是否处在同一个集合中时，就需要使用并查集来维护集合元素之间的关系。   并查集有两个主要的操作： 合并操作：将两个子集合并成一个子集。 查找操作：确定某个元素处在哪个集合。   一般用固定大小的数组来实现并查集，但可以用森林">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/p/2e7813af/并查集/union_find.jpg">
-<meta property="og:image" content="http://example.com/p/2e7813af/并查集/union_find_2.jpg">
-<meta property="og:image" content="http://example.com/p/2e7813af/并查集/union_find_3.jpg">
+<meta property="og:image" content="http://example.com/p/2e7813af/union_find.jpg">
+<meta property="og:image" content="http://example.com/p/2e7813af/union_find_2.jpg">
+<meta property="og:image" content="http://example.com/p/2e7813af/union_find_3.jpg">
 <meta property="article:published_time" content="2022-08-03T04:34:45.000Z">
-<meta property="article:modified_time" content="2022-08-03T09:53:44.238Z">
+<meta property="article:modified_time" content="2022-08-03T12:00:36.524Z">
 <meta property="article:author" content="伊利">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/p/2e7813af/并查集/union_find.jpg">
+<meta name="twitter:image" content="http://example.com/p/2e7813af/union_find.jpg">
 
 <link rel="canonical" href="http://example.com/p/2e7813af.html">
 
@@ -223,7 +223,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-08-03 12:34:45 / 修改时间：17:53:44" itemprop="dateCreated datePublished" datetime="2022-08-03T12:34:45+08:00">2022-08-03</time>
+              <time title="创建时间：2022-08-03 12:34:45 / 修改时间：20:00:36" itemprop="dateCreated datePublished" datetime="2022-08-03T12:34:45+08:00">2022-08-03</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -279,9 +279,9 @@
 </ul>
 </li>
 <li>可以通过下述例子来加深理解。<ol>
-<li>假设有 <code>5</code> 个元素，则初始化一个大小为 <code>5</code> 的 <code>parent</code> 数组：<img src="/p/2e7813af/并查集\union_find.jpg" alt="union_find"></li>
-<li>假设元素 <code>0</code> 和元素 <code>1</code> 有关系，则调用 <code>union(0, 1)</code>，注意此时 <code>find(0)</code> 或 <code>find(1)</code> 都是简单地返回 <code>0</code> 或 <code>1</code>：<img src="/p/2e7813af/并查集\union_find_2.jpg" alt="union_find_2"></li>
-<li>假设元素 <code>0</code> 分别和元素 <code>2</code> 、元素 <code>3</code> 有关系，则分别调用 <code>union(0, 2)</code> 和 <code>union(0, 3)</code>，注意 <code>find(0)</code> 会返回 <code>1</code>：<img src="/p/2e7813af/并查集\union_find_3.jpg" alt="union_find_3"></li>
+<li>假设有 <code>5</code> 个元素，则初始化一个大小为 <code>5</code> 的 <code>parent</code> 数组：<img src="/p/2e7813af/union_find.jpg" alt="union_find"></li>
+<li>假设元素 <code>0</code> 和元素 <code>1</code> 有关系，则调用 <code>union(0, 1)</code>，注意此时 <code>find(0)</code> 或 <code>find(1)</code> 都是简单地返回 <code>0</code> 或 <code>1</code>：<img src="/p/2e7813af/union_find_2.jpg" alt="union_find_2"></li>
+<li>假设元素 <code>0</code> 分别和元素 <code>2</code> 、元素 <code>3</code> 有关系，则分别调用 <code>union(2, 0)</code> 和 <code>union(3, 0)</code>，注意 <code>find(0)</code> 会返回 <code>1</code>：<img src="/p/2e7813af/union_find_3.jpg" alt="union_find_3"></li>
 </ol>
 </li>
 <li>最后要提及的是关于并查集的一些<strong>优化</strong>：<ul>
@@ -298,7 +298,7 @@
 </li>
 </ul>
 <h2 id="部分题目："><a href="#部分题目：" class="headerlink" title="部分题目："></a>部分题目：</h2><ul>
-<li>leetcode - 305.岛屿数量 Ⅱ（vip题）</li>
+<li>leetcode - 305.岛屿数量 Ⅱ（会员题）</li>
 <li>leetcode - 547.省份数量</li>
 <li>leetcode - 128.最长连续序列</li>
 <li>luogu - P1551.亲戚</li>
