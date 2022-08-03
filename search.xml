@@ -149,6 +149,30 @@
       </tags>
   </entry>
   <entry>
+    <title>【leetcode】【2022/7/31】1161. 最大层内元素和</title>
+    <url>/p/bd0155e2.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一个二叉树的根节点 <code>root</code>，返回层内元素之和最大的层号。<ul>
+<li>如果和最大的层号有好几个，则返回最小的那个层号。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>层次遍历基础应用题。<ul>
+<li>遍历过程中维护层数和当前层的求和值即可。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxLevelSum</span><span class="params">(TreeNode* root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line">        q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="type">int</span> cur_sum = INT_MIN;</span><br><span class="line">        <span class="type">int</span> level = <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> sz = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span>(sz-- &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* tmp = q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">                sum += tmp-&gt;val;</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;left) q.<span class="built_in">push</span>(tmp-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;right) q.<span class="built_in">push</span>(tmp-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(sum &gt; cur_sum) ans = level, cur_sum = sum;</span><br><span class="line">            ++level;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>leetcode每日一题</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【leetcode】【2022/7/30】952. 按公因数计算最大组件大小</title>
     <url>/p/691feb55.html</url>
     <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
@@ -174,30 +198,6 @@
 </li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DSU</span> <span class="comment">// 并查集/rank优化</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; rank;</span><br><span class="line">    <span class="built_in">DSU</span>(<span class="type">int</span> N) : <span class="built_in">parent</span>(N), <span class="built_in">rank</span>(N)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i) parent[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> _find(<span class="type">int</span> x) <span class="comment">// 找root</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(parent[x] != x) parent[x] = _find(parent[x]);</span><br><span class="line">        <span class="keyword">return</span> parent[x];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">void</span> _union(<span class="type">int</span> x, <span class="type">int</span> y)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// parent[_find(x)] = _find(y);</span></span><br><span class="line">        <span class="type">int</span> px = _find(x), py = _find(y);</span><br><span class="line">        <span class="keyword">if</span>(px == py) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(rank[px] &lt; rank[py])</span><br><span class="line">            parent[px] = py;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(rank[px] &gt; rank[py])</span><br><span class="line">            parent[py] = px;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            parent[py] = px;</span><br><span class="line">            ++rank[px];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">largestComponentSize</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> m = *<span class="built_in">max_element</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="function">DSU <span class="title">dsu</span><span class="params">(m+<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> num : nums) <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>; i * i &lt;= num; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(num % i == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                dsu._union(num, i);</span><br><span class="line">                dsu._union(num, num/i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">cnts</span><span class="params">(m+<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> num : nums)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> p = dsu._find(num);</span><br><span class="line">            ++cnts[p];</span><br><span class="line">            ans = <span class="built_in">max</span>(ans, cnts[p]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>刷题</category>
-        <category>leetcode每日一题</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【leetcode】【2022/7/31】1161. 最大层内元素和</title>
-    <url>/p/bd0155e2.html</url>
-    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>给定一个二叉树的根节点 <code>root</code>，返回层内元素之和最大的层号。<ul>
-<li>如果和最大的层号有好几个，则返回最小的那个层号。</li>
-</ul>
-</li>
-</ul>
-<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
-<li>层次遍历基础应用题。<ul>
-<li>遍历过程中维护层数和当前层的求和值即可。</li>
-</ul>
-</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxLevelSum</span><span class="params">(TreeNode* root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line">        q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="type">int</span> cur_sum = INT_MIN;</span><br><span class="line">        <span class="type">int</span> level = <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> sz = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span>(sz-- &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* tmp = q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">                sum += tmp-&gt;val;</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;left) q.<span class="built_in">push</span>(tmp-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;right) q.<span class="built_in">push</span>(tmp-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(sum &gt; cur_sum) ans = level, cur_sum = sum;</span><br><span class="line">            ++level;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>刷题</category>
         <category>leetcode每日一题</category>
@@ -307,6 +307,31 @@
       </tags>
   </entry>
   <entry>
+    <title>【leetcode】【20220804】1403. 非递增顺序的最小子序列</title>
+    <url>/p/13498852.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定数组 <code>nums</code>，从中抽取一个子序列并返回。<ul>
+<li>返回的子序列满足：该子序列的元素之和严格大于未包含在该子序列中的各元素之和。</li>
+<li>如果存在多个解决方案，只需返回<strong>长度最小</strong>的子序列。</li>
+<li>如果仍然有多个解决方案，则返回<strong>元素之和最大</strong>的子序列。</li>
+</ul>
+</li>
+<li>与子数组不同的地方在于，「数组的子序列」不强调元素在原数组中的连续性，也就是说，它可以通过从数组中分离一些（也可能不分离）元素得到。</li>
+<li>注意，题目数据保证满足所有约束条件的解决方案是唯一的，同时返回的答案应当按非递增顺序排列。</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>贪心策略，排序后从最大值开始取即可。</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">minSubsequence</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> sum = <span class="built_in">accumulate</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>(), <span class="number">0</span>);</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>(), <span class="built_in">greater</span>&lt;<span class="type">int</span>&gt;());</span><br><span class="line">        <span class="type">int</span> cmp = <span class="number">0</span>;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; ans;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> num : nums)</span><br><span class="line">        &#123;</span><br><span class="line">            cmp += num;</span><br><span class="line">            ans.<span class="built_in">push_back</span>(num);</span><br><span class="line">            <span class="keyword">if</span>(cmp &gt; sum / <span class="number">2</span>) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>leetcode每日一题</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【leetcode】【剑指offer Ⅱ】001.整数除法</title>
     <url>/p/48dd08e5.html</url>
     <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
@@ -332,6 +357,87 @@
 </li>
 </ul>
 <h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> INT_LIMIT = INT_MIN &gt;&gt; <span class="number">1</span>; <span class="comment">// -1073741824</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">divide</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(a == INT_MIN <span class="keyword">and</span> b == <span class="number">-1</span>) <span class="keyword">return</span> INT_MAX;</span><br><span class="line">        <span class="type">bool</span> neg = ((a &gt;&gt; <span class="number">31</span>) ^ (b &gt;&gt; <span class="number">31</span>)) != <span class="number">0</span>; <span class="comment">// 位运算确定符号</span></span><br><span class="line">        <span class="keyword">if</span>(a &gt; <span class="number">0</span>) a = -a;</span><br><span class="line">        <span class="keyword">if</span>(b &gt; <span class="number">0</span>) b = -b;</span><br><span class="line">        <span class="type">unsigned</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(a &lt;= b)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> tmp = b; <span class="comment">// 当前除数</span></span><br><span class="line">            <span class="type">unsigned</span> c = <span class="number">1</span>; <span class="comment">// 当前商</span></span><br><span class="line">            <span class="keyword">while</span>(tmp &gt;= INT_LIMIT <span class="keyword">and</span> a &lt;= tmp + tmp) <span class="comment">// 快速乘法</span></span><br><span class="line">            &#123;</span><br><span class="line">                tmp += tmp;</span><br><span class="line">                c += c;</span><br><span class="line">            &#125;</span><br><span class="line">            a -= tmp; <span class="comment">// 求得a剩余部分</span></span><br><span class="line">            ans += c; <span class="comment">// 累计商</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> neg ? -ans : ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>剑指offer Ⅱ</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>剑指offer Ⅱ</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【leetcode】【剑指offer Ⅱ】002.二进制加法</title>
+    <url>/p/d4c26b3a.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定两个 01 字符串 <code>a</code> 和 <code>b</code>，计算它们的和并以二进制字符串的形式输出。<ul>
+<li>输入字符串非空且只包含 <code>0</code> 和 <code>1</code>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>该题是 leetcode 第 2 题两数相加的二进制字符串版本。</li>
+<li>模拟进位加法即可，算法步骤如下：<ol>
+<li>设置进位 <code>ca</code> 为 <code>0</code>，并初始化结果字符串 <code>ans</code> 为空字符串。</li>
+<li>从后往前遍历两个字符串，只要有一个字符串未走完全程则继续遍历。<ol>
+<li>遍历过程中，分别取得字符串 <code>a</code> 和 <code>b</code> 在各自索引的数值（如果字符串 <code>a</code> 或 <code>b</code> 已走完全程就直接将对应数值置为 <code>0</code>）。</li>
+<li>将两个数值与进位 <code>ca</code> 进行相加，根据相加结果更新 <code>ans</code> 和 <code>ca</code>。</li>
+</ol>
+</li>
+<li>遍历结束后，判断进位 <code>ca</code> 是否为 <code>1</code>，如果为 <code>1</code> 则需要更新 <code>ans</code>。</li>
+<li>最后将 <code>ans</code> 进行 <code>reverse</code> 操作即可。</li>
+</ol>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">addBinary</span><span class="params">(string a, string b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> m = a.<span class="built_in">size</span>()<span class="number">-1</span>, n = b.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">        string ans = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="type">int</span> ca = <span class="number">0</span>; <span class="comment">// 进位</span></span><br><span class="line">        <span class="keyword">while</span>(m &gt;= <span class="number">0</span> <span class="keyword">or</span> n &gt;= <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> num1 = m &gt;= <span class="number">0</span> ? a[m] - <span class="string">&#x27;0&#x27;</span> : <span class="number">0</span>;</span><br><span class="line">            <span class="type">int</span> num2 = n &gt;= <span class="number">0</span> ? b[n] - <span class="string">&#x27;0&#x27;</span> : <span class="number">0</span>;</span><br><span class="line">            ca += num1 + num2;</span><br><span class="line">            ans += ca &amp; <span class="number">1</span> == <span class="number">1</span> ? <span class="string">&#x27;1&#x27;</span> : <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">            ca /= <span class="number">2</span>;</span><br><span class="line">            --m, --n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(ca == <span class="number">1</span>) ans += <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(ans == <span class="string">&quot;&quot;</span>) ans += <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">        <span class="built_in">reverse</span>(ans.<span class="built_in">begin</span>(), ans.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>剑指offer Ⅱ</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>剑指offer Ⅱ</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【leetcode】【剑指offer Ⅱ】003.前 n 个数字二进制中 1 的个数</title>
+    <url>/p/ce69a40a.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一个非负整数 <code>n</code>，计算 <code>0</code> 到 <code>n</code> 之间的每个数字的二进制表示中 <code>1</code> 的个数，并输出一个数组。</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>该题考查位运算。<ul>
+<li>假设要确定 <code>4</code> 的二进制表示中 <code>1</code> 的个数，可以通过确定 <code>2</code> 的二进制表示中 <code>1</code> 的个数，这是因为 <code>4 = 2 &lt;&lt; 1</code>，因而 <code>4</code> 和 <code>2</code> 的二进制表示中 <code>1</code> 的个数都是一样的。</li>
+<li>而 <code>5</code> 可以分解成 <code>4 + 1</code>，即 <code>5 = 4 + 1 = 2 &lt;&lt; 1 + 1</code>。</li>
+</ul>
+</li>
+<li>利用动态规划的解法来做即可，给定一个非负整数 <code>n</code>，则创建一个大小为 <code>n+1</code> 的数组 <code>ans</code> 用来记录每个数字的二进制表示中 <code>1</code> 的个数，而 <code>ans[i]</code> 的状态只由 <code>ans[i/2]</code> 确定。</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">countBits</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">ans</span><span class="params">(n+<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt;= n; ++i)</span><br><span class="line">            ans[i] = ans[i/<span class="number">2</span>] + (i&amp;<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>剑指offer Ⅱ</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>剑指offer Ⅱ</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【leetcode】【剑指offer Ⅱ】004. 只出现一次的数字</title>
+    <url>/p/b2c7e28e.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一个整数数组 <code>nums</code>，除某个元素仅出现一次外，其余每个元素都恰出现三次，找出并返回那个只出现了一次的元素。</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>该题仍然是考察位运算，但并非利用异或（如果题目中的要求提及其他元素恰出现两次，则可以利用异或操作来解题）。<ul>
+<li>把每个整数看成二进制表达形式，当同一个数出现三次，则可以看作将对应位上的 <code>0</code> 或 <code>1</code> 出现三次。</li>
+<li>遍历每个数值，将数值对应的 32 位二进制出现的 <code>1</code> 出现的次数进行<strong>对应位置上的累加</strong>【累加到一个 32 位数组中进行保存】。</li>
+<li>遍历完成后从 32 位的数组中取出每一位上的数值，并将每一位进行 <code>mod 3</code> 操作然后提取出对应位上的 <code>0</code> 或 <code>1</code> 即可。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">singleNumber</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">cnt</span><span class="params">(<span class="number">32</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> num : nums)</span><br><span class="line">                cnt[i] += (num &gt;&gt; i) &amp; <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">31</span>; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">            ans = (ans &lt;&lt; <span class="number">1</span>) + (cnt[i] % <span class="number">3</span>);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>刷题</category>
         <category>剑指offer Ⅱ</category>
@@ -401,39 +507,6 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【leetcode】【剑指offer Ⅱ】002.二进制加法</title>
-    <url>/p/d4c26b3a.html</url>
-    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>给定两个 01 字符串 <code>a</code> 和 <code>b</code>，计算它们的和并以二进制字符串的形式输出。<ul>
-<li>输入字符串非空且只包含 <code>0</code> 和 <code>1</code>。</li>
-</ul>
-</li>
-</ul>
-<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
-<li>该题是 leetcode 第 2 题两数相加的二进制字符串版本。</li>
-<li>模拟进位加法即可，算法步骤如下：<ol>
-<li>设置进位 <code>ca</code> 为 <code>0</code>，并初始化结果字符串 <code>ans</code> 为空字符串。</li>
-<li>从后往前遍历两个字符串，只要有一个字符串未走完全程则继续遍历。<ol>
-<li>遍历过程中，分别取得字符串 <code>a</code> 和 <code>b</code> 在各自索引的数值（如果字符串 <code>a</code> 或 <code>b</code> 已走完全程就直接将对应数值置为 <code>0</code>）。</li>
-<li>将两个数值与进位 <code>ca</code> 进行相加，根据相加结果更新 <code>ans</code> 和 <code>ca</code>。</li>
-</ol>
-</li>
-<li>遍历结束后，判断进位 <code>ca</code> 是否为 <code>1</code>，如果为 <code>1</code> 则需要更新 <code>ans</code>。</li>
-<li>最后将 <code>ans</code> 进行 <code>reverse</code> 操作即可。</li>
-</ol>
-</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">addBinary</span><span class="params">(string a, string b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> m = a.<span class="built_in">size</span>()<span class="number">-1</span>, n = b.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">        string ans = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="type">int</span> ca = <span class="number">0</span>; <span class="comment">// 进位</span></span><br><span class="line">        <span class="keyword">while</span>(m &gt;= <span class="number">0</span> <span class="keyword">or</span> n &gt;= <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> num1 = m &gt;= <span class="number">0</span> ? a[m] - <span class="string">&#x27;0&#x27;</span> : <span class="number">0</span>;</span><br><span class="line">            <span class="type">int</span> num2 = n &gt;= <span class="number">0</span> ? b[n] - <span class="string">&#x27;0&#x27;</span> : <span class="number">0</span>;</span><br><span class="line">            ca += num1 + num2;</span><br><span class="line">            ans += ca &amp; <span class="number">1</span> == <span class="number">1</span> ? <span class="string">&#x27;1&#x27;</span> : <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">            ca /= <span class="number">2</span>;</span><br><span class="line">            --m, --n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(ca == <span class="number">1</span>) ans += <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(ans == <span class="string">&quot;&quot;</span>) ans += <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">        <span class="built_in">reverse</span>(ans.<span class="built_in">begin</span>(), ans.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>刷题</category>
-        <category>剑指offer Ⅱ</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-        <tag>剑指offer Ⅱ</tag>
       </tags>
   </entry>
   <entry>
