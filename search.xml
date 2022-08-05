@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>【leetcode】【2022/7/25】919.完全二叉树插入器</title>
+    <url>/p/3aca790c.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>实现 <code>CBTInserter</code> 类的操作：<ul>
+<li><code>CBTInserter(TreeNode root)</code> 使用完全二叉树 <code>root</code> 来对该数据结构进行初始化。</li>
+<li><code>CBTInserter.insert(int v)</code> 向该数据结构插入一个值为 <code>v</code> 的新节点，插入后仍保持完全二叉树状态，并且返回插入节点的父节点的值。</li>
+<li><code>CBTInserter.get_root()</code> 返回完全二叉树的头节点。</li>
+</ul>
+</li>
+</ul>
+<h2 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h2><ul>
+<li>用数组来保存完全二叉树。【数组的索引可以用来确定节点在完全二叉树中的顺序】<ul>
+<li>插入一个新值，就相当于在数组尾部插入一个节点，然后根据索引计算得到 <code>parent</code> 的索引。</li>
+<li>还要将当前新值连接到真正的树上，找到 <code>parent</code> 索引之后，就可以根据当前索引是奇数还是偶数来判断是连接到 <code>parent</code> 的左子还是右子。【因为 <code>root</code> 是索引 <code>0</code>，所以当前索引为奇数则是父节点的左子，当前索引为偶数则是父节点的右子】</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CBTInserter</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;TreeNode*&gt; vec;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">CBTInserter</span>(TreeNode* root)</span><br><span class="line">    &#123;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line">        q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> sz = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">while</span>(sz-- &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* tmp = q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">                vec.<span class="built_in">push_back</span>(tmp);</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;left) q.<span class="built_in">push</span>(tmp-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;right) q.<span class="built_in">push</span>(tmp-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">insert</span><span class="params">(<span class="type">int</span> val)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        vec.<span class="built_in">push_back</span>(<span class="keyword">new</span> <span class="built_in">TreeNode</span>(val));</span><br><span class="line">        <span class="type">int</span> idx = vec.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> parent_idx = (idx - <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(idx &amp; <span class="number">1</span>) vec[parent_idx]-&gt;left = vec[idx];</span><br><span class="line">        <span class="keyword">else</span> vec[parent_idx]-&gt;right = vec[idx];</span><br><span class="line">        <span class="keyword">return</span> vec[parent_idx]-&gt;val;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">TreeNode* <span class="title">get_root</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> vec[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>leetcode每日一题</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【SICP】 test_3_23</title>
     <url>/p/d9efbaf4.html</url>
     <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
@@ -29,33 +56,6 @@
       </categories>
       <tags>
         <tag>SICP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【leetcode】【2022/7/25】919.完全二叉树插入器</title>
-    <url>/p/3aca790c.html</url>
-    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>实现 <code>CBTInserter</code> 类的操作：<ul>
-<li><code>CBTInserter(TreeNode root)</code> 使用完全二叉树 <code>root</code> 来对该数据结构进行初始化。</li>
-<li><code>CBTInserter.insert(int v)</code> 向该数据结构插入一个值为 <code>v</code> 的新节点，插入后仍保持完全二叉树状态，并且返回插入节点的父节点的值。</li>
-<li><code>CBTInserter.get_root()</code> 返回完全二叉树的头节点。</li>
-</ul>
-</li>
-</ul>
-<h2 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h2><ul>
-<li>用数组来保存完全二叉树。【数组的索引可以用来确定节点在完全二叉树中的顺序】<ul>
-<li>插入一个新值，就相当于在数组尾部插入一个节点，然后根据索引计算得到 <code>parent</code> 的索引。</li>
-<li>还要将当前新值连接到真正的树上，找到 <code>parent</code> 索引之后，就可以根据当前索引是奇数还是偶数来判断是连接到 <code>parent</code> 的左子还是右子。【因为 <code>root</code> 是索引 <code>0</code>，所以当前索引为奇数则是父节点的左子，当前索引为偶数则是父节点的右子】</li>
-</ul>
-</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CBTInserter</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;TreeNode*&gt; vec;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">CBTInserter</span>(TreeNode* root)</span><br><span class="line">    &#123;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line">        q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> sz = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">while</span>(sz-- &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* tmp = q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">                vec.<span class="built_in">push_back</span>(tmp);</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;left) q.<span class="built_in">push</span>(tmp-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;right) q.<span class="built_in">push</span>(tmp-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">insert</span><span class="params">(<span class="type">int</span> val)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        vec.<span class="built_in">push_back</span>(<span class="keyword">new</span> <span class="built_in">TreeNode</span>(val));</span><br><span class="line">        <span class="type">int</span> idx = vec.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> parent_idx = (idx - <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(idx &amp; <span class="number">1</span>) vec[parent_idx]-&gt;left = vec[idx];</span><br><span class="line">        <span class="keyword">else</span> vec[parent_idx]-&gt;right = vec[idx];</span><br><span class="line">        <span class="keyword">return</span> vec[parent_idx]-&gt;val;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">TreeNode* <span class="title">get_root</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> vec[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>刷题</category>
-        <category>leetcode每日一题</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -149,30 +149,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【leetcode】【2022/7/31】1161. 最大层内元素和</title>
-    <url>/p/bd0155e2.html</url>
-    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>给定一个二叉树的根节点 <code>root</code>，返回层内元素之和最大的层号。<ul>
-<li>如果和最大的层号有好几个，则返回最小的那个层号。</li>
-</ul>
-</li>
-</ul>
-<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
-<li>层次遍历基础应用题。<ul>
-<li>遍历过程中维护层数和当前层的求和值即可。</li>
-</ul>
-</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxLevelSum</span><span class="params">(TreeNode* root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line">        q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="type">int</span> cur_sum = INT_MIN;</span><br><span class="line">        <span class="type">int</span> level = <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> sz = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span>(sz-- &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* tmp = q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">                sum += tmp-&gt;val;</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;left) q.<span class="built_in">push</span>(tmp-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;right) q.<span class="built_in">push</span>(tmp-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(sum &gt; cur_sum) ans = level, cur_sum = sum;</span><br><span class="line">            ++level;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>刷题</category>
-        <category>leetcode每日一题</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【leetcode】【2022/7/30】952. 按公因数计算最大组件大小</title>
     <url>/p/691feb55.html</url>
     <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
@@ -198,6 +174,30 @@
 </li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DSU</span> <span class="comment">// 并查集/rank优化</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; rank;</span><br><span class="line">    <span class="built_in">DSU</span>(<span class="type">int</span> N) : <span class="built_in">parent</span>(N), <span class="built_in">rank</span>(N)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i) parent[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> _find(<span class="type">int</span> x) <span class="comment">// 找root</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(parent[x] != x) parent[x] = _find(parent[x]);</span><br><span class="line">        <span class="keyword">return</span> parent[x];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">void</span> _union(<span class="type">int</span> x, <span class="type">int</span> y)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// parent[_find(x)] = _find(y);</span></span><br><span class="line">        <span class="type">int</span> px = _find(x), py = _find(y);</span><br><span class="line">        <span class="keyword">if</span>(px == py) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(rank[px] &lt; rank[py])</span><br><span class="line">            parent[px] = py;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(rank[px] &gt; rank[py])</span><br><span class="line">            parent[py] = px;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            parent[py] = px;</span><br><span class="line">            ++rank[px];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">largestComponentSize</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> m = *<span class="built_in">max_element</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="function">DSU <span class="title">dsu</span><span class="params">(m+<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> num : nums) <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>; i * i &lt;= num; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(num % i == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                dsu._union(num, i);</span><br><span class="line">                dsu._union(num, num/i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">cnts</span><span class="params">(m+<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> num : nums)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> p = dsu._find(num);</span><br><span class="line">            ++cnts[p];</span><br><span class="line">            ans = <span class="built_in">max</span>(ans, cnts[p]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>leetcode每日一题</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【leetcode】【2022/7/31】1161. 最大层内元素和</title>
+    <url>/p/bd0155e2.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一个二叉树的根节点 <code>root</code>，返回层内元素之和最大的层号。<ul>
+<li>如果和最大的层号有好几个，则返回最小的那个层号。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>层次遍历基础应用题。<ul>
+<li>遍历过程中维护层数和当前层的求和值即可。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxLevelSum</span><span class="params">(TreeNode* root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line">        q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="type">int</span> cur_sum = INT_MIN;</span><br><span class="line">        <span class="type">int</span> level = <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> sz = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span>(sz-- &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* tmp = q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">                sum += tmp-&gt;val;</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;left) q.<span class="built_in">push</span>(tmp-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;right) q.<span class="built_in">push</span>(tmp-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(sum &gt; cur_sum) ans = level, cur_sum = sum;</span><br><span class="line">            ++level;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>刷题</category>
         <category>leetcode每日一题</category>
@@ -278,7 +278,7 @@
       </tags>
   </entry>
   <entry>
-    <title>【leetcode】【20220803】899. 有序队列</title>
+    <title>【leetcode】【2022/8/3】899. 有序队列</title>
     <url>/p/5c95f812.html</url>
     <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
 <li>给定一个字符串 <code>s</code> 和一个整数 <code>k</code>，可以从 <code>s</code> 的前 <code>k</code> 个字母中选择一个并把它加到字符串的末尾，经过多次前述操作后字符串可以达到字典序最小。<ul>
@@ -307,7 +307,7 @@
       </tags>
   </entry>
   <entry>
-    <title>【leetcode】【20220804】1403. 非递增顺序的最小子序列</title>
+    <title>【leetcode】【2022/8/4】1403. 非递增顺序的最小子序列</title>
     <url>/p/13498852.html</url>
     <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
 <li>给定数组 <code>nums</code>，从中抽取一个子序列并返回。<ul>
@@ -323,6 +323,34 @@
 <li>贪心策略，排序后从最大值开始取即可。</li>
 </ul>
 <h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">minSubsequence</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> sum = <span class="built_in">accumulate</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>(), <span class="number">0</span>);</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>(), <span class="built_in">greater</span>&lt;<span class="type">int</span>&gt;());</span><br><span class="line">        <span class="type">int</span> cmp = <span class="number">0</span>;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; ans;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> num : nums)</span><br><span class="line">        &#123;</span><br><span class="line">            cmp += num;</span><br><span class="line">            ans.<span class="built_in">push_back</span>(num);</span><br><span class="line">            <span class="keyword">if</span>(cmp &gt; sum / <span class="number">2</span>) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>leetcode每日一题</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【leetcode】【2022/8/5】623. 在二叉树中增加一行</title>
+    <url>/p/7dc3e81a.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一个二叉树的根 <code>root</code> 和两个整数 <code>val</code> 和 <code>depth</code>，在给定的深度 <code>depth</code> 处添加一个值为 <code>val</code> 的节点行。<ul>
+<li>根节点 <code>root</code> 位于深度 <code>1</code>。</li>
+<li>给定整数 <code>depth</code>，对于深度为 <code>depth-1</code> 的每个非空树节点 <code>cur</code>，创建两个值为 <code>val</code> 的树节点作为 <code>cur</code> 的左子树根和右子树根。</li>
+<li><code>cur</code> 原来的左子树应该是新的左子树根的左子树。</li>
+<li><code>cur</code> 原来的右子树应该是新的右子树根的右子树。</li>
+<li>如果 <code>depth == 1</code>，则创建一个新的树节点，原来的树根就是新根的左节点。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>二叉树基础应用题，dfs 和 bfs 解法均可以。<ul>
+<li>在遍历过程中维护当前高度即可。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">addOneRow</span><span class="params">(TreeNode* root, <span class="type">int</span> val, <span class="type">int</span> depth)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(depth == <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            TreeNode* head = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(val);</span><br><span class="line">            head-&gt;left = root;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> level = <span class="number">1</span>;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line">        q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(level == depth) <span class="keyword">break</span>;</span><br><span class="line">            <span class="type">int</span> sz = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">while</span>(sz-- &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* cur = q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">if</span>(level+<span class="number">1</span> == depth)</span><br><span class="line">                &#123;</span><br><span class="line">                    TreeNode* l = cur-&gt;left;</span><br><span class="line">                    TreeNode* r = cur-&gt;right;</span><br><span class="line">                    cur-&gt;left = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(val);</span><br><span class="line">                    cur-&gt;right = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(val);</span><br><span class="line">                    cur-&gt;left-&gt;left = l;</span><br><span class="line">                    cur-&gt;right-&gt;right = r;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(cur-&gt;left) q.<span class="built_in">push</span>(cur-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(cur-&gt;right) q.<span class="built_in">push</span>(cur-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            ++level;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>刷题</category>
         <category>leetcode每日一题</category>
@@ -432,7 +460,7 @@
 <h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
 <li>该题仍然是考察位运算，但并非利用异或（如果题目中的要求提及其他元素恰出现两次，则可以利用异或操作来解题）。<ul>
 <li>把每个整数看成二进制表达形式，当同一个数出现三次，则可以看作将对应位上的 <code>0</code> 或 <code>1</code> 出现三次。</li>
-<li>遍历每个数值，将数值对应的 32 位二进制出现的 <code>1</code> 出现的次数进行<strong>对应位置上的累加</strong>【累加到一个 32 位数组中进行保存】。</li>
+<li>遍历每个数值，将数值对应的 32 位二进制出现的 <code>1</code> 出现的次数进行<strong>对应位置上的累加</strong>（累加到一个 32 位数组中进行保存）。</li>
 <li>遍历完成后从 32 位的数组中取出每一位上的数值，并将每一位进行 <code>mod 3</code> 操作然后提取出对应位上的 <code>0</code> 或 <code>1</code> 即可。</li>
 </ul>
 </li>
@@ -592,6 +620,72 @@
       <categories>
         <category>算法</category>
         <category>图论</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【字符串】最小表示法</title>
+    <url>/p/840c62d6.html</url>
+    <content><![CDATA[<h2 id="相关概念："><a href="#相关概念：" class="headerlink" title="相关概念："></a>相关概念：</h2><ul>
+<li>在介绍后续算法前，首先要理解<strong>循环同构</strong>的概念。<ul>
+<li>定义太拗口了，可以直接看例子：字符串 <code>abcd</code> 的循环同构有 <code>bcda</code>、<code>cdab</code> 和 <code>dabc</code>。</li>
+</ul>
+</li>
+<li><strong>最小表示法</strong>是用来解决<strong>字符串最小表示问题</strong>的方法。<ul>
+<li>而字符串的最小表示指的是字符串和它的<strong>所有循环同构中</strong>字典序最小的字符串。</li>
+</ul>
+</li>
+<li>算法最后只需要返回循环同构中字典序最小的字符串的起始位置即可。</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>可以把字符串看作是可循环的字符串，通常循环串的题目，都可以对循环串进行相应的处理：<strong>复制一倍</strong>。<ul>
+<li>如字符串 <code>abcd</code> 复制一倍即变成 <code>abcdabcd</code>，如此在新的字符串中就可以访问到原字符串的所有循环同构。</li>
+<li>实际代码中不需要真的开辟两倍的数组空间，只需要通过取模运算进行访问数组即可。【假设访问循环串 <code>S</code> 的当前索引为 <code>i</code>，而 <code>i &gt; n</code>，其中 <code>n</code> 为字符串大小，则可以通过 <code>S[i%n]</code> 来访问到对应字符】</li>
+</ul>
+</li>
+<li>最小表示法的<strong>暴力解法</strong>很直观，因为已经进行复制一倍的操作，所以循环字符串的所有可能性都可以线性访问。<ul>
+<li>则可以维护三个变量 <code>i</code>、<code>j</code> 和 <code>k</code>，<code>i</code> 和 <code>j</code> 表示两个字符串的起始索引，<code>k</code> 表示两个字符串同步访问的距离。</li>
+<li>暴力解法只需要以 <code>O(n)</code> 的时间复杂度遍历所有的两对字符串，再在每一次遍历中以 <code>O(n)</code> 的时间复杂度对比两个字符串的字典序，对比完成后保留字典序更小的字符串起始位置即可（另一个位置向后移动）。</li>
+</ul>
+</li>
+<li>可以从具体例子中理解暴力法的遍历过程：<ol>
+<li>假设字符串 <code>s</code> 为 <code>abcd</code>，字符串长度 <code>n = 4</code>，且初始化 <code>i = 0</code>、<code>j = 1</code> 和 <code>k = 0</code>：<br><img src="/p/840c62d6/最小表示法.jpg" alt="最小表示法"></li>
+<li>移动 <code>k</code> 之后，此时 <code>i = 0</code>、<code>j = 1</code> 和 <code>k = 1</code>：<br><img src="/p/840c62d6/最小表示法_2.jpg" alt="最小表示法_2"></li>
+<li>在上一步的比较结束后，<strong>保留字典序更小的字符串的起始位置</strong> <code>i</code>，而将第二个字符串的起始位置 <code>j</code> 向后移动，此时需要进行下一次比较，因而重置 <code>k = 0</code>：<br><img src="/p/840c62d6/最小表示法_3.jpg" alt="最小表示法_3"></li>
+<li>后续的遍历同理，所有遍历完之后返回 <code>min(i, j)</code> 即可。</li>
+</ol>
+</li>
+<li>上述暴力解法其实是 <code>O(n^2)</code> 的时间复杂度，但是整个过程中有些比较可以避免，经过优化可以使得时间复杂度降为 <code>O(n)</code>：<ul>
+<li>考虑以下的情况，字符串 <code>s</code> 为 <code>acacab</code>，且 <code>i = 0</code>、<code>j = 2</code> 和 <code>k = 3</code>，在本次比较完成后对 <code>i</code> 更新为 <code>i + k + 1</code> 以进行下一次比较（而在暴力法中会将 <code>i</code> 更新为 <code>i + 1</code>）：<br><img src="/p/840c62d6/最小表示法_4.jpg" alt="最小表示法_4"></li>
+<li>优化的关键在于此：当以 <code>i</code> 为起始位置字符串的字典序更大时，会将 <code>i</code> 更新为 <code>i + k + 1</code>，因为所有以 <code>i + p</code> 为起始位置的字符串<strong>均无需再进行比较</strong>（<code>p</code> 的取值范围为 <code>[0, k]</code>）。<ul>
+<li>以 <code>i + p</code> 为起始位置的字符串，一定存在以 <code>j + p</code> 为起始位置的字符串比它更优。</li>
+</ul>
+</li>
+<li>事实上还避免了很多其他情况，但上述情况已经可以说明优化后解法的正确性。</li>
+</ul>
+</li>
+</ul>
+<h2 id="算法步骤："><a href="#算法步骤：" class="headerlink" title="算法步骤："></a>算法步骤：</h2><ul>
+<li>优化后解法步骤如下：<ol>
+<li>将字符串复制一倍。【此操作非必要】</li>
+<li>初始化指针 <code>i = 0</code>、<code>j = 1</code>，初始化匹配长度 <code>k = 0</code>。</li>
+<li>根据匹配位置 <code>k</code> 进行比较，根据比较结果移动相应指针，同时重置匹配长度 <code>k</code>；若指针移动后，两指针相同，则移动指针 <code>j</code>。</li>
+<li>重复上一步骤直到比较结束。</li>
+<li>最后的结果为 <code>min(i, j)</code>。【返回结果是字符串的起始索引】</li>
+</ol>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">minimal_representation</span><span class="params">(string&amp; s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> n = s.<span class="built_in">size</span>();</span><br><span class="line">  <span class="type">int</span> k = <span class="number">0</span>, i = <span class="number">0</span>, j = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">while</span> (k &lt; n &amp;&amp; i &lt; n &amp;&amp; j &lt; n)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> (s[(i + k) % n] == s[(j + k) % n]) ++k;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      s[(i + k) % n] &gt; s[(j + k) % n] ? i = i + k + <span class="number">1</span> : j = j + k + <span class="number">1</span>;</span><br><span class="line">      <span class="keyword">if</span> (i == j) j++;</span><br><span class="line">      k = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  i = <span class="built_in">min</span>(i, j);</span><br><span class="line">  <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="部分题目："><a href="#部分题目：" class="headerlink" title="部分题目："></a>部分题目：</h2><ul>
+<li>leetcode - 796.旋转字符串【比较两个字符串的最小表示结果是否相等】</li>
+<li>leetcode - 899.有序队列</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+        <category>字符串</category>
       </categories>
       <tags>
         <tag>算法</tag>
