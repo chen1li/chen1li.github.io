@@ -189,6 +189,115 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/c01d5eb7.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/c01d5eb7.html" class="post-title-link" itemprop="url">【leetcode】【2022/8/8】761. 特殊的二进制序列</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-08-08 10:34:46 / 修改时间：11:47:11" itemprop="dateCreated datePublished" datetime="2022-08-08T10:34:46+08:00">2022-08-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leetcode每日一题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li><strong>特殊的二进制序列</strong>满足以下性质：<ol>
+<li><code>0</code> 的数量与 <code>1</code> 的数量相等。</li>
+<li>二进制序列的每一个<strong>前缀码</strong>中 <code>1</code> 的数量要<strong>大于等于</strong> <code>0</code> 的数量。</li>
+</ol>
+</li>
+<li>可以将两个<strong>临近的</strong>非空的特殊二进制序列进行交换，将这样的交换称作一次<strong>移动</strong>。</li>
+<li>将给定的特殊二进制序列进行任意次的移动操作，返回字典序最大的移动结果。</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>该题难度较大，难在理解题意，把大问题拆分成小问题后，递归处理小问题即可。</li>
+<li>首先要理解题目中多个定义的具体意思。<ul>
+<li>把 <code>1</code> 看作左括号 <code>(</code>，把 <code>0</code> 看作右括号 <code>)</code>，则特殊的二进制序列可以理解成<strong>合法的括号</strong>（Valid Parentheses，后面都用 VP 表示特殊序列）。【合法的括号满足特殊序列的两个条件，两种说法是等价的】</li>
+<li>由条件 1 和条件 2 可以总结出，所谓的<strong>特殊的二进制序列</strong>可以递归地拆分成子序列的连接，其中子序列也满足特殊二进制序列的条件，一个合格的 VP 可能是以下两种格式：<ol>
+<li>由单独的嵌套 VP 构成，如 <code>(())</code>，即 <code>1100</code>。【注意 <code>()</code> 也可以理解成外部为 <code>()</code>，内部为空】</li>
+<li>由一系列连续的 sub-VP（即子 VP）构成，如 <code>()(())</code>（由 <code>()</code>、<code>(())</code> 两部分构成），即 <code>101100</code>。</li>
+</ol>
+</li>
+<li>特殊的二进制序列的<strong>条件 1</strong> 说明遍历序列时，假若当前遇到的 <code>0</code> 和遇到的 <code>1</code> 在数量上相等，则说明遇到了序列的结尾。</li>
+<li>一个序列的<strong>前缀</strong>指的是处在序列前面的成分，如序列 <code>1100</code> 的前缀可以是 <code>1</code>、<code>11</code> 或 <code>110</code>。</li>
+<li>移动操作将两个连续的（即临近的）特殊二进制序列进行交换使得最后结果字典序最大，可以理解成<strong>冒泡排序</strong>中交换临近两个元素的操作最后使得结果降序排列。</li>
+</ul>
+</li>
+<li>理解题意后，则可以思考如何处理该题：<ol>
+<li>维护一个计数器 <code>cnt</code> 来记录是否遇到结尾，具体来说，遇到 <code>0</code> 就将 <code>cnt-1</code>，遇到 <code>1</code> 就将 <code>cnt+1</code>，假若 <code>cnt == 0</code>，则说明遇到了一个完整的 VP。</li>
+<li>遇到一个完整的 VP，就可以递归进入其嵌套内部处理（将 VP 拆分成 <code>1 + 内部 VP + 0</code>），递归进入处理使得内部 VP 字典序最大，</li>
+<li>因为一个 VP 可以能由多个 sub-VP 构成，所以当递归处理了所有 sub-VP 之后，将所有子 VP 进行降序排序即可。</li>
+</ol>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/c01d5eb7.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/p/842dab5b.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -212,10 +321,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-08-07 22:57:04 / 修改时间：23:20:16" itemprop="dateCreated datePublished" datetime="2022-08-07T22:57:04+08:00">2022-08-07</time>
+              <time title="创建时间：2022-08-07 22:57:04" itemprop="dateCreated datePublished" datetime="2022-08-07T22:57:04+08:00">2022-08-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-08 10:38:32" itemprop="dateModified" datetime="2022-08-08T10:38:32+08:00">2022-08-08</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -245,7 +360,7 @@
 <li>给定一个整数数组和一个整数 <code>k</code>，返回该数组中和为 <code>k</code> 的连续子数组的个数。</li>
 </ul>
 <h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
-<li>第一反应仍然是滑动窗口模板解题，但实际上不可以用滑动窗口来解此题，因为在滑动窗口问题中，<strong>必须维持窗口满足某个条件</strong>，而在该题中这个需要满足的条件为<strong>和为 <code>k</code></strong>，这是无法通过衰减窗口来维护的。【数组中有正有负，衰减窗口对条件的影响无法确定】</li>
+<li>第一反应仍然是滑动窗口模板解题，但实际上不可以用滑动窗口来解此题，因为在滑动窗口问题中，<strong>必须维持窗口满足某个条件</strong>，而在该题中这个需要满足的条件为<strong>和为</strong> <code>k</code>，这是无法通过衰减窗口来维护的。【数组中有正有负，衰减窗口对条件的影响无法确定】</li>
 <li>该题的正确做法应该是利用<strong>前缀和</strong>。<ul>
 <li>简单地来说，从前往后累加数值，得到当前的前缀和 <code>prefix_sum(i)</code>，只需要将 <code>prefix_sum(i)</code> 与<strong>早前出现的前缀和</strong> <code>prefix_sum(j)</code> 作相减并判断相减结果是否 <code>k</code> 就可以知道区间为 <code>[i, j]</code> 的子数组是否求和为 <code>k</code>。【即两个前缀和相减可以求得相应区间的求和】</li>
 <li>如此便可以在遍历过程中利用<strong>哈希表</strong>来保存早前出现的前缀和（哈希表记录前缀和的频数）。</li>
@@ -303,10 +418,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-08-07 17:16:53 / 修改时间：20:43:46" itemprop="dateCreated datePublished" datetime="2022-08-07T17:16:53+08:00">2022-08-07</time>
+              <time title="创建时间：2022-08-07 17:16:53" itemprop="dateCreated datePublished" datetime="2022-08-07T17:16:53+08:00">2022-08-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-08 01:40:52" itemprop="dateModified" datetime="2022-08-08T01:40:52+08:00">2022-08-08</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -397,10 +518,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-08-07 13:01:01 / 修改时间：13:21:39" itemprop="dateCreated datePublished" datetime="2022-08-07T13:01:01+08:00">2022-08-07</time>
+              <time title="创建时间：2022-08-07 13:01:01" itemprop="dateCreated datePublished" datetime="2022-08-07T13:01:01+08:00">2022-08-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-08 01:40:52" itemprop="dateModified" datetime="2022-08-08T01:40:52+08:00">2022-08-08</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -1034,130 +1161,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/p/840c62d6.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/maomao.jpg">
-      <meta itemprop="name" content="伊利">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cyl's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/p/840c62d6.html" class="post-title-link" itemprop="url">【字符串】最小表示法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-08-04 22:31:13" itemprop="dateCreated datePublished" datetime="2022-08-04T22:31:13+08:00">2022-08-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-05 15:00:44" itemprop="dateModified" datetime="2022-08-05T15:00:44+08:00">2022-08-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/%E5%AD%97%E7%AC%A6%E4%B8%B2/" itemprop="url" rel="index"><span itemprop="name">字符串</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="相关概念："><a href="#相关概念：" class="headerlink" title="相关概念："></a>相关概念：</h2><ul>
-<li>在介绍后续算法前，首先要理解<strong>循环同构</strong>的概念。<ul>
-<li>定义太拗口了，可以直接看例子：字符串 <code>abcd</code> 的循环同构有 <code>bcda</code>、<code>cdab</code> 和 <code>dabc</code>。</li>
-</ul>
-</li>
-<li><strong>最小表示法</strong>是用来解决<strong>字符串最小表示问题</strong>的方法。<ul>
-<li>而字符串的最小表示指的是字符串和它的<strong>所有循环同构中</strong>字典序最小的字符串。</li>
-</ul>
-</li>
-<li>算法最后只需要返回循环同构中字典序最小的字符串的起始位置即可。</li>
-</ul>
-<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
-<li>可以把字符串看作是可循环的字符串，通常循环串的题目，都可以对循环串进行相应的处理：<strong>复制一倍</strong>。<ul>
-<li>如字符串 <code>abcd</code> 复制一倍即变成 <code>abcdabcd</code>，如此在新的字符串中就可以访问到原字符串的所有循环同构。</li>
-<li>实际代码中不需要真的开辟两倍的数组空间，只需要通过取模运算进行访问数组即可。【假设访问循环串 <code>S</code> 的当前索引为 <code>i</code>，而 <code>i &gt; n</code>，其中 <code>n</code> 为字符串大小，则可以通过 <code>S[i%n]</code> 来访问到对应字符】</li>
-</ul>
-</li>
-<li>最小表示法的<strong>暴力解法</strong>很直观，因为已经进行复制一倍的操作，所以循环字符串的所有可能性都可以线性访问。<ul>
-<li>则可以维护三个变量 <code>i</code>、<code>j</code> 和 <code>k</code>，<code>i</code> 和 <code>j</code> 表示两个字符串的起始索引，<code>k</code> 表示两个字符串同步访问的距离。</li>
-<li>暴力解法只需要以 <code>O(n)</code> 的时间复杂度遍历所有的两对字符串，再在每一次遍历中以 <code>O(n)</code> 的时间复杂度对比两个字符串的字典序，对比完成后保留字典序更小的字符串起始位置即可（另一个位置向后移动）。</li>
-</ul>
-</li>
-<li>可以从具体例子中理解暴力法的遍历过程：<ol>
-<li>假设字符串 <code>s</code> 为 <code>abcd</code>，字符串长度 <code>n = 4</code>，且初始化 <code>i = 0</code>、<code>j = 1</code> 和 <code>k = 0</code>：<br><img src="/p/840c62d6/最小表示法.jpg" alt="最小表示法"></li>
-<li>移动 <code>k</code> 之后，此时 <code>i = 0</code>、<code>j = 1</code> 和 <code>k = 1</code>：<br><img src="/p/840c62d6/最小表示法_2.jpg" alt="最小表示法_2"></li>
-<li>在上一步的比较结束后，<strong>保留字典序更小的字符串的起始位置</strong> <code>i</code>，而将第二个字符串的起始位置 <code>j</code> 向后移动，此时需要进行下一次比较，因而重置 <code>k = 0</code>：<br><img src="/p/840c62d6/最小表示法_3.jpg" alt="最小表示法_3"></li>
-<li>后续的遍历同理，所有遍历完之后返回 <code>min(i, j)</code> 即可。</li>
-</ol>
-</li>
-<li>上述暴力解法其实是 <code>O(n^2)</code> 的时间复杂度，但是整个过程中有些比较可以避免，经过优化可以使得时间复杂度降为 <code>O(n)</code>：<ul>
-<li>考虑以下的情况，字符串 <code>s</code> 为 <code>acacab</code>，且 <code>i = 0</code>、<code>j = 2</code> 和 <code>k = 3</code>，在本次比较完成后对 <code>i</code> 更新为 <code>i + k + 1</code> 以进行下一次比较（而在暴力法中会将 <code>i</code> 更新为 <code>i + 1</code>）：<br><img src="/p/840c62d6/最小表示法_4.jpg" alt="最小表示法_4"></li>
-<li>优化的关键在于此：当以 <code>i</code> 为起始位置字符串的字典序更大时，会将 <code>i</code> 更新为 <code>i + k + 1</code>，因为所有以 <code>i + p</code> 为起始位置的字符串<strong>均无需再进行比较</strong>（<code>p</code> 的取值范围为 <code>[0, k]</code>）。<ul>
-<li>以 <code>i + p</code> 为起始位置的字符串，一定存在以 <code>j + p</code> 为起始位置的字符串比它更优。</li>
-</ul>
-</li>
-<li>事实上还避免了很多其他情况，但上述情况已经可以说明优化后解法的正确性。</li>
-</ul>
-</li>
-</ul>
-<h2 id="算法步骤："><a href="#算法步骤：" class="headerlink" title="算法步骤："></a>算法步骤：</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/p/840c62d6.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1229,7 +1232,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
