@@ -521,6 +521,65 @@
       </tags>
   </entry>
   <entry>
+    <title>【leetcode】【2022/8/11】1417. 重新格式化字符串</title>
+    <url>/p/dc7e3b2b.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一个混合了数字和字母的字符串 <code>s</code>，其中的字母均为小写英文字母。<ul>
+<li>将该字符串重新格式化，使得任意两个相邻字符的类型都不同。</li>
+<li>返回重新格式化后的字符串；如果无法按要求重新格式化，则返回一个空字符串。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>该题较为简单，统计字符串中字母和数字的数目，再将数目更多的类型放置在字符串偶数位上，另一种类型放置在奇数位上。【索引从 <code>0</code> 开始，所以偶数位上放置数目更多的类型】<ul>
+<li>该题难在如何原地修改字符串，官方题解很简洁，利用一个布尔值 <code>flag</code> 记录数目更多的类型，具体看代码注释即可。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">reformat</span><span class="params">(string&amp; s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 统计数字字符的个数</span></span><br><span class="line">        <span class="type">int</span> sum_digit = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">char</span>&amp; c : s) <span class="keyword">if</span>(<span class="built_in">isdigit</span>(c)) ++sum_digit;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 统计字母字符的个数</span></span><br><span class="line">        <span class="type">int</span> sum_alpha = s.<span class="built_in">size</span>() - sum_digit;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 比较数字和字母的个数</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">abs</span>(sum_digit - sum_alpha) &gt; <span class="number">1</span>) <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">bool</span> flag = sum_digit &gt; sum_alpha; <span class="comment">// 如果flag为true，则说明digit个数更多</span></span><br><span class="line">        <span class="comment">// 用flag来确认哪个字符放置在偶数位上（索引是从0开始，偶数位的元素更多）</span></span><br><span class="line">        <span class="comment">// 接下来遍历中，i为偶数位，j为计数位，两个都是跨两步向后移动</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">1</span>; i &lt; s.<span class="built_in">size</span>(); i += <span class="number">2</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">isdigit</span>(s[i]) != flag) <span class="comment">// 如果偶数位上的类型和数量多的类型不一致，则需要进行交换</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span>(<span class="built_in">isdigit</span>(s[j]) != flag) <span class="comment">// 如果奇数位上的类型和数量多的类型不一致，则说明该奇数位上类型是正确的，向后跳两步【注意j是无法越界的】</span></span><br><span class="line">                    j +=<span class="number">2</span>;</span><br><span class="line">                <span class="built_in">swap</span>(s[i], s[j]); <span class="comment">// 交换的前提是 (isdigit(s[i]) != flag) and (isdigit(s[j]) == flag)</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>leetcode每日一题</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【leetcode】【2022/8/12】1282. 用户分组</title>
+    <url>/p/b5a550a8.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>有 <code>n</code> 个人（分别被标记为 <code>0</code> 到 <code>n-1</code>），他们被分到未知数量的组中。<ul>
+<li>给定数组 <code>groupSizes</code>，其中 <code>groupSizes[i]</code> 是第 <code>i</code> 个人<strong>所在的组的大小</strong>。</li>
+<li>返回组列表。【即一个数组保存组中成员的索引，多个数组组成多个组】</li>
+</ul>
+</li>
+<li>例子：<ul>
+<li>输入：<code>groupSizes = [3,3,3,3,3,1,3]</code>。</li>
+<li>输出：<code>[[5],[0,1,2],[3,4,6]]</code>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>纯模拟题，学会用数据结构进行映射即可。<ul>
+<li>将所有处在同一大小数组的索引存放在一起，如处在组大小为 <code>1</code> 的索引存放在同一堆中，后续再在这一堆中不断取索引并生成大小为 <code>1</code> 的组。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><ul>
+<li>代码实现如下：<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">groupThePeople</span>(vector&lt;<span class="type">int</span>&gt;&amp; groupSizes)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> m = groupSizes.<span class="built_in">size</span>();</span><br><span class="line">        unordered_map&lt;<span class="type">int</span>, vector&lt;<span class="type">int</span>&gt;&gt; mapped;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; ++i)</span><br><span class="line">            mapped[groupSizes[i]].<span class="built_in">push_back</span>(i);</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; ans;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span>&amp; [cnt, vec] : mapped)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span>(i &lt; vec.<span class="built_in">size</span>())</span><br><span class="line">            &#123;</span><br><span class="line">                vector&lt;<span class="type">int</span>&gt; tmp;</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; cnt; ++j)</span><br><span class="line">                    tmp.<span class="built_in">push_back</span>(vec[i++]);</span><br><span class="line">                ans.<span class="built_in">push_back</span>(tmp);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li>评论中 mike-meng 网友的代码实现：【用迭代器参数构造数组，更优雅】<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">groupThePeople</span>(vector&lt;<span class="type">int</span>&gt;&amp; groupSizes) &#123;</span><br><span class="line">        unordered_map&lt;<span class="type">int</span>,vector&lt;<span class="type">int</span>&gt;&gt; group;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; groupSizes.<span class="built_in">size</span>(); ++i)&#123;</span><br><span class="line">            group[groupSizes[i]].<span class="built_in">push_back</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp; it : group)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> curr = it.second.<span class="built_in">begin</span>(); curr != it.second.<span class="built_in">end</span>(); curr += it.first)&#123;</span><br><span class="line">                res.<span class="built_in">push_back</span>(<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(curr,curr+it.first));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>leetcode每日一题</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【leetcode】【剑指offer Ⅱ】001. 整数除法</title>
     <url>/p/48dd08e5.html</url>
     <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
@@ -892,10 +951,11 @@
 <h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">checkInclusion</span><span class="params">(string s1, string s2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> m = s1.<span class="built_in">size</span>(), n = s2.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span>(m &gt; n) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(<span class="number">26</span>)</span>, <span class="title">b</span><span class="params">(<span class="number">26</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; ++i)</span><br><span class="line">            ++a[s1[i]-<span class="string">&#x27;a&#x27;</span>], ++b[s2[i]-<span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">        <span class="keyword">if</span>(a == b) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = m; i &lt; n; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            ++b[s2[i]-<span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">            --b[s2[i-m]-<span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">            <span class="keyword">if</span>(a == b) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>刷题</category>
-        <category>leetcode每日一题</category>
+        <category>剑指offer Ⅱ</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
+        <tag>剑指offer Ⅱ</tag>
       </tags>
   </entry>
   <entry>
@@ -916,10 +976,11 @@
 <h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">findAnagrams</span><span class="params">(string s, string p)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> m = p.<span class="built_in">size</span>(), n = s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span>(m &gt; n) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(<span class="number">26</span>)</span>, <span class="title">b</span><span class="params">(<span class="number">26</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; ++i)</span><br><span class="line">            ++a[s[i]-<span class="string">&#x27;a&#x27;</span>], ++b[p[i]-<span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; ans;</span><br><span class="line">        <span class="keyword">if</span>(a == b) ans.<span class="built_in">push_back</span>(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = m; i &lt; n; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            ++a[s[i]-<span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">            --a[s[i-m]-<span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">            <span class="keyword">if</span>(a == b) ans.<span class="built_in">push_back</span>(i-m+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>刷题</category>
-        <category>leetcode每日一题</category>
+        <category>剑指offer Ⅱ</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
+        <tag>剑指offer Ⅱ</tag>
       </tags>
   </entry>
   <entry>
@@ -940,10 +1001,98 @@
 <h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(string s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> m = s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> len = <span class="number">0</span>;</span><br><span class="line">        unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; cnt;</span><br><span class="line">        <span class="keyword">while</span>(r &lt; m)</span><br><span class="line">        &#123;</span><br><span class="line">            ++cnt[s[r++]];</span><br><span class="line">            <span class="keyword">while</span>(cnt[s[r<span class="number">-1</span>]] &gt; <span class="number">1</span>) <span class="comment">// l 达不到 r</span></span><br><span class="line">                --cnt[s[l++]];</span><br><span class="line">            len = <span class="built_in">max</span>(len, r-l);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> len;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>刷题</category>
-        <category>leetcode每日一题</category>
+        <category>剑指offer Ⅱ</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
+        <tag>剑指offer Ⅱ</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【leetcode】【剑指offer Ⅱ】017. 含有所有字符的最短字符串</title>
+    <url>/p/45b8bf81.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定两个字符串 <code>s</code> 和 <code>t</code>，返回 <code>s</code> 中包含 <code>t</code> 的所有字符的最短子字符串。【<code>t</code> 中可能存在重复字符，重复字符的数量也需要得到保证】<ul>
+<li>如果 <code>s</code> 中不存在符合条件的子字符串，则返回空字符串。</li>
+<li>如果 <code>s</code> 中存在多个符合条件的子字符串，返回任意一个。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>该题是用滑动窗口思想来解题，简单来说，只需要保持窗口中字符不重复即可（用哈希表记录字符串 <code>t</code> 中字母的频数）。【但想要维护窗口中字符不重复也并非易事】<ul>
+<li>暴力的方法是在每一次更新窗口时遍历检查哈希表，查看保存的频数是否超过 <code>1</code>。</li>
+</ul>
+</li>
+<li>但显然需要更好的思路来优化时间复杂度。<ul>
+<li>用哈希表记录字符串 <code>t</code> 中字母的频数，确切地来说，初始化哈希表时遍历 <code>t</code>，遇到一个字母，<strong>哈希表中对应频数减一</strong>。</li>
+<li>后续遍历字符串 <code>s</code> 的时候就可以在<strong>同一个哈希表中</strong>进行更新，即在遍历 <code>s</code> 时，遇到一个字母，<strong>哈希表中对应频数加一</strong>。【由此可以看出，<strong>哈希表记录的是窗口中字母与字符串</strong> <code>t</code> <strong>中对应字母的差值</strong>】</li>
+<li>同时用一个变量 <code>cnt</code> 记录字符串 <code>t</code> 中<strong>非重复字母的个数</strong>。【<code>cnt</code> 的作用很关键，用它可以判断窗口是否满足条件（条件是窗口包含 <code>t</code> 中所有字符）】</li>
+</ul>
+</li>
+<li><code>cnt</code> 需要和哈希表搭配使用：<ul>
+<li>当哈希表中某个元素从负数升至 <code>0</code>，则说明窗口中字母与字符串 <code>t</code> 中对应字母的差值变为 <code>0</code>，则计数 <code>cnt</code> 需要减一。</li>
+<li>当哈希表中某个元素从 <code>0</code> 降至负数，则说明窗口中字母个数少于字符串 <code>t</code> 中对应字母的个数，则计数 <code>cnt</code> 需要加一。</li>
+<li>因此当 <code>cnt = 0</code> 时，窗口满足条件（满足条件就可以减小窗口）。【<code>cnt</code> 不可能降为负值，直观地来说，<code>cnt</code> 记录的就是哈希表中存在多少个负值】</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">minWindow</span><span class="params">(string s, string t)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> m = s.<span class="built_in">size</span>(), n = t.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span>(n &gt; m) <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; a;</span><br><span class="line">        <span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(a.<span class="built_in">count</span>(t[i]) == <span class="number">0</span>) ++cnt; <span class="comment">// 记录t串中有多少个不同的字母</span></span><br><span class="line">            --a[t[i]];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> idx = <span class="number">-1</span>, len = m+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(r &lt; m)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(++a[s[r++]] == <span class="number">0</span>) --cnt;</span><br><span class="line">            <span class="keyword">while</span>(l &lt; r <span class="keyword">and</span> cnt == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(r - l &lt; len) idx = l, len = r - l;</span><br><span class="line">                <span class="keyword">if</span>(a[s[l++]]-- == <span class="number">0</span>) ++cnt;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> idx == <span class="number">-1</span> ? <span class="string">&quot;&quot;</span> : s.<span class="built_in">substr</span>(idx, len);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>剑指offer Ⅱ</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>剑指offer Ⅱ</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【leetcode】【剑指offer Ⅱ】018. 有效的回文</title>
+    <url>/p/a3ee315b.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一个字符串 <code>s</code>，验证 <code>s</code> 是否是回文串。<ul>
+<li>只考虑字母和数字字符，可以忽略字母的大小写。</li>
+<li>将空字符串定义为有效的回文串。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>该题的解法很直白，前后双指针往中间移动即可。</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isPalindrome</span><span class="params">(string s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = s.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(l &lt; r)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span>(l &lt; r <span class="keyword">and</span> !<span class="built_in">isalnum</span>(s[r])) <span class="comment">// isalnum = isalpha + isdigit</span></span><br><span class="line">                --r;</span><br><span class="line">            <span class="keyword">while</span>(l &lt; r <span class="keyword">and</span> !<span class="built_in">isalnum</span>(s[l]))</span><br><span class="line">                ++l;</span><br><span class="line">            <span class="keyword">if</span>(l &gt;= r) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">toupper</span>(s[l++]) != <span class="built_in">toupper</span>(s[r--]))</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>剑指offer Ⅱ</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>剑指offer Ⅱ</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【leetcode】【剑指offer Ⅱ】019. 最多删除一个字符得到回文</title>
+    <url>/p/d9ade33e.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一个非空字符串 <code>s</code>，请判断如果最多从字符串中删除一个字符能否得到一个回文字符串。</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>回文问题用双指针。<ul>
+<li>递归处理问题，如果双指针对应的字符相等，则同时向中间移动（<code>++l, --r</code>）；但如果双指针对应的字符不相等且是第一次不相等，则考虑只移动左指针（<code>++l</code>）或只移动右指针（<code>--r</code>）。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><ul>
+<li>代码实现如下：【直接递归，数据量不大，可以通过】<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">dfs</span><span class="params">(string&amp; s, <span class="type">int</span> l, <span class="type">int</span> r, <span class="type">bool</span> flag)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(l &gt; r) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span>(s[l] == s[r])</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">dfs</span>(s, l+<span class="number">1</span>, r<span class="number">-1</span>, flag);</span><br><span class="line">        <span class="keyword">if</span>(!flag) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">dfs</span>(s, l, r<span class="number">-1</span>, <span class="literal">false</span>) <span class="keyword">or</span> <span class="built_in">dfs</span>(s, l+<span class="number">1</span>, r, <span class="literal">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">validPalindrome</span><span class="params">(string&amp; s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">dfs</span>(s, <span class="number">0</span>, s.<span class="built_in">size</span>()<span class="number">-1</span>, <span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li>另一版代码如下：【迭代比较，遇到不相等才调用一个同样操作的函数】<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isValid</span><span class="params">(string&amp; s, <span class="type">int</span> lo, <span class="type">int</span> hi)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(lo &lt; hi)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[lo] != s[hi])</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            ++lo, --hi;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">validPalindrome</span><span class="params">(string&amp; s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> lo = <span class="number">0</span>, hi = s.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(lo &lt; hi)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[lo] != s[hi])<span class="comment">// 第一次出错，就继续进入isValid，isValid做的事和这个函数的一样</span></span><br><span class="line">                <span class="keyword">return</span> <span class="built_in">isValid</span>(s, lo, hi<span class="number">-1</span>) || <span class="built_in">isValid</span>(s, lo+<span class="number">1</span>, hi);</span><br><span class="line">            ++lo, --hi;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>剑指offer Ⅱ</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>剑指offer Ⅱ</tag>
       </tags>
   </entry>
   <entry>
@@ -1006,6 +1155,37 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【leetcode】【剑指offer Ⅱ】020. 回文子字符串的个数</title>
+    <url>/p/e22efff6.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一个字符串 <code>s</code>，返回字符串中回文子字符串的个数。</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>标准动态规划题目，相当于双指针思想。<ul>
+<li><code>dp[i][j]</code> 表示 <code>s[i,...,j]</code> 能否组成回文串。【如果 <code>dp[i][j] = 1</code> 说明 <code>s[i,...,j]</code> 是回文串，因而统计 <code>dp</code> 数组中 <code>1</code> 的个数即可】</li>
+</ul>
+</li>
+<li><code>dp</code> 数组中的状态转移如下：<ol>
+<li>当 <code>s[i] != s[j]</code>，则 <code>dp[i][j]</code> 为 <code>0</code>。</li>
+<li>当 <code>s[i] == s[j]</code>，则需要判断索引 <code>i</code> 与 <code>j</code> 的距离：<ol>
+<li>当 <code>j-i &lt;= 1</code>，则 <code>dp[i][j]</code> 为 <code>1</code>。</li>
+<li>当 <code>j-i &gt; 1</code>，则 <code>dp[i][j]</code> 的值取决于 <code>dp[i+1][j-1]</code>。【相当于字符串双指针同时向内移动，即 <code>s[i,...,j]</code> 是否为回文串现在取决于 <code>s[i+1,...,j-1]</code>】</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">countSubstrings</span><span class="params">(string s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> m = s.<span class="built_in">size</span>();</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">dp</span>(m, <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(m));</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = m<span class="number">-1</span>; i &gt;= <span class="number">0</span>; --i) <span class="keyword">for</span>(<span class="type">int</span> j = i; j &lt; m; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i] == s[j] <span class="built_in">and</span> (j-i &lt;= <span class="number">1</span> <span class="keyword">or</span> dp[i+<span class="number">1</span>][j<span class="number">-1</span>]))</span><br><span class="line">                dp[i][j] = <span class="number">1</span>, ++cnt;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>剑指offer Ⅱ</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>剑指offer Ⅱ</tag>
       </tags>
   </entry>
   <entry>
