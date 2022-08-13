@@ -189,6 +189,106 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/86b9ee08.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/86b9ee08.html" class="post-title-link" itemprop="url">【leetcode】【剑指offer Ⅱ】014. 字符串中的变位词</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-09 12:11:14" itemprop="dateCreated datePublished" datetime="2022-08-09T12:11:14+08:00">2022-08-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-11 16:03:16" itemprop="dateModified" datetime="2022-08-11T16:03:16+08:00">2022-08-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/%E5%89%91%E6%8C%87offer-%E2%85%A1/" itemprop="url" rel="index"><span itemprop="name">剑指offer Ⅱ</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定两个字符串 <code>s1</code> 和 <code>s2</code>，写一个函数来判断 <code>s2</code> 是否包含 <code>s1</code> 的某个变位词。<ul>
+<li>换句话说，<code>s1</code> 的排列之一是 <code>s2</code> 的子串。</li>
+<li>字符串中只有小写字母。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>该题的解题利用了滑动窗口和计数思想。<ul>
+<li>利用数组来记录字符串中字母出现的频数，具体来说，用数组 <code>a</code> 记录 <code>s1</code> 中字母出现的频数，用数组 <code>b</code> 记录 <code>s2</code> 中前 <code>s1.size()</code> 个字母出现的频数。</li>
+<li>也就是说，初始化时数组 <code>b</code> 用来记录 <code>s2</code> 中长度为 <code>s1.size()</code> 的固定长度窗口，后续移动窗口的覆盖区域（窗口长度不变，后边添加一个元素，前边就减少一个元素），移动的过程中更新数组 <code>b</code> 记录的频数即可。</li>
+<li>用 <code>a == b</code> 就可以判断 <code>s1</code> 是否 <code>s2</code> 某个子串的排列。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/86b9ee08.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/p/7584ade8.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1073,97 +1173,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/p/3be58721.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/maomao.jpg">
-      <meta itemprop="name" content="伊利">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cyl's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/p/3be58721.html" class="post-title-link" itemprop="url">【leetcode】【剑指offer Ⅱ】007. 数组中和为 0 的三个数</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-08-06 02:04:16 / 修改时间：02:25:28" itemprop="dateCreated datePublished" datetime="2022-08-06T02:04:16+08:00">2022-08-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/%E5%89%91%E6%8C%87offer-%E2%85%A1/" itemprop="url" rel="index"><span itemprop="name">剑指offer Ⅱ</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>给定一个整数数组，返回和为 <code>0</code> 的所有不重复三元组。</li>
-</ul>
-<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
-<li>该题是三数之和问题。</li>
-<li>仍然是双指针的基础应用题，首先要<strong>排序数组</strong>，接着固定一个位置，用双指针解决剩下两个数的两数之和问题。</li>
-<li>关键在于结果的去重：<ul>
-<li>第一步去重在外层循环中 <code>i</code> 的遍历，如果 <code>nums[i] == nums[i-1]</code>，则直接跳过。【此步去重生效是因为已经将数组排序】</li>
-<li>第二步去重在三元组满足条件时，需要同时移动双指针 <code>j</code> 和 <code>k</code>，此时就需要将 <code>j</code> 指针跳过其右侧所有相等的数，还需要将 <code>k</code> 指针跳过其左侧所有相等的数。</li>
-</ul>
-</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/p/3be58721.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1235,7 +1244,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

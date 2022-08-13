@@ -189,6 +189,97 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/3be58721.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/3be58721.html" class="post-title-link" itemprop="url">【leetcode】【剑指offer Ⅱ】007. 数组中和为 0 的三个数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-08-06 02:04:16 / 修改时间：02:25:28" itemprop="dateCreated datePublished" datetime="2022-08-06T02:04:16+08:00">2022-08-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/%E5%89%91%E6%8C%87offer-%E2%85%A1/" itemprop="url" rel="index"><span itemprop="name">剑指offer Ⅱ</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一个整数数组，返回和为 <code>0</code> 的所有不重复三元组。</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>该题是三数之和问题。</li>
+<li>仍然是双指针的基础应用题，首先要<strong>排序数组</strong>，接着固定一个位置，用双指针解决剩下两个数的两数之和问题。</li>
+<li>关键在于结果的去重：<ul>
+<li>第一步去重在外层循环中 <code>i</code> 的遍历，如果 <code>nums[i] == nums[i-1]</code>，则直接跳过。【此步去重生效是因为已经将数组排序】</li>
+<li>第二步去重在三元组满足条件时，需要同时移动双指针 <code>j</code> 和 <code>k</code>，此时就需要将 <code>j</code> 指针跳过其右侧所有相等的数，还需要将 <code>k</code> 指针跳过其左侧所有相等的数。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/3be58721.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/p/d20b5947.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1090,111 +1181,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/p/d4c26b3a.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/maomao.jpg">
-      <meta itemprop="name" content="伊利">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cyl's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/p/d4c26b3a.html" class="post-title-link" itemprop="url">【leetcode】【剑指offer Ⅱ】002. 二进制加法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-08-03 01:48:39" itemprop="dateCreated datePublished" datetime="2022-08-03T01:48:39+08:00">2022-08-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-06 02:25:43" itemprop="dateModified" datetime="2022-08-06T02:25:43+08:00">2022-08-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/%E5%89%91%E6%8C%87offer-%E2%85%A1/" itemprop="url" rel="index"><span itemprop="name">剑指offer Ⅱ</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>给定两个 01 字符串 <code>a</code> 和 <code>b</code>，计算它们的和并以二进制字符串的形式输出。<ul>
-<li>输入字符串非空且只包含 <code>0</code> 和 <code>1</code>。</li>
-</ul>
-</li>
-</ul>
-<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
-<li>该题是 leetcode 第 2 题两数相加的二进制字符串版本。</li>
-<li>模拟进位加法即可，算法步骤如下：<ol>
-<li>设置进位 <code>ca</code> 为 <code>0</code>，并初始化结果字符串 <code>ans</code> 为空字符串。</li>
-<li>从后往前遍历两个字符串，只要有一个字符串未走完全程则继续遍历。<ol>
-<li>遍历过程中，分别取得字符串 <code>a</code> 和 <code>b</code> 在各自索引的数值（如果字符串 <code>a</code> 或 <code>b</code> 已走完全程就直接将对应数值置为 <code>0</code>）。</li>
-<li>将两个数值与进位 <code>ca</code> 进行相加，根据相加结果更新 <code>ans</code> 和 <code>ca</code>。</li>
-</ol>
-</li>
-<li>遍历结束后，判断进位 <code>ca</code> 是否为 <code>1</code>，如果为 <code>1</code> 则需要更新 <code>ans</code>。</li>
-<li>最后将 <code>ans</code> 进行 <code>reverse</code> 操作即可。</li>
-</ol>
-</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/p/d4c26b3a.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1266,7 +1252,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
