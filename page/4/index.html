@@ -189,6 +189,533 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/840c62d6.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/840c62d6.html" class="post-title-link" itemprop="url">【字符串】最小表示法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-04 22:31:13" itemprop="dateCreated datePublished" datetime="2022-08-04T22:31:13+08:00">2022-08-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-05 15:00:44" itemprop="dateModified" datetime="2022-08-05T15:00:44+08:00">2022-08-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/%E5%AD%97%E7%AC%A6%E4%B8%B2/" itemprop="url" rel="index"><span itemprop="name">字符串</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="相关概念："><a href="#相关概念：" class="headerlink" title="相关概念："></a>相关概念：</h2><ul>
+<li>在介绍后续算法前，首先要理解<strong>循环同构</strong>的概念。<ul>
+<li>定义太拗口了，可以直接看例子：字符串 <code>abcd</code> 的循环同构有 <code>bcda</code>、<code>cdab</code> 和 <code>dabc</code>。</li>
+</ul>
+</li>
+<li><strong>最小表示法</strong>是用来解决<strong>字符串最小表示问题</strong>的方法。<ul>
+<li>而字符串的最小表示指的是字符串和它的<strong>所有循环同构中</strong>字典序最小的字符串。</li>
+</ul>
+</li>
+<li>算法最后只需要返回循环同构中字典序最小的字符串的起始位置即可。</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>可以把字符串看作是可循环的字符串，通常循环串的题目，都可以对循环串进行相应的处理：<strong>复制一倍</strong>。<ul>
+<li>如字符串 <code>abcd</code> 复制一倍即变成 <code>abcdabcd</code>，如此在新的字符串中就可以访问到原字符串的所有循环同构。</li>
+<li>实际代码中不需要真的开辟两倍的数组空间，只需要通过取模运算进行访问数组即可。【假设访问循环串 <code>S</code> 的当前索引为 <code>i</code>，而 <code>i &gt; n</code>，其中 <code>n</code> 为字符串大小，则可以通过 <code>S[i%n]</code> 来访问到对应字符】</li>
+</ul>
+</li>
+<li>最小表示法的<strong>暴力解法</strong>很直观，因为已经进行复制一倍的操作，所以循环字符串的所有可能性都可以线性访问。<ul>
+<li>则可以维护三个变量 <code>i</code>、<code>j</code> 和 <code>k</code>，<code>i</code> 和 <code>j</code> 表示两个字符串的起始索引，<code>k</code> 表示两个字符串同步访问的距离。</li>
+<li>暴力解法只需要以 <code>O(n)</code> 的时间复杂度遍历所有的两对字符串，再在每一次遍历中以 <code>O(n)</code> 的时间复杂度对比两个字符串的字典序，对比完成后保留字典序更小的字符串起始位置即可（另一个位置向后移动）。</li>
+</ul>
+</li>
+<li>可以从具体例子中理解暴力法的遍历过程：<ol>
+<li>假设字符串 <code>s</code> 为 <code>abcd</code>，字符串长度 <code>n = 4</code>，且初始化 <code>i = 0</code>、<code>j = 1</code> 和 <code>k = 0</code>：<br><img src="/p/840c62d6/最小表示法.jpg" alt="最小表示法"></li>
+<li>移动 <code>k</code> 之后，此时 <code>i = 0</code>、<code>j = 1</code> 和 <code>k = 1</code>：<br><img src="/p/840c62d6/最小表示法_2.jpg" alt="最小表示法_2"></li>
+<li>在上一步的比较结束后，<strong>保留字典序更小的字符串的起始位置</strong> <code>i</code>，而将第二个字符串的起始位置 <code>j</code> 向后移动，此时需要进行下一次比较，因而重置 <code>k = 0</code>：<br><img src="/p/840c62d6/最小表示法_3.jpg" alt="最小表示法_3"></li>
+<li>后续的遍历同理，所有遍历完之后返回 <code>min(i, j)</code> 即可。</li>
+</ol>
+</li>
+<li>上述暴力解法其实是 <code>O(n^2)</code> 的时间复杂度，但是整个过程中有些比较可以避免，经过优化可以使得时间复杂度降为 <code>O(n)</code>：<ul>
+<li>考虑以下的情况，字符串 <code>s</code> 为 <code>acacab</code>，且 <code>i = 0</code>、<code>j = 2</code> 和 <code>k = 3</code>，在本次比较完成后对 <code>i</code> 更新为 <code>i + k + 1</code> 以进行下一次比较（而在暴力法中会将 <code>i</code> 更新为 <code>i + 1</code>）：<br><img src="/p/840c62d6/最小表示法_4.jpg" alt="最小表示法_4"></li>
+<li>优化的关键在于此：当以 <code>i</code> 为起始位置字符串的字典序更大时，会将 <code>i</code> 更新为 <code>i + k + 1</code>，因为所有以 <code>i + p</code> 为起始位置的字符串<strong>均无需再进行比较</strong>（<code>p</code> 的取值范围为 <code>[0, k]</code>）。<ul>
+<li>以 <code>i + p</code> 为起始位置的字符串，一定存在以 <code>j + p</code> 为起始位置的字符串比它更优。</li>
+</ul>
+</li>
+<li>事实上还避免了很多其他情况，但上述情况已经可以说明优化后解法的正确性。</li>
+</ul>
+</li>
+</ul>
+<h2 id="算法步骤："><a href="#算法步骤：" class="headerlink" title="算法步骤："></a>算法步骤：</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/840c62d6.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/b2c7e28e.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/b2c7e28e.html" class="post-title-link" itemprop="url">【leetcode】【剑指offer Ⅱ】004. 只出现一次的数字</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-04 01:55:54" itemprop="dateCreated datePublished" datetime="2022-08-04T01:55:54+08:00">2022-08-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-06 02:25:37" itemprop="dateModified" datetime="2022-08-06T02:25:37+08:00">2022-08-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/%E5%89%91%E6%8C%87offer-%E2%85%A1/" itemprop="url" rel="index"><span itemprop="name">剑指offer Ⅱ</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一个整数数组 <code>nums</code>，除某个元素仅出现一次外，其余每个元素都恰出现三次，找出并返回那个只出现了一次的元素。</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>该题仍然是考察位运算，但并非利用异或（如果题目中的要求提及其他元素恰出现两次，则可以利用异或操作来解题）。<ul>
+<li>把每个整数看成二进制表达形式，当同一个数出现三次，则可以看作将对应位上的 <code>0</code> 或 <code>1</code> 出现三次。</li>
+<li>遍历每个数值，将数值对应的 32 位二进制出现的 <code>1</code> 出现的次数进行<strong>对应位置上的累加</strong>（累加到一个 32 位数组中进行保存）。</li>
+<li>遍历完成后从 32 位的数组中取出每一位上的数值，并将每一位进行 <code>mod 3</code> 操作然后提取出对应位上的 <code>0</code> 或 <code>1</code> 即可。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/b2c7e28e.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/ce69a40a.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/ce69a40a.html" class="post-title-link" itemprop="url">【leetcode】【剑指offer Ⅱ】003. 前 n 个数字二进制中 1 的个数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-04 01:04:12" itemprop="dateCreated datePublished" datetime="2022-08-04T01:04:12+08:00">2022-08-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-06 02:25:40" itemprop="dateModified" datetime="2022-08-06T02:25:40+08:00">2022-08-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/%E5%89%91%E6%8C%87offer-%E2%85%A1/" itemprop="url" rel="index"><span itemprop="name">剑指offer Ⅱ</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一个非负整数 <code>n</code>，计算 <code>0</code> 到 <code>n</code> 之间的每个数字的二进制表示中 <code>1</code> 的个数，并输出一个数组。</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>该题考查位运算。<ul>
+<li>假设要确定 <code>4</code> 的二进制表示中 <code>1</code> 的个数，可以通过确定 <code>2</code> 的二进制表示中 <code>1</code> 的个数，这是因为 <code>4 = 2 &lt;&lt; 1</code>，因而 <code>4</code> 和 <code>2</code> 的二进制表示中 <code>1</code> 的个数都是一样的。</li>
+<li>而 <code>5</code> 可以分解成 <code>4 + 1</code>，即 <code>5 = 4 + 1 = 2 &lt;&lt; 1 + 1</code>。</li>
+</ul>
+</li>
+<li>利用动态规划的解法来做即可，给定一个非负整数 <code>n</code>，则创建一个大小为 <code>n+1</code> 的数组 <code>ans</code> 用来记录每个数字的二进制表示中 <code>1</code> 的个数，而 <code>ans[i]</code> 的状态只由 <code>ans[i/2]</code> 确定。</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/ce69a40a.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/13498852.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/13498852.html" class="post-title-link" itemprop="url">【leetcode】【2022/8/4】1403. 非递增顺序的最小子序列</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-04 00:26:07" itemprop="dateCreated datePublished" datetime="2022-08-04T00:26:07+08:00">2022-08-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-05 10:30:26" itemprop="dateModified" datetime="2022-08-05T10:30:26+08:00">2022-08-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leetcode每日一题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定数组 <code>nums</code>，从中抽取一个子序列并返回。<ul>
+<li>返回的子序列满足：该子序列的元素之和严格大于未包含在该子序列中的各元素之和。</li>
+<li>如果存在多个解决方案，只需返回<strong>长度最小</strong>的子序列。</li>
+<li>如果仍然有多个解决方案，则返回<strong>元素之和最大</strong>的子序列。</li>
+</ul>
+</li>
+<li>与子数组不同的地方在于，「数组的子序列」不强调元素在原数组中的连续性，也就是说，它可以通过从数组中分离一些（也可能不分离）元素得到。</li>
+<li>注意，题目数据保证满足所有约束条件的解决方案是唯一的，同时返回的答案应当按非递增顺序排列。</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>贪心策略，排序后从最大值开始取即可。</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/13498852.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/2e7813af.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/2e7813af.html" class="post-title-link" itemprop="url">【数据结构】并查集</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-08-03 12:34:45 / 修改时间：20:00:36" itemprop="dateCreated datePublished" datetime="2022-08-03T12:34:45+08:00">2022-08-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="相关概念："><a href="#相关概念：" class="headerlink" title="相关概念："></a>相关概念：</h2><ul>
+<li><strong>并查集</strong>是一种树形的数据结构，用于处理集合相关的问题。<ul>
+<li>通常集合中的元素都不具备层次关系，而是因为共通的性质而被划分在一起。</li>
+<li>当存在多个集合，而又需要判断任意两个元素是否处在同一个集合中时，就需要使用并查集来维护集合元素之间的关系。</li>
+</ul>
+</li>
+<li><strong>并查集</strong>有两个主要的操作：<ol>
+<li><strong>合并</strong>操作：将两个子集合并成一个子集。</li>
+<li><strong>查找</strong>操作：确定某个元素处在哪个集合。</li>
+</ol>
+</li>
+<li>一般用固定大小的数组来实现并查集，但可以用森林的模型来解释并查集的操作。【森林即多棵树】<ul>
+<li>假设题目中元素只有 <code>m</code> 个，则并查集底层只需维护一个 <code>m</code> 大小的数组 <code>parent</code> 即可。【<code>parent</code> 数组保存对应元素的父节点】</li>
+<li>对于合并操作的解释：将两个元素合并在同一个子集，就相当于<strong>将两棵树合并成一棵树</strong>。</li>
+<li>对于查找操作的解释：要确定两个元素处于同一个集合只需要<strong>确定两个元素是否处于同一棵树</strong>即可。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>并查集的实现非常简洁。<ul>
+<li>初始化：设置每个元素为一个集合，即设置每个元素的父节点为自己。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; parent.<span class="built_in">size</span>(); ++i)</span><br><span class="line">  parent[i] = i;</span><br></pre></td></tr></table></figure></li>
+<li>查找：找到元素所在集合的根，即所在树的根。【从代码中看出，<code>find</code> 函数会递归调用，直到找到集合的根】【此处的 <code>find</code> 函数已经进行<strong>路径压缩</strong>，简单来说，就是<strong>把当前搜索路径上的所有元素都连接到最顶部的根上去</strong>，这样每一棵树的高度都不会过分高】<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> <span class="comment">// 找root</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(parent[x] != x) parent[x] = <span class="built_in">find</span>(parent[x]); <span class="comment">// 路径压缩，此处可以用 while 语句来实现路径压缩的非递归版本</span></span><br><span class="line">    <span class="keyword">return</span> parent[x];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>合并：分别找出两个元素的根进行连接即可。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">union</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    parent[<span class="built_in">find</span>(x)] = <span class="built_in">find</span>(y);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>可以通过下述例子来加深理解。<ol>
+<li>假设有 <code>5</code> 个元素，则初始化一个大小为 <code>5</code> 的 <code>parent</code> 数组：<img src="/p/2e7813af/union_find.jpg" alt="union_find"></li>
+<li>假设元素 <code>0</code> 和元素 <code>1</code> 有关系，则调用 <code>union(0, 1)</code>，注意此时 <code>find(0)</code> 或 <code>find(1)</code> 都是简单地返回 <code>0</code> 或 <code>1</code>：<img src="/p/2e7813af/union_find_2.jpg" alt="union_find_2"></li>
+<li>假设元素 <code>0</code> 分别和元素 <code>2</code> 、元素 <code>3</code> 有关系，则分别调用 <code>union(2, 0)</code> 和 <code>union(3, 0)</code>，注意 <code>find(0)</code> 会返回 <code>1</code>：<img src="/p/2e7813af/union_find_3.jpg" alt="union_find_3"></li>
+</ol>
+</li>
+<li>最后要提及的是关于并查集的一些<strong>优化</strong>：<ul>
+<li>可以注意到，上面例子的最后结果中留下了两棵树（即两个集合），其中 <code>root 1</code> 体型较大，<code>root 4</code> 体型较小，如果后续调用 <code>union(1, 4)</code> 则会把大树放置到小树底下（这样显然是不够平衡的），然而调用 <code>union(4, 1)</code> 就会避免前面的情况。【这样说明了不同的参数调用顺序会给 <code>union</code> 带来不同的结果】</li>
+<li>有两种优化思路，一种是 <strong>with size</strong>，一种是 <strong>with rank</strong>。</li>
+<li>简单来说，<strong>with size</strong> 方法就是并查集中维护一个 <code>size</code> 数组（记录元素所在树的大小），在 <code>union</code> 操作中进行更新；同理，<strong>with rank</strong> 方法就是维护一个 <code>rank</code> 数组（记录元素所在树的高度），同样是在 <code>union</code> 操作中进行更新。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/2e7813af.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/p/d4c26b3a.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -704,500 +1231,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/p/bd0155e2.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/maomao.jpg">
-      <meta itemprop="name" content="伊利">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cyl's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/p/bd0155e2.html" class="post-title-link" itemprop="url">【leetcode】【2022/7/31】1161. 最大层内元素和</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-08-01 16:15:13 / 修改时间：16:39:30" itemprop="dateCreated datePublished" datetime="2022-08-01T16:15:13+08:00">2022-08-01</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leetcode每日一题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>给定一个二叉树的根节点 <code>root</code>，返回层内元素之和最大的层号。<ul>
-<li>如果和最大的层号有好几个，则返回最小的那个层号。</li>
-</ul>
-</li>
-</ul>
-<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
-<li>层次遍历基础应用题。<ul>
-<li>遍历过程中维护层数和当前层的求和值即可。</li>
-</ul>
-</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/p/bd0155e2.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/p/691feb55.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/maomao.jpg">
-      <meta itemprop="name" content="伊利">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cyl's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/p/691feb55.html" class="post-title-link" itemprop="url">【leetcode】【2022/7/30】952. 按公因数计算最大组件大小</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-07-30 10:20:06" itemprop="dateCreated datePublished" datetime="2022-07-30T10:20:06+08:00">2022-07-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-01 16:13:44" itemprop="dateModified" datetime="2022-08-01T16:13:44+08:00">2022-08-01</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leetcode每日一题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>给定一个数组 <code>nums</code>，当 <code>nums[i]</code> 和 <code>nums[j]</code> 有一个大于 <code>1</code> 的公因数时，认为两个数存在有一条边，返回图中最大连通组件的大小。<ul>
-<li>满足 $ 1 &lt;= nums.length &lt;= 2 * 10^4 $。</li>
-<li>满足 $ 1 &lt;= nums[i] &lt;= 10^5 $。</li>
-<li><code>nums</code> 中所有值都不同。</li>
-</ul>
-</li>
-</ul>
-<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
-<li>第一反应是<strong>并查集 + gcd</strong>：<ul>
-<li>以 <code>nums.size()</code> 作为并查集的大小，尝试连通 <code>nums</code> 中各个数值。</li>
-<li>用 <code>gcd</code> 来求得两个数的最大公约数，判断结果是否大于 <code>1</code>。</li>
-<li>但用这个方法进行模拟会超时，只通过了部分案例。【关键应该在于 <code>nums[i]</code> 的取值范围达到 $10^5$，假设是两个很大的质数，用来求 <code>gcd</code> 的过程就会很耗时间】</li>
-</ul>
-</li>
-<li>官方题解中的思路也是利用并查集，但判断连通组件大小之前会将 <code>nums[i]</code> 与各自的因数先连通。<ul>
-<li>以 <code>max(nums) + 1</code> 作为并查集的大小。</li>
-<li>接着遍历 <code>nums</code> 数组，将 <code>nums[i]</code> 的因子与 <code>nums[i]</code> 进行连通。【将 <code>sqrt(nums[i])</code> 往下的因子进行连通即可（即进行 <code>union</code> 操作），因为因子是成对的，每次能将 <code>nums[i]</code> 分别与两个数连通】</li>
-<li>最后就是遍历 <code>nums</code> 数组，在并查集中搜索 <code>nums[i]</code> 的 <code>root</code> 进行大小上的累加，过程中确认最大值即可。<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2></li>
-</ul>
-</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DSU</span> <span class="comment">// 并查集/rank优化</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; rank;</span><br><span class="line">    <span class="built_in">DSU</span>(<span class="type">int</span> N) : <span class="built_in">parent</span>(N), <span class="built_in">rank</span>(N)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i) parent[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> _find(<span class="type">int</span> x) <span class="comment">// 找root</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(parent[x] != x) parent[x] = _find(parent[x]);</span><br><span class="line">        <span class="keyword">return</span> parent[x];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">void</span> _union(<span class="type">int</span> x, <span class="type">int</span> y)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// parent[_find(x)] = _find(y);</span></span><br><span class="line">        <span class="type">int</span> px = _find(x), py = _find(y);</span><br><span class="line">        <span class="keyword">if</span>(px == py) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(rank[px] &lt; rank[py])</span><br><span class="line">            parent[px] = py;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(rank[px] &gt; rank[py])</span><br><span class="line">            parent[py] = px;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            parent[py] = px;</span><br><span class="line">            ++rank[px];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">largestComponentSize</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> m = *<span class="built_in">max_element</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="function">DSU <span class="title">dsu</span><span class="params">(m+<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> num : nums) <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>; i * i &lt;= num; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(num % i == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                dsu._union(num, i);</span><br><span class="line">                dsu._union(num, num/i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">cnts</span><span class="params">(m+<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> num : nums)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> p = dsu._find(num);</span><br><span class="line">            ++cnts[p];</span><br><span class="line">            ans = <span class="built_in">max</span>(ans, cnts[p]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/p/5fa4169f.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/maomao.jpg">
-      <meta itemprop="name" content="伊利">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cyl's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/p/5fa4169f.html" class="post-title-link" itemprop="url">【leetcode】【2022/7/29】593. 有效的正方形</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-07-29 00:44:53" itemprop="dateCreated datePublished" datetime="2022-07-29T00:44:53+08:00">2022-07-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-01 16:51:39" itemprop="dateModified" datetime="2022-08-01T16:51:39+08:00">2022-08-01</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leetcode每日一题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>给定四个点，判断是否构成一个正方形。</li>
-</ul>
-<h2 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h2><ul>
-<li>统计<strong>正方形四条边</strong>和<strong>两条对角线</strong>的长度，并存入 <code>set</code> 中去重。<ul>
-<li>最后 <code>set</code> 中不存在长度为 <code>0</code> 的边；【即避免出现点重合的情况】</li>
-<li>且 <code>set</code> 大小为 <code>2</code>。【即只存在两种长度】</li>
-</ul>
-</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/p/5fa4169f.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/p/fb40efc5.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/maomao.jpg">
-      <meta itemprop="name" content="伊利">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cyl's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/p/fb40efc5.html" class="post-title-link" itemprop="url">【图论】拓扑排序</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-07-28 02:49:25" itemprop="dateCreated datePublished" datetime="2022-07-28T02:49:25+08:00">2022-07-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-02 02:25:51" itemprop="dateModified" datetime="2022-08-02T02:25:51+08:00">2022-08-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">图论</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="相关概念："><a href="#相关概念：" class="headerlink" title="相关概念："></a>相关概念：</h2><ul>
-<li><strong>拓扑排序</strong>，就是在有向图中找到一条拓扑序列，序列中排列在前的节点相较于排列在后的节点有更高的优先级。<ul>
-<li>首先要理解优先级，优先级是有向图中边的方向性带来的结果，如 <code>a -&gt; b</code> 表示节点 <code>a</code> 指向节点 <code>b</code>，则可以认为 <code>a</code> 的优先级优于 <code>b</code>，在特定语境下可以说 <code>a</code> 必须在 <code>b</code> 之前完成，如下图所示，该有向图的拓扑排序结果为 <code>14325</code> 或 <code>41325</code>。<img src="/p/fb40efc5/leetcode_20220728.jpg" alt="topo_sort"></li>
-<li>拓扑排序算法可以用来判断有向图是否有环，可以生成拓扑序列。<ul>
-<li>网络中可能存在多个拓扑排序结果。</li>
-<li>如果网络中不存在环，则结果中会包括所有节点。</li>
-<li>但如果网络中存在环，则结果中可能会缺少某些节点。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>图可以有不同的表现形式，如邻接矩阵表示形式和邻接表表示形式，有向图的<strong>邻接表</strong>表示形式。<ul>
-<li>简单来说，假设图中有 <code>m</code> 个节点，邻接表就是维护一个 <code>m</code> 大小的数组 <code>vec</code>，其中数组元素为当前节点的外接节点链表。【例如在网络中 <code>a -&gt; b</code> 且 <code>a -&gt; c</code>，则数组中 <code>a</code> 节点对应的位置就保存一个链表 <code>b =&gt; c</code>，相当于 <code>vec(a) =&gt; b =&gt; c</code> （此处用 <code>=&gt;</code> 表示链表指针，<code>b</code> 和 <code>c</code> 在链表中的顺序不分先后）】</li>
-<li>也就是说，数组中第 <code>i</code> 个元素（记住数组元素为链表）保存的是网络中第 <code>i</code> 个节点的 one-hop neighbor。【即节点跳一步就可以达到的邻居节点】</li>
-</ul>
-</li>
-<li>进行后续算法的介绍前，还需要理解<strong>节点的入度</strong>。<ul>
-<li>当前节点的入度，指的就是网络中有多少节点直接指向当前节点。【如上图所示，节点 <code>3</code> 的入度为 <code>2</code> 】</li>
-<li>可用一个数组统计每个节点的入度。</li>
-</ul>
-</li>
-</ul>
-<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
-<li>拓扑排序问题有两种解决方案：<strong>Kahn 算法</strong>和 <strong>dfs 着色解法</strong>。</li>
-<li><strong>Kahn 算法</strong>的核心思想就是每次删除一个当前入度为 <code>0</code> 的节点，并删除该节点对链出邻居的影响（即其指向邻居的入度数减一）。<ul>
-<li>Kahn 算法需要图的邻接表形式。</li>
-<li>可以用 <code>stack</code> 或 <code>queue</code> 来保存当前入度为 <code>0</code> 的节点。【即用 <code>stack</code> 或 <code>queue</code> 维护当前入度为 <code>0</code> 的点集】</li>
-<li>用上面的图来理解，Kahn 算法的第一步就是把节点 <code>1</code> 带来的影响消去，留下其余的节点和边作为子图进行拓扑排序：<img src="/p/fb40efc5/leetcode_20220728_2.jpg" alt="topo_sort_kahn"></li>
-</ul>
-</li>
-<li><strong>dfs 着色解法</strong>即利用深度优先算法的方法以任意顺序遍历图中所有节点，但<strong>遍历的过程中需要对节点着色</strong>。<ul>
-<li>不同的颜色代表访问的程度深浅，过程中遇到不同颜色的节点会有相应的处理；需要一个数组维护网络中节点的颜色，颜色的状态可以为 <code>0</code>、<code>-1</code> 和 <code>1</code>。<ul>
-<li><code>-1</code> 表示访问过，如果重复遇上，则说明存在环。</li>
-</ul>
-</li>
-<li>最后需要把结果数组进行 <code>reverse</code> 操作，得出来的才是拓扑序列。【因为 dfs 着色解法会优先深度搜索到优先级最低的节点，所以最先存入结果数组的就是优先级最低的节点，最后结果数组就需要翻转过来才可】</li>
-</ul>
-</li>
-</ul>
-<h2 id="算法步骤："><a href="#算法步骤：" class="headerlink" title="算法步骤："></a>算法步骤：</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/p/fb40efc5.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/p/4c1de1ba.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/maomao.jpg">
-      <meta itemprop="name" content="伊利">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cyl's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/p/4c1de1ba.html" class="post-title-link" itemprop="url">【leetcode】【2022/7/28】1331. 数组序号转换</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-07-28 00:31:57 / 修改时间：00:38:20" itemprop="dateCreated datePublished" datetime="2022-07-28T00:31:57+08:00">2022-07-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leetcode每日一题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>给定一个整数数组，将数组中每个元素替换为排序后的序号。<ul>
-<li>数组中有重复值，重复值有相同的序号。</li>
-<li>序号从 <code>1</code> 开始。</li>
-</ul>
-</li>
-</ul>
-<h2 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h2><ul>
-<li>该题理解映射关系即可。<ul>
-<li>用 <code>map</code> 来进行排序，其中 <code>map</code> 的 <code>key</code> 为数组中的数值，<code>value</code> 为该数值的所有索引（因为可能重复，所以索引的保存用 <code>vector</code>），即用 <code>map&lt;int, vector&lt;int&gt;&gt;</code> 来保存映射关系。</li>
-<li>存入 <code>map</code> 之后再进行一次遍历即可取出排序后的序号。<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2></li>
-</ul>
-</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">arrayRankTransform</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; arr)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        map&lt;<span class="type">int</span>, vector&lt;<span class="type">int</span>&gt;&gt; mapped;</span><br><span class="line">        <span class="type">int</span> i;</span><br><span class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; arr.<span class="built_in">size</span>(); ++i)</span><br><span class="line">            mapped[arr[i]].<span class="built_in">push_back</span>(i);</span><br><span class="line">        i = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span>&amp; [_, vec] : mapped)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> idx : vec) arr[idx] = i;</span><br><span class="line">            ++i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1269,7 +1302,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
