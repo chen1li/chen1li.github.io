@@ -381,6 +381,43 @@
       </tags>
   </entry>
   <entry>
+    <title>【leetcode】【2022/8/7】636. 函数的独占时间</title>
+    <url>/p/4c655efb.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>有一个单线程 CPU 正在运行一个含有 <code>n</code> 道函数的程序，每道函数都有一个位于 <code>0</code> 和 <code>n-1</code> 之间的唯一标识符。<ul>
+<li>函数调用存储在一个<strong>调用栈</strong>上。</li>
+<li>当一个函数调用开始时，它的标识符将会推入栈中。</li>
+<li>而当一个函数调用结束时，它的标识符将会从栈中弹出。</li>
+<li>标识符位于栈顶的函数是当前正在执行的函数。</li>
+<li>每当一个函数开始或者结束时，将会记录一条日志，包括函数标识符、是开始还是结束、以及相应的时间戳。<ul>
+<li>日志是按 <code>&quot;&#123;function_id&#125;:&#123;&quot;start&quot; | &quot;end&quot;&#125;:&#123;timestamp&#125;&quot;</code> 进行格式化的字符串。</li>
+<li>例如，<code>&quot;0:start:3&quot;</code> 意味着标识符为 <code>0</code> 的函数调用在时间戳 <code>3</code> 的<strong>起始</strong>开始执行。</li>
+<li>而 <code>&quot;1:end:2&quot;</code> 意味着标识符为 <code>1</code> 的函数调用在时间戳 <code>2</code> 的<strong>末尾</strong>结束执行。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>函数的<strong>独占时间</strong>定义是在这个函数在程序所有函数调用中执行时间的总和，以数组形式返回每个函数的独占时间。</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>该题看着很繁琐，但实际做法其实很简单。<ul>
+<li>题目已经提示了用栈来模拟，<strong>栈顶</strong>元素为<strong>当前函数调用</strong>。</li>
+<li>因而遍历所有日志，遇到 <code>start</code> 标志将有一个入栈操作，遇到 <code>end</code> 标志将有一个出栈操作。【因为是单线程 cpu 模拟，所以遇到 <code>end</code> 操作必然是当前任务的结尾】</li>
+<li>只要栈非空，都对栈顶元素的<strong>累计独占时间</strong>进行更新。【实际更新操作就只有这一步，其余的操作都只是在模拟调用栈】【因为日志中记录的时间是 <code>timestamp</code> 属性，即时间戳，那么将<strong>当前访问日志的时间戳</strong>减去<strong>栈顶日志的时间戳</strong>就可以获得<strong>栈顶元素的独占时间</strong>】</li>
+</ul>
+</li>
+<li>只需要理解题意，该题不算难解，只是需要有处理字符串的前置知识。</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">exclusiveTime</span><span class="params">(<span class="type">int</span> n, vector&lt;string&gt;&amp; logs)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">ans</span><span class="params">(n)</span></span>;</span><br><span class="line">        stack&lt;<span class="type">int</span>&gt; stk;</span><br><span class="line">        <span class="type">int</span> last_time = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span>&amp; log : logs)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> p1 = log.<span class="built_in">find</span>(<span class="string">&#x27;:&#x27;</span>); <span class="comment">// 第一个冒号的位置</span></span><br><span class="line">            <span class="type">int</span> p2 = log.<span class="built_in">find</span>(<span class="string">&#x27;:&#x27;</span>, p1+<span class="number">1</span>); <span class="comment">// 第二个冒号的位置</span></span><br><span class="line">            <span class="type">int</span> id = <span class="built_in">stoi</span>(log.<span class="built_in">substr</span>(<span class="number">0</span>, p1)), time = <span class="built_in">stoi</span>(log.<span class="built_in">substr</span>(p2+<span class="number">1</span>));</span><br><span class="line">            <span class="keyword">if</span>(log[p1+<span class="number">1</span>] == <span class="string">&#x27;e&#x27;</span>) ++time; <span class="comment">// end要把时间加一</span></span><br><span class="line">            <span class="keyword">if</span>(!stk.<span class="built_in">empty</span>())</span><br><span class="line">                ans[stk.<span class="built_in">top</span>()] += time - last_time; <span class="comment">// 时间差值就是独占时间，进行更新即可</span></span><br><span class="line">            last_time = time;</span><br><span class="line">            <span class="keyword">if</span>(log[p1+<span class="number">1</span>] == <span class="string">&#x27;s&#x27;</span>) stk.<span class="built_in">push</span>(id); <span class="comment">// 标记为start，将当前函数id入栈</span></span><br><span class="line">            <span class="keyword">else</span> stk.<span class="built_in">pop</span>(); <span class="comment">// 标记为end，则直接把栈顶运行的当前函数id出栈</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>leetcode每日一题</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【leetcode】【2022/8/8】761. 特殊的二进制序列</title>
     <url>/p/c01d5eb7.html</url>
     <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
@@ -422,43 +459,6 @@
 <li><a href="https://leetcode.com/problems/special-binary-string/discuss/113212/Think-of-it-as-Valid-Parentheses">https://leetcode.com/problems/special-binary-string/discuss/113212/Think-of-it-as-Valid-Parentheses</a></li>
 </ul>
 ]]></content>
-      <categories>
-        <category>刷题</category>
-        <category>leetcode每日一题</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【leetcode】【2022/8/7】636. 函数的独占时间</title>
-    <url>/p/4c655efb.html</url>
-    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>有一个单线程 CPU 正在运行一个含有 <code>n</code> 道函数的程序，每道函数都有一个位于 <code>0</code> 和 <code>n-1</code> 之间的唯一标识符。<ul>
-<li>函数调用存储在一个<strong>调用栈</strong>上。</li>
-<li>当一个函数调用开始时，它的标识符将会推入栈中。</li>
-<li>而当一个函数调用结束时，它的标识符将会从栈中弹出。</li>
-<li>标识符位于栈顶的函数是当前正在执行的函数。</li>
-<li>每当一个函数开始或者结束时，将会记录一条日志，包括函数标识符、是开始还是结束、以及相应的时间戳。<ul>
-<li>日志是按 <code>&quot;&#123;function_id&#125;:&#123;&quot;start&quot; | &quot;end&quot;&#125;:&#123;timestamp&#125;&quot;</code> 进行格式化的字符串。</li>
-<li>例如，<code>&quot;0:start:3&quot;</code> 意味着标识符为 <code>0</code> 的函数调用在时间戳 <code>3</code> 的<strong>起始</strong>开始执行。</li>
-<li>而 <code>&quot;1:end:2&quot;</code> 意味着标识符为 <code>1</code> 的函数调用在时间戳 <code>2</code> 的<strong>末尾</strong>结束执行。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>函数的<strong>独占时间</strong>定义是在这个函数在程序所有函数调用中执行时间的总和，以数组形式返回每个函数的独占时间。</li>
-</ul>
-<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
-<li>该题看着很繁琐，但实际做法其实很简单。<ul>
-<li>题目已经提示了用栈来模拟，<strong>栈顶</strong>元素为<strong>当前函数调用</strong>。</li>
-<li>因而遍历所有日志，遇到 <code>start</code> 标志将有一个入栈操作，遇到 <code>end</code> 标志将有一个出栈操作。【因为是单线程 cpu 模拟，所以遇到 <code>end</code> 操作必然是当前任务的结尾】</li>
-<li>只要栈非空，都对栈顶元素的<strong>累计独占时间</strong>进行更新。【实际更新操作就只有这一步，其余的操作都只是在模拟调用栈】【因为日志中记录的时间是 <code>timestamp</code> 属性，即时间戳，那么将<strong>当前访问日志的时间戳</strong>减去<strong>栈顶日志的时间戳</strong>就可以获得<strong>栈顶元素的独占时间</strong>】</li>
-</ul>
-</li>
-<li>只需要理解题意，该题不算难解，只是需要有处理字符串的前置知识。</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">exclusiveTime</span><span class="params">(<span class="type">int</span> n, vector&lt;string&gt;&amp; logs)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">ans</span><span class="params">(n)</span></span>;</span><br><span class="line">        stack&lt;<span class="type">int</span>&gt; stk;</span><br><span class="line">        <span class="type">int</span> last_time = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span>&amp; log : logs)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> p1 = log.<span class="built_in">find</span>(<span class="string">&#x27;:&#x27;</span>); <span class="comment">// 第一个冒号的位置</span></span><br><span class="line">            <span class="type">int</span> p2 = log.<span class="built_in">find</span>(<span class="string">&#x27;:&#x27;</span>, p1+<span class="number">1</span>); <span class="comment">// 第二个冒号的位置</span></span><br><span class="line">            <span class="type">int</span> id = <span class="built_in">stoi</span>(log.<span class="built_in">substr</span>(<span class="number">0</span>, p1)), time = <span class="built_in">stoi</span>(log.<span class="built_in">substr</span>(p2+<span class="number">1</span>));</span><br><span class="line">            <span class="keyword">if</span>(log[p1+<span class="number">1</span>] == <span class="string">&#x27;e&#x27;</span>) ++time; <span class="comment">// end要把时间加一</span></span><br><span class="line">            <span class="keyword">if</span>(!stk.<span class="built_in">empty</span>())</span><br><span class="line">                ans[stk.<span class="built_in">top</span>()] += time - last_time; <span class="comment">// 时间差值就是独占时间，进行更新即可</span></span><br><span class="line">            last_time = time;</span><br><span class="line">            <span class="keyword">if</span>(log[p1+<span class="number">1</span>] == <span class="string">&#x27;s&#x27;</span>) stk.<span class="built_in">push</span>(id); <span class="comment">// 标记为start，将当前函数id入栈</span></span><br><span class="line">            <span class="keyword">else</span> stk.<span class="built_in">pop</span>(); <span class="comment">// 标记为end，则直接把栈顶运行的当前函数id出栈</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>刷题</category>
         <category>leetcode每日一题</category>
@@ -635,35 +635,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【leetcode】【2022/8/14】1422. 分割字符串的最大得分</title>
-    <url>/p/337fd55d.html</url>
-    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>给定一个二进制字符串，将字符串分割为非空的左字符串和非空的右字符串，其中左字符串中统计 <code>0</code> 的个数，右字符串中统计 <code>1</code> 的个数，将数量相加即为分割所得分数，返回分割所能获得的最大分数。</li>
-</ul>
-<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
-<li>可以直接用前缀数组 + 后缀数组的方法来解决。<ul>
-<li>前缀数组记录 <code>0</code> 的个数，后缀数组记录 <code>1</code> 的个数，两次遍历统计完个数后再单次遍历所有的分割情况即可。</li>
-</ul>
-</li>
-<li>实际上不需要额外利用数组来统计前缀后缀。<ul>
-<li>可以单次遍历获得 <code>1</code> 的总数，接着再单次遍历获得前缀 <code>0</code> 的个数，过程中将前缀 <code>1</code> 的个数从总数中减去即可。</li>
-</ul>
-</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><ul>
-<li>前缀后缀思路代码实现如下：<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxScore</span><span class="params">(string s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> m = s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">prefix</span><span class="params">(m)</span></span>;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">suffix</span><span class="params">(m)</span></span>;</span><br><span class="line">        prefix[<span class="number">0</span>] = s[<span class="number">0</span>] == <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt; m; ++i) prefix[i] = prefix[i<span class="number">-1</span>] + (s[i] == <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">        suffix[m<span class="number">-1</span>] = s[m<span class="number">-1</span>] == <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = m<span class="number">-2</span>; i &gt;= <span class="number">0</span>; --i) suffix[i] = suffix[i+<span class="number">1</span>] + (s[i] == <span class="string">&#x27;1&#x27;</span>);</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; m<span class="number">-1</span>; ++i)</span><br><span class="line">            ans = <span class="built_in">max</span>(ans, prefix[i] + suffix[i+<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
-<li>优化思路代码实现如下：<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxScore</span><span class="params">(string s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> m = s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> cnt1 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; ++i) cnt1 += s[i] == <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">        <span class="type">int</span> cnt0 = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; m<span class="number">-1</span>; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            cnt0 += s[i] == <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">            cnt1 -= s[i] == <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">            ans = <span class="built_in">max</span>(ans, cnt0 + cnt1);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>刷题</category>
-        <category>leetcode每日一题</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【leetcode】【2022/8/15】641. 设计循环双端队列</title>
     <url>/p/9b95c44f.html</url>
     <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
@@ -689,6 +660,35 @@
 </li>
 </ul>
 <h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyCircularDeque</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; deq;</span><br><span class="line">    <span class="type">int</span> l;</span><br><span class="line">    <span class="type">int</span> r;</span><br><span class="line">    <span class="type">int</span> cap; <span class="comment">// capacity</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// k &gt;= 1</span></span><br><span class="line">    <span class="built_in">MyCircularDeque</span>(<span class="type">int</span> k) : <span class="built_in">deq</span>(k+<span class="number">1</span>), <span class="built_in">l</span>(<span class="number">0</span>), <span class="built_in">r</span>(<span class="number">1</span>), <span class="built_in">cap</span>(k+<span class="number">1</span>) &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">insertFront</span><span class="params">(<span class="type">int</span> value)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isFull</span>()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        deq[l] = value;</span><br><span class="line">        l = (l<span class="number">-1</span>+cap)%cap;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">insertLast</span><span class="params">(<span class="type">int</span> value)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isFull</span>()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        deq[r] = value;</span><br><span class="line">        r = (r+<span class="number">1</span>)%cap;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">deleteFront</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isEmpty</span>()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        l = (l+<span class="number">1</span>)%cap;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">deleteLast</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isEmpty</span>()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        r = (r<span class="number">-1</span>+cap)%cap;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">getFront</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isEmpty</span>()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> deq[(l+<span class="number">1</span>)%cap];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">getRear</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isEmpty</span>()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> deq[(r<span class="number">-1</span>+cap)%cap];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isEmpty</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (r-l+cap)%cap == <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isFull</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> l == r;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>leetcode每日一题</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【leetcode】【2022/8/14】1422. 分割字符串的最大得分</title>
+    <url>/p/337fd55d.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一个二进制字符串，将字符串分割为非空的左字符串和非空的右字符串，其中左字符串中统计 <code>0</code> 的个数，右字符串中统计 <code>1</code> 的个数，将数量相加即为分割所得分数，返回分割所能获得的最大分数。</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>可以直接用前缀数组 + 后缀数组的方法来解决。<ul>
+<li>前缀数组记录 <code>0</code> 的个数，后缀数组记录 <code>1</code> 的个数，两次遍历统计完个数后再单次遍历所有的分割情况即可。</li>
+</ul>
+</li>
+<li>实际上不需要额外利用数组来统计前缀后缀。<ul>
+<li>可以单次遍历获得 <code>1</code> 的总数，接着再单次遍历获得前缀 <code>0</code> 的个数，过程中将前缀 <code>1</code> 的个数从总数中减去即可。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><ul>
+<li>前缀后缀思路代码实现如下：<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxScore</span><span class="params">(string s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> m = s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">prefix</span><span class="params">(m)</span></span>;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">suffix</span><span class="params">(m)</span></span>;</span><br><span class="line">        prefix[<span class="number">0</span>] = s[<span class="number">0</span>] == <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt; m; ++i) prefix[i] = prefix[i<span class="number">-1</span>] + (s[i] == <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">        suffix[m<span class="number">-1</span>] = s[m<span class="number">-1</span>] == <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = m<span class="number">-2</span>; i &gt;= <span class="number">0</span>; --i) suffix[i] = suffix[i+<span class="number">1</span>] + (s[i] == <span class="string">&#x27;1&#x27;</span>);</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; m<span class="number">-1</span>; ++i)</span><br><span class="line">            ans = <span class="built_in">max</span>(ans, prefix[i] + suffix[i+<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li>优化思路代码实现如下：<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxScore</span><span class="params">(string s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> m = s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> cnt1 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; ++i) cnt1 += s[i] == <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">        <span class="type">int</span> cnt0 = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; m<span class="number">-1</span>; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            cnt0 += s[i] == <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">            cnt1 -= s[i] == <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">            ans = <span class="built_in">max</span>(ans, cnt0 + cnt1);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
       <categories>
         <category>刷题</category>
         <category>leetcode每日一题</category>
@@ -730,6 +730,129 @@
       </categories>
       <tags>
         <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【leetcode】【2022/8/17】1302. 层数最深叶子节点的和</title>
+    <url>/p/f0055286.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一棵二叉树的根节点 <code>root</code>，返回层数最深的叶子节点的和。</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>层次遍历基础应用题。<ul>
+<li>在每一层遍历前更新求和 <code>sum</code> 为 <code>0</code>，然后在同层的遍历中进行累加即可。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">deepestLeavesSum</span><span class="params">(TreeNode* root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line">        q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            ans = <span class="number">0</span>;</span><br><span class="line">            <span class="type">int</span> sz = q.<span class="built_in">size</span>();</span><br><span class="line">            TreeNode* tmp;</span><br><span class="line">            <span class="keyword">while</span>(sz-- &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                tmp = q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">                ans += tmp-&gt;val;</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;left) q.<span class="built_in">push</span>(tmp-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;right) q.<span class="built_in">push</span>(tmp-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>leetcode每日一题</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【读书笔记】【More Effective C++】基础议题（Basics）</title>
+    <url>/p/d5bcbf66.html</url>
+    <content><![CDATA[<h2 id="条款-1：仔细区分-pointers-和-references"><a href="#条款-1：仔细区分-pointers-和-references" class="headerlink" title="条款 1：仔细区分 pointers 和 references"></a>条款 1：仔细区分 pointers 和 references</h2><ul>
+<li>pointers 和 references 的区别：<ol>
+<li>指针可以赋为空，但引用不可以。【好处：可以认为引用比指针更安全，因为引用不需要检测有效性，其默认不为空】</li>
+<li>指针可以不初始化，但引用必须有初值。</li>
+<li>指针可以重新赋值，但引用初始化后不可以再重新赋值。</li>
+</ol>
+</li>
+<li>总结：<ul>
+<li>使用指针的场合：一是存在不指向任何对象的可能性；二是需要能够在不同的时刻指向不同的对象。</li>
+<li>使用引用的场合：总是指向一个对象且一旦指向一个对象之后就不会改变指向；重载某个操作符时（作为返回值）。【引用常用于函数的传参和返回】</li>
+</ul>
+</li>
+<li>补充：<ol>
+<li>指针有自己的实际地址和所占空间的大小；但引用只是被绑定对象的一个别称，引用和它绑定的变量共享一个地址。<ul>
+<li>看了一些关于 C++ 引用底层实现的讨论，大部分都指出引用可以理解为 const 指针，但是引用不能仅仅视为指针的语法糖，具体看下面的参考内容。</li>
+</ul>
+</li>
+<li>指针可以指向指针的指针，甚至更多层的指针；但引用只能有一层。</li>
+<li>指针可以由 const 修饰；但引用不可以由 const 修饰。</li>
+<li>指针可以与数组结合；但引用不可以，没有引用数组这种说法。</li>
+</ol>
+</li>
+<li>参考内容：<ul>
+<li><a href="https://blog.csdn.net/lws123253/article/details/80353197">C++ 中“引用”的底层实现原理详解</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/89175296">简谈 C++ 中指针与引用的底层实现</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="条款-2：最好使用-C-转型操作符"><a href="#条款-2：最好使用-C-转型操作符" class="headerlink" title="条款 2：最好使用 C++ 转型操作符"></a>条款 2：最好使用 C++ 转型操作符</h2><ul>
+<li>static_cast（常规类型转换）：<ol>
+<li>和 C 风格转型的限制一样：不能把 struct 转换成 int 类型，或者把 double 类型转换成指针类型；</li>
+<li>它不能从表达式中去除 const 属性。</li>
+</ol>
+</li>
+<li>const_cast（去常量转换）：<ul>
+<li>用来改变表达式中的常量性（constness）或变易性（volatileness）。<ul>
+<li>但是不能用它来完成修改这两个属性之外的事情。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>dynamic_cast（继承转换）：<ol>
+<li>用来执行继承体系中“<strong>安全</strong>的<strong>向下转型</strong>或<strong>跨系转型</strong>动作”。<ul>
+<li>安全指的就是由 base 类转向 derived 类或转向 sibling base 类。</li>
+<li>失败的转换将返回空指针或者抛出异常。</li>
+</ul>
+</li>
+<li>想要使用 dynamic_cast ，基类中必须有虚函数。也就是必须要涉及继承机制。<ul>
+<li>原因是：存在虚函数，说明它有想要让基类指针或引用指向派生类对象的情况，此时转换才有意义。</li>
+<li>由于运行时类型检查需要运行时类型信息，而这个信息存储在类的虚函数表中，只有定义了虚函数的类才有虚函数表。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>reinterpret_cast（函数指针转换）：<ul>
+<li>最常用的用途是转换函数指针类型，即将函数指针转换成另一种函数指针。</li>
+<li>其与编译平台有关，因而不具有移植性。</li>
+</ul>
+</li>
+</ul>
+<h2 id="条款-3：绝对不要以多态（polymorphically）方式处理数组"><a href="#条款-3：绝对不要以多态（polymorphically）方式处理数组" class="headerlink" title="条款 3：绝对不要以多态（polymorphically）方式处理数组"></a>条款 3：绝对不要以多态（polymorphically）方式处理数组</h2><ul>
+<li>多态是继承带来的特性：通过<strong>指向基类对象的指针或引用</strong>操作<strong>派生类对象</strong>。</li>
+<li>多态和指针算法不能混合在一起使用（比如 iter+i 的操作在多态中是难以保证正确的），所以数组和多态也不能用在一起。<ul>
+<li>数组中各元素的内存地址是数组的起始地址加上之前各个元素的大小得到的，如果各元素大小不一（当实现多态时，动态绑定类型的不同会导致编译器认定的数组元素大小和真实的不一致），那么编译器将不能正确地定位元素，从而产生错误。</li>
+</ul>
+</li>
+</ul>
+<h2 id="条款-4：非必要不提供-default-constructor"><a href="#条款-4：非必要不提供-default-constructor" class="headerlink" title="条款 4：非必要不提供 default constructor"></a>条款 4：非必要不提供 default constructor</h2><ul>
+<li>默认（缺省）构造函数指的是在没有任何外来信息的情况下将对象初始化。</li>
+<li>没有缺省构造函数的类使用起来会有所限制：<ul>
+<li>无法产生对应的数组（因为一般来说无法在建立对象数组时给构造函数传递参数）。<ul>
+<li>避免该限制的三种方法：<ol>
+<li>在堆栈中创建数组，并且使用有参构造函数。</li>
+<li>使用指针数组，而非对象数组。【new 操作得来的指针如果不进行对应 delete 的操作，会造成资源泄露】</li>
+<li>使用内存池，使用 operator new[] 函数预先申请一块内存，要使用的时候再使用 placement new（定位 new）依次构造</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>无法在许多基于模板的容器类里使用（模板内部的实现往往与数组有关）。</li>
+<li>假若虚基类没有默认构造函数，那么所有继承类都要保证提供虚基类的构造参数，这是很麻烦的一件事。</li>
+</ul>
+</li>
+<li>但认为“所有类都应该提供默认构造函数”这种观点也是错误的：<ul>
+<li>提供无意义的缺省构造函数也会影响类的工作效率。</li>
+<li>因此如果缺省构造函数无意义的话，尽量避免使用它们。</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>读书笔记</category>
+        <category>More Effective C++</category>
+      </categories>
+      <tags>
+        <tag>读书笔记</tag>
+        <tag>More Effective C++</tag>
       </tags>
   </entry>
   <entry>
@@ -1026,35 +1149,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【leetcode】【剑指offer Ⅱ】013. 二维子矩阵的和</title>
-    <url>/p/7584ade8.html</url>
-    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>实现 <code>NumMatrix</code> 类：<ul>
-<li><code>NumMatrix(int[][] matrix)</code> 给定整数矩阵 <code>matrix</code> 进行初始化。</li>
-<li><code>int sumRegion(int row1, int col1, int row2, int col2)</code> 返回左上角 <code>(row1, col1)</code>、右下角 <code>(row2, col2)</code> 的子矩阵的元素总和。</li>
-</ul>
-</li>
-</ul>
-<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
-<li>二维前缀和基础应用题。<ul>
-<li>建立二维前缀和数组的公式为：<script type="math/tex; mode=display">f(i, j)=f(i-1, j)+f(i, j-1)-f(i-1, j-1)+\operatorname{matrix}[i][j]</script></li>
-<li>根据前缀和数组确定区域内求和的公式为：<script type="math/tex; mode=display">\text {sumRegion}\left(\operatorname{row}_{1}, \operatorname{col}_{1}, \operatorname{row}_{2}, \operatorname{col}_{2}\right) \\
-=f\left(\operatorname{row}_{2}, \operatorname{col}_{2}\right)-f\left(\operatorname{row}_{1}-1, \operatorname{col}_{2}\right)\\ -f\left(\operatorname{row}_{2}, \operatorname{col}_{1}-1\right)+f\left(\operatorname{row}_{1}-1, \operatorname{col}_{1}-1\right)</script></li>
-</ul>
-</li>
-<li>作图理解公式即可，推导也很容易。</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NumMatrix</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; sum; <span class="comment">// 二维前缀和数组</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">NumMatrix</span>(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; matrix)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> m = matrix.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> n = matrix[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        sum = vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;(m+<span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n+<span class="number">1</span>));</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            sum[i][j] = sum[i<span class="number">-1</span>][j] + sum[i][j<span class="number">-1</span>] - sum[i<span class="number">-1</span>][j<span class="number">-1</span>] + matrix[i<span class="number">-1</span>][j<span class="number">-1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">sumRegion</span><span class="params">(<span class="type">int</span> row1, <span class="type">int</span> col1, <span class="type">int</span> row2, <span class="type">int</span> col2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> sum[row2+<span class="number">1</span>][col2+<span class="number">1</span>] - sum[row1][col2+<span class="number">1</span>] - sum[row2+<span class="number">1</span>][col1] + sum[row1][col1];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>刷题</category>
-        <category>剑指offer Ⅱ</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-        <tag>剑指offer Ⅱ</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【leetcode】【剑指offer Ⅱ】012. 左右两边子数组的和相等</title>
     <url>/p/cacf7040.html</url>
     <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
@@ -1074,6 +1168,35 @@
 </li>
 </ul>
 <h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">pivotIndex</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> right = <span class="built_in">accumulate</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>(), <span class="number">0</span>);</span><br><span class="line">        <span class="type">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            right -= nums[i];</span><br><span class="line">            <span class="keyword">if</span>(left == right) <span class="keyword">return</span> i;</span><br><span class="line">            left += nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>剑指offer Ⅱ</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>剑指offer Ⅱ</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【leetcode】【剑指offer Ⅱ】013. 二维子矩阵的和</title>
+    <url>/p/7584ade8.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>实现 <code>NumMatrix</code> 类：<ul>
+<li><code>NumMatrix(int[][] matrix)</code> 给定整数矩阵 <code>matrix</code> 进行初始化。</li>
+<li><code>int sumRegion(int row1, int col1, int row2, int col2)</code> 返回左上角 <code>(row1, col1)</code>、右下角 <code>(row2, col2)</code> 的子矩阵的元素总和。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>二维前缀和基础应用题。<ul>
+<li>建立二维前缀和数组的公式为：<script type="math/tex; mode=display">f(i, j)=f(i-1, j)+f(i, j-1)-f(i-1, j-1)+\operatorname{matrix}[i][j]</script></li>
+<li>根据前缀和数组确定区域内求和的公式为：<script type="math/tex; mode=display">\text {sumRegion}\left(\operatorname{row}_{1}, \operatorname{col}_{1}, \operatorname{row}_{2}, \operatorname{col}_{2}\right) \\
+=f\left(\operatorname{row}_{2}, \operatorname{col}_{2}\right)-f\left(\operatorname{row}_{1}-1, \operatorname{col}_{2}\right)\\ -f\left(\operatorname{row}_{2}, \operatorname{col}_{1}-1\right)+f\left(\operatorname{row}_{1}-1, \operatorname{col}_{1}-1\right)</script></li>
+</ul>
+</li>
+<li>作图理解公式即可，推导也很容易。</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NumMatrix</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; sum; <span class="comment">// 二维前缀和数组</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">NumMatrix</span>(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; matrix)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> m = matrix.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> n = matrix[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        sum = vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;(m+<span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n+<span class="number">1</span>));</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            sum[i][j] = sum[i<span class="number">-1</span>][j] + sum[i][j<span class="number">-1</span>] - sum[i<span class="number">-1</span>][j<span class="number">-1</span>] + matrix[i<span class="number">-1</span>][j<span class="number">-1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">sumRegion</span><span class="params">(<span class="type">int</span> row1, <span class="type">int</span> col1, <span class="type">int</span> row2, <span class="type">int</span> col2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> sum[row2+<span class="number">1</span>][col2+<span class="number">1</span>] - sum[row1][col2+<span class="number">1</span>] - sum[row2+<span class="number">1</span>][col1] + sum[row1][col1];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>刷题</category>
         <category>剑指offer Ⅱ</category>
@@ -1200,6 +1323,29 @@
       </tags>
   </entry>
   <entry>
+    <title>【leetcode】【剑指offer Ⅱ】018. 有效的回文</title>
+    <url>/p/a3ee315b.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定一个字符串 <code>s</code>，验证 <code>s</code> 是否是回文串。<ul>
+<li>只考虑字母和数字字符，可以忽略字母的大小写。</li>
+<li>将空字符串定义为有效的回文串。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>该题的解法很直白，前后双指针往中间移动即可。</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isPalindrome</span><span class="params">(string s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = s.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(l &lt; r)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span>(l &lt; r <span class="keyword">and</span> !<span class="built_in">isalnum</span>(s[r])) <span class="comment">// isalnum = isalpha + isdigit</span></span><br><span class="line">                --r;</span><br><span class="line">            <span class="keyword">while</span>(l &lt; r <span class="keyword">and</span> !<span class="built_in">isalnum</span>(s[l]))</span><br><span class="line">                ++l;</span><br><span class="line">            <span class="keyword">if</span>(l &gt;= r) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">toupper</span>(s[l++]) != <span class="built_in">toupper</span>(s[r--]))</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>剑指offer Ⅱ</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>剑指offer Ⅱ</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【leetcode】【剑指offer Ⅱ】019. 最多删除一个字符得到回文</title>
     <url>/p/d9ade33e.html</url>
     <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
@@ -1216,29 +1362,6 @@
 <li>另一版代码如下：【迭代比较，遇到不相等才调用一个同样操作的函数】<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isValid</span><span class="params">(string&amp; s, <span class="type">int</span> lo, <span class="type">int</span> hi)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(lo &lt; hi)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[lo] != s[hi])</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            ++lo, --hi;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">validPalindrome</span><span class="params">(string&amp; s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> lo = <span class="number">0</span>, hi = s.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(lo &lt; hi)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[lo] != s[hi])<span class="comment">// 第一次出错，就继续进入isValid，isValid做的事和这个函数的一样</span></span><br><span class="line">                <span class="keyword">return</span> <span class="built_in">isValid</span>(s, lo, hi<span class="number">-1</span>) || <span class="built_in">isValid</span>(s, lo+<span class="number">1</span>, hi);</span><br><span class="line">            ++lo, --hi;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
-      <categories>
-        <category>刷题</category>
-        <category>剑指offer Ⅱ</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-        <tag>剑指offer Ⅱ</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【leetcode】【剑指offer Ⅱ】018. 有效的回文</title>
-    <url>/p/a3ee315b.html</url>
-    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>给定一个字符串 <code>s</code>，验证 <code>s</code> 是否是回文串。<ul>
-<li>只考虑字母和数字字符，可以忽略字母的大小写。</li>
-<li>将空字符串定义为有效的回文串。</li>
-</ul>
-</li>
-</ul>
-<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
-<li>该题的解法很直白，前后双指针往中间移动即可。</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isPalindrome</span><span class="params">(string s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = s.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(l &lt; r)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span>(l &lt; r <span class="keyword">and</span> !<span class="built_in">isalnum</span>(s[r])) <span class="comment">// isalnum = isalpha + isdigit</span></span><br><span class="line">                --r;</span><br><span class="line">            <span class="keyword">while</span>(l &lt; r <span class="keyword">and</span> !<span class="built_in">isalnum</span>(s[l]))</span><br><span class="line">                ++l;</span><br><span class="line">            <span class="keyword">if</span>(l &gt;= r) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">toupper</span>(s[l++]) != <span class="built_in">toupper</span>(s[r--]))</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>刷题</category>
         <category>剑指offer Ⅱ</category>
@@ -1560,6 +1683,34 @@
       </tags>
   </entry>
   <entry>
+    <title>【leetcode】【剑指offer Ⅱ】029. 排序的循环链表</title>
+    <url>/p/3e7bd6e8.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定循环单调非递减链表中的一个点，向这个链表中插入一个新元素 <code>insertVal</code>，使这个链表仍保持单调非递增。<ul>
+<li>给定的指针可以是链表中任意一个节点的指针。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>由题目可知链表为循环单链，且顺着链表移动可以得知链表是单调非递增的，所以只需要遍历链表，在合适的位置插入节点即可。<ul>
+<li>插入的位置只有两种：在某两个数之间、在最大值和最小值之间。</li>
+<li>因而在遍历的过程中，遇到合适的位置就可以直接插入，即 <code>cur-&gt;val &lt;= insertVal and cur-&gt;next-&gt;val &gt;= insertVal</code>。</li>
+<li>但是遇到最大值节点和最小值节点的连接时不能直接插入，因为题目给定的起始指针不一定是链表中最小元素的指针，这就意味着从给定指针起移动到最大节点未必走完全程。【所以需要做的是保存好最大值指针，如果走完一遍全程仍无合适插入位置，则说明需要插入到最大值指针后面】</li>
+<li>如果链表为空，则创建一个自引的节点即可。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Node* <span class="title">insert</span><span class="params">(Node* head, <span class="type">int</span> insertVal)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Node* new_node = <span class="keyword">new</span> <span class="built_in">Node</span>(insertVal);</span><br><span class="line">        <span class="keyword">if</span>(!head)</span><br><span class="line">        &#123;</span><br><span class="line">            new_node-&gt;next = new_node;</span><br><span class="line">            <span class="keyword">return</span> new_node;</span><br><span class="line">        &#125;</span><br><span class="line">        Node* max_node = head;</span><br><span class="line">        Node* cur = head;</span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(cur-&gt;val &lt;= insertVal <span class="keyword">and</span> cur-&gt;next-&gt;val &gt;= insertVal) <span class="comment">// 直接找到插入位置</span></span><br><span class="line">            &#123;</span><br><span class="line">                new_node-&gt;next = cur-&gt;next;</span><br><span class="line">                cur-&gt;next = new_node;</span><br><span class="line">                <span class="keyword">return</span> head;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(cur-&gt;val &gt;= max_node-&gt;val) <span class="comment">// 值可能重复，保留最后一个最大值</span></span><br><span class="line">                max_node = cur;</span><br><span class="line">            cur = cur-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(cur == head) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 来到此时说明需要插入到最大节点的后边</span></span><br><span class="line">        new_node-&gt;next = max_node-&gt;next;</span><br><span class="line">        max_node-&gt;next = new_node;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>剑指offer Ⅱ</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>剑指offer Ⅱ</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【数据结构】并查集</title>
     <url>/p/2e7813af.html</url>
     <content><![CDATA[<h2 id="相关概念："><a href="#相关概念：" class="headerlink" title="相关概念："></a>相关概念：</h2><ul>
@@ -1619,6 +1770,40 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【leetcode】【剑指offer Ⅱ】030. 插入、删除和随机访问都是 O(1) 的容器</title>
+    <url>/p/c211d73d.html</url>
+    <content><![CDATA[<h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>设计一个支持在平均时间复杂度 <code>O(1)</code> 下，执行以下操作的数据结构：<ul>
+<li><code>insert(val)</code>：当元素 <code>val</code> 不存在时返回 <code>true</code>，并向集合中插入该项，否则返回 <code>false</code>。</li>
+<li><code>remove(val)</code>：当元素 <code>val</code> 存在时返回 <code>true</code>，并从集合中移除该项，否则返回 <code>false</code>。</li>
+<li><code>getRandom</code>：随机返回现有集合中的一项。每个元素应该有相同的概率被返回。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>该题比想象中要简单很多，<strong>变长数组</strong>可以在 <code>O(1)</code> 的时间内完成<strong>随机访问元素</strong>操作，<strong>哈希表</strong>可以在 <code>O(1)</code> 的时间内完成<strong>插入和删除</strong>操作，所以该题只需要将变长数组结合哈希表进行存储即可。</li>
+<li>变长数组存储数值，哈希表用来保存值与数组中索引的映射：<ul>
+<li><code>insert(val)</code> 操作：首先需要在哈希表中查找是否已经存在，如果存在则返回 <code>false</code>，如果不存在则直接存入数组中，并将值与对应的索引存储在哈希表中。</li>
+<li><code>delete(val)</code> 操作：首先同样需要在哈希表中查找是否已经存在，如果不存在则返回 <code>false</code>，如果存在则要进行相应的删除。<ul>
+<li>有一种直接的办法，可以只擦除哈希表中对应的键值对，而不更新边长数组，因为查找操作只影响哈希表，且变长数组无法做到在 <code>O(1)</code> 时间内删除元素；但这种方法不可取，因为变长数组可能会一直增大。</li>
+<li>所以在删除哈希表对应键值对之前，需要首先把该值 <code>val</code> 与数组中最后一个数 <code>num</code> 进行交换，如此 <code>num</code> 的索引就变成了 <code>val</code> 的索引，再对 <code>val</code> 对应的键值对删除即可，同时变长数组可以弹出最后一个元素，使得数组大小得到控制。</li>
+</ul>
+</li>
+<li><code>getRandom</code> 操作：<code>O(1)</code> 的随机访问操作说明容器可以通过索引访问，所以这里也说明了要实现该容器需要数组来存放数据。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">RandomizedSet</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; vec;</span><br><span class="line">    unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; mapped;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/** Initialize your data structure here. */</span></span><br><span class="line">    <span class="built_in">RandomizedSet</span>() &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Inserts a value to the set. Returns true if the set did not already contain the specified element. */</span></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">insert</span><span class="params">(<span class="type">int</span> val)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(mapped.<span class="built_in">count</span>(val)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        mapped[val] = vec.<span class="built_in">size</span>();</span><br><span class="line">        vec.<span class="built_in">push_back</span>(val);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Removes a value from the set. Returns true if the set contained the specified element. */</span></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">remove</span><span class="params">(<span class="type">int</span> val)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!mapped.<span class="built_in">count</span>(val)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="type">int</span> idx = mapped[val];</span><br><span class="line">        vec[idx] = vec[vec.<span class="built_in">size</span>()<span class="number">-1</span>];</span><br><span class="line">        mapped[vec[idx]] = idx;</span><br><span class="line">        mapped.<span class="built_in">erase</span>(val);</span><br><span class="line">        vec.<span class="built_in">pop_back</span>();</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Get a random element from the set. */</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">getRandom</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> vec[<span class="built_in">rand</span>()%vec.<span class="built_in">size</span>()];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>刷题</category>
+        <category>剑指offer Ⅱ</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>剑指offer Ⅱ</tag>
       </tags>
   </entry>
   <entry>

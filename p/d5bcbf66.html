@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="条款 1：仔细区分 pointers 和 references pointers 和 references 的区别： 指针可以赋为空，但引用不可以。【好处：可以认为引用比指针更安全，因为引用不需要检测有效性，其默认不为空】 指针可以不初始化，但引用必须有初值。 指针可以重新赋值，但引用初始化后不可以再重新赋值。   总结： 使用指针的场合：一是存在不指向任何对象的可能性；二是需要能够在不同的时刻指">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【读书笔记】【More Effective C++】基础议题（Basics）">
+<meta property="og:url" content="http://example.com/p/d5bcbf66.html">
+<meta property="og:site_name" content="Cyl&#39;s Blog">
+<meta property="og:description" content="条款 1：仔细区分 pointers 和 references pointers 和 references 的区别： 指针可以赋为空，但引用不可以。【好处：可以认为引用比指针更安全，因为引用不需要检测有效性，其默认不为空】 指针可以不初始化，但引用必须有初值。 指针可以重新赋值，但引用初始化后不可以再重新赋值。   总结： 使用指针的场合：一是存在不指向任何对象的可能性；二是需要能够在不同的时刻指">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-17T10:58:02.000Z">
+<meta property="article:modified_time" content="2022-08-17T14:17:43.840Z">
+<meta property="article:author" content="伊利">
+<meta property="article:tag" content="读书笔记">
+<meta property="article:tag" content="More Effective C++">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/p/d5bcbf66.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【读书笔记】【More Effective C++】基础议题（Basics） | Cyl's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Cyl's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/d5bcbf66.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【读书笔记】【More Effective C++】基础议题（Basics）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-08-17 18:58:02 / 修改时间：22:17:43" itemprop="dateCreated datePublished" datetime="2022-08-17T18:58:02+08:00">2022-08-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">读书笔记</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/More-Effective-C/" itemprop="url" rel="index"><span itemprop="name">More Effective C++</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="条款-1：仔细区分-pointers-和-references"><a href="#条款-1：仔细区分-pointers-和-references" class="headerlink" title="条款 1：仔细区分 pointers 和 references"></a>条款 1：仔细区分 pointers 和 references</h2><ul>
+<li>pointers 和 references 的区别：<ol>
+<li>指针可以赋为空，但引用不可以。【好处：可以认为引用比指针更安全，因为引用不需要检测有效性，其默认不为空】</li>
+<li>指针可以不初始化，但引用必须有初值。</li>
+<li>指针可以重新赋值，但引用初始化后不可以再重新赋值。</li>
+</ol>
+</li>
+<li>总结：<ul>
+<li>使用指针的场合：一是存在不指向任何对象的可能性；二是需要能够在不同的时刻指向不同的对象。</li>
+<li>使用引用的场合：总是指向一个对象且一旦指向一个对象之后就不会改变指向；重载某个操作符时（作为返回值）。【引用常用于函数的传参和返回】</li>
+</ul>
+</li>
+<li>补充：<ol>
+<li>指针有自己的实际地址和所占空间的大小；但引用只是被绑定对象的一个别称，引用和它绑定的变量共享一个地址。<ul>
+<li>看了一些关于 C++ 引用底层实现的讨论，大部分都指出引用可以理解为 const 指针，但是引用不能仅仅视为指针的语法糖，具体看下面的参考内容。</li>
+</ul>
+</li>
+<li>指针可以指向指针的指针，甚至更多层的指针；但引用只能有一层。</li>
+<li>指针可以由 const 修饰；但引用不可以由 const 修饰。</li>
+<li>指针可以与数组结合；但引用不可以，没有引用数组这种说法。</li>
+</ol>
+</li>
+<li>参考内容：<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/lws123253/article/details/80353197">C++ 中“引用”的底层实现原理详解</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/89175296">简谈 C++ 中指针与引用的底层实现</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="条款-2：最好使用-C-转型操作符"><a href="#条款-2：最好使用-C-转型操作符" class="headerlink" title="条款 2：最好使用 C++ 转型操作符"></a>条款 2：最好使用 C++ 转型操作符</h2><ul>
+<li>static_cast（常规类型转换）：<ol>
+<li>和 C 风格转型的限制一样：不能把 struct 转换成 int 类型，或者把 double 类型转换成指针类型；</li>
+<li>它不能从表达式中去除 const 属性。</li>
+</ol>
+</li>
+<li>const_cast（去常量转换）：<ul>
+<li>用来改变表达式中的常量性（constness）或变易性（volatileness）。<ul>
+<li>但是不能用它来完成修改这两个属性之外的事情。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>dynamic_cast（继承转换）：<ol>
+<li>用来执行继承体系中“<strong>安全</strong>的<strong>向下转型</strong>或<strong>跨系转型</strong>动作”。<ul>
+<li>安全指的就是由 base 类转向 derived 类或转向 sibling base 类。</li>
+<li>失败的转换将返回空指针或者抛出异常。</li>
+</ul>
+</li>
+<li>想要使用 dynamic_cast ，基类中必须有虚函数。也就是必须要涉及继承机制。<ul>
+<li>原因是：存在虚函数，说明它有想要让基类指针或引用指向派生类对象的情况，此时转换才有意义。</li>
+<li>由于运行时类型检查需要运行时类型信息，而这个信息存储在类的虚函数表中，只有定义了虚函数的类才有虚函数表。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>reinterpret_cast（函数指针转换）：<ul>
+<li>最常用的用途是转换函数指针类型，即将函数指针转换成另一种函数指针。</li>
+<li>其与编译平台有关，因而不具有移植性。</li>
+</ul>
+</li>
+</ul>
+<h2 id="条款-3：绝对不要以多态（polymorphically）方式处理数组"><a href="#条款-3：绝对不要以多态（polymorphically）方式处理数组" class="headerlink" title="条款 3：绝对不要以多态（polymorphically）方式处理数组"></a>条款 3：绝对不要以多态（polymorphically）方式处理数组</h2><ul>
+<li>多态是继承带来的特性：通过<strong>指向基类对象的指针或引用</strong>操作<strong>派生类对象</strong>。</li>
+<li>多态和指针算法不能混合在一起使用（比如 iter+i 的操作在多态中是难以保证正确的），所以数组和多态也不能用在一起。<ul>
+<li>数组中各元素的内存地址是数组的起始地址加上之前各个元素的大小得到的，如果各元素大小不一（当实现多态时，动态绑定类型的不同会导致编译器认定的数组元素大小和真实的不一致），那么编译器将不能正确地定位元素，从而产生错误。</li>
+</ul>
+</li>
+</ul>
+<h2 id="条款-4：非必要不提供-default-constructor"><a href="#条款-4：非必要不提供-default-constructor" class="headerlink" title="条款 4：非必要不提供 default constructor"></a>条款 4：非必要不提供 default constructor</h2><ul>
+<li>默认（缺省）构造函数指的是在没有任何外来信息的情况下将对象初始化。</li>
+<li>没有缺省构造函数的类使用起来会有所限制：<ul>
+<li>无法产生对应的数组（因为一般来说无法在建立对象数组时给构造函数传递参数）。<ul>
+<li>避免该限制的三种方法：<ol>
+<li>在堆栈中创建数组，并且使用有参构造函数。</li>
+<li>使用指针数组，而非对象数组。【new 操作得来的指针如果不进行对应 delete 的操作，会造成资源泄露】</li>
+<li>使用内存池，使用 operator new[] 函数预先申请一块内存，要使用的时候再使用 placement new（定位 new）依次构造</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>无法在许多基于模板的容器类里使用（模板内部的实现往往与数组有关）。</li>
+<li>假若虚基类没有默认构造函数，那么所有继承类都要保证提供虚基类的构造参数，这是很麻烦的一件事。</li>
+</ul>
+</li>
+<li>但认为“所有类都应该提供默认构造函数”这种观点也是错误的：<ul>
+<li>提供无意义的缺省构造函数也会影响类的工作效率。</li>
+<li>因此如果缺省构造函数无意义的话，尽量避免使用它们。</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag"><i class="fa fa-tag"></i> 读书笔记</a>
+              <a href="/tags/More-Effective-C/" rel="tag"><i class="fa fa-tag"></i> More Effective C++</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/p/c211d73d.html" rel="prev" title="【leetcode】【剑指offer Ⅱ】030. 插入、删除和随机访问都是 O(1) 的容器">
+      <i class="fa fa-chevron-left"></i> 【leetcode】【剑指offer Ⅱ】030. 插入、删除和随机访问都是 O(1) 的容器
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE-1%EF%BC%9A%E4%BB%94%E7%BB%86%E5%8C%BA%E5%88%86-pointers-%E5%92%8C-references"><span class="nav-number">1.</span> <span class="nav-text">条款 1：仔细区分 pointers 和 references</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE-2%EF%BC%9A%E6%9C%80%E5%A5%BD%E4%BD%BF%E7%94%A8-C-%E8%BD%AC%E5%9E%8B%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">2.</span> <span class="nav-text">条款 2：最好使用 C++ 转型操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE-3%EF%BC%9A%E7%BB%9D%E5%AF%B9%E4%B8%8D%E8%A6%81%E4%BB%A5%E5%A4%9A%E6%80%81%EF%BC%88polymorphically%EF%BC%89%E6%96%B9%E5%BC%8F%E5%A4%84%E7%90%86%E6%95%B0%E7%BB%84"><span class="nav-number">3.</span> <span class="nav-text">条款 3：绝对不要以多态（polymorphically）方式处理数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE-4%EF%BC%9A%E9%9D%9E%E5%BF%85%E8%A6%81%E4%B8%8D%E6%8F%90%E4%BE%9B-default-constructor"><span class="nav-number">4.</span> <span class="nav-text">条款 4：非必要不提供 default constructor</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="伊利"
+      src="/images/maomao.jpg">
+  <p class="site-author-name" itemprop="name">伊利</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-code"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">伊利</span>
+</div>
+
+<!---->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
