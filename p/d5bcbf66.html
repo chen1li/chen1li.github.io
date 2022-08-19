@@ -28,7 +28,7 @@
 <meta property="og:description" content="条款 1：仔细区分 pointers 和 references pointers 和 references 的区别： 指针可以赋为空，但引用不可以。【好处：可以认为引用比指针更安全，因为引用不需要检测有效性，其默认不为空】 指针可以不初始化，但引用必须有初值。 指针可以重新赋值，但引用初始化后不可以再重新赋值。   总结： 使用指针的场合：一是存在不指向任何对象的可能性；二是需要能够在不同的时刻指">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-17T10:58:02.000Z">
-<meta property="article:modified_time" content="2022-08-17T14:17:43.840Z">
+<meta property="article:modified_time" content="2022-08-18T07:36:33.466Z">
 <meta property="article:author" content="伊利">
 <meta property="article:tag" content="读书笔记">
 <meta property="article:tag" content="More Effective C++">
@@ -218,10 +218,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-08-17 18:58:02 / 修改时间：22:17:43" itemprop="dateCreated datePublished" datetime="2022-08-17T18:58:02+08:00">2022-08-17</time>
+              <time title="创建时间：2022-08-17 18:58:02" itemprop="dateCreated datePublished" datetime="2022-08-17T18:58:02+08:00">2022-08-17</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-18 15:36:33" itemprop="dateModified" datetime="2022-08-18T15:36:33+08:00">2022-08-18</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -328,7 +334,7 @@
 <li>避免该限制的三种方法：<ol>
 <li>在堆栈中创建数组，并且使用有参构造函数。</li>
 <li>使用指针数组，而非对象数组。【new 操作得来的指针如果不进行对应 delete 的操作，会造成资源泄露】</li>
-<li>使用内存池，使用 operator new[] 函数预先申请一块内存，要使用的时候再使用 placement new（定位 new）依次构造</li>
+<li>使用内存池，使用 operator new[] 函数预先申请一块内存，要使用的时候再使用 placement new（定位 new）依次构造。</li>
 </ol>
 </li>
 </ul>
@@ -366,7 +372,10 @@
     <a href="/p/c211d73d.html" rel="prev" title="【leetcode】【剑指offer Ⅱ】030. 插入、删除和随机访问都是 O(1) 的容器">
       <i class="fa fa-chevron-left"></i> 【leetcode】【剑指offer Ⅱ】030. 插入、删除和随机访问都是 O(1) 的容器
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/p/b7e65a04.html" rel="next" title="【leetcode】【2022/8/18】1224. 最大相等频率">
+      【leetcode】【2022/8/18】1224. 最大相等频率 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -441,7 +450,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-count">65</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
