@@ -189,6 +189,324 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/b7e65a04.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/b7e65a04.html" class="post-title-link" itemprop="url">【leetcode】【2022/8/18】1224. 最大相等频率</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-18 10:08:37" itemprop="dateCreated datePublished" datetime="2022-08-18T10:08:37+08:00">2022-08-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-19 14:14:09" itemprop="dateModified" datetime="2022-08-19T14:14:09+08:00">2022-08-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leetcode每日一题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给你一个正整数数组 <code>nums</code>，从该数组中找出能满足下面要求的最长前缀，并返回该前缀的长度：<ul>
+<li>从前缀中恰好删除一个元素后，剩下每个数字的出现次数都相同。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>该题虽然难度标记为困难，但解题思路上并不复杂。<ul>
+<li>用两个哈希表来记录，第一个哈希表 <code>m1</code> 记录的是数组中出现数值的频数，第二个哈希表 <code>m2</code> 记录的是 <code>m1</code> 中频数的频数，从前往后遍历数组并更新 <code>m1</code>、<code>m2</code>。【注意当 <code>m2</code> 中记录的数值为 <code>0</code>，则将对应键值对删除掉，即假若频数的频数变为 <code>0</code>，则从 <code>m2</code> 中去除掉影响】<ul>
+<li>简单来说，<code>m1</code> 中的键值对记录的是<strong>数值</strong>和<strong>频数</strong>，<code>m2</code> 中的键值对记录的是<strong>频数</strong>和<strong>频数的频数</strong>。</li>
+</ul>
+</li>
+<li>想要达到题目的要求（从前缀中恰好删除一个元素后，剩下每个数字的出现次数都相同），则只需要满足 <code>m2</code> 中下面几种情况：<ol>
+<li><code>m2.size() == 1</code>，即目前访问的前缀数组中只有一种频数，同时要满足以下两种情况其中一种：<ol>
+<li>该频数为 <code>1</code>。【比如前缀数组为 <code>1 2 3 4</code>，此时数组中每个数值的频数均为 <code>1</code>，频数为 <code>1</code> 的频数为 <code>4</code>，此时删除任意一个数值都满足条件】</li>
+<li>假若该频数不为 <code>1</code>，但该频数的频数为 <code>1</code>，也满足条件。【比如前缀数组为 <code>4 4 4</code>，此时此时数组中每个数值的频数为 <code>3</code>，频数为 <code>3</code> 的频数为 <code>1</code>，此时删除任意一个数值都满足条件】</li>
+</ol>
+</li>
+<li><code>m2.size() == 2</code>，即目前访问的前缀数组中只有两种频数，同时也要满足以下两种情况其中一种：<ol>
+<li>其中一个频数为 <code>1</code> 且该频数的频数为 <code>1</code>。【比如前缀数组为 <code>2 3 3 3 4 4 4</code>】</li>
+<li>两个频数相差 <code>1</code>，且更大的频数其频数为 <code>1</code>。【比如前缀数组为 <code>2 2 3 3 4 4 4</code>】</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>该题就很像是在面向示例解题了，把所有情况考虑上就可以了。<ul>
+<li>实际上该题也仅仅考察了哈希表计数统计，并无很多很难的东西。</li>
+</ul>
+</li>
+<li>前面提及的思路是比较直白的思路，如官方题解所示，实际遍历过程中可以维护相应的变量来进行判断（即维护最大的频数以及最小的频数），利用维护的变量进行情况讨论即可。</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/b7e65a04.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/c211d73d.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/c211d73d.html" class="post-title-link" itemprop="url">【leetcode】【剑指offer Ⅱ】030. 插入、删除和随机访问都是 O(1) 的容器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-17 16:23:10" itemprop="dateCreated datePublished" datetime="2022-08-17T16:23:10+08:00">2022-08-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-19 14:23:33" itemprop="dateModified" datetime="2022-08-19T14:23:33+08:00">2022-08-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/%E5%89%91%E6%8C%87offer-%E2%85%A1/" itemprop="url" rel="index"><span itemprop="name">剑指offer Ⅱ</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>设计一个支持在平均时间复杂度 <code>O(1)</code> 下，执行以下操作的数据结构：<ul>
+<li><code>insert(val)</code>：当元素 <code>val</code> 不存在时返回 <code>true</code>，并向集合中插入该项，否则返回 <code>false</code>。</li>
+<li><code>remove(val)</code>：当元素 <code>val</code> 存在时返回 <code>true</code>，并从集合中移除该项，否则返回 <code>false</code>。</li>
+<li><code>getRandom</code>：随机返回现有集合中的一项。每个元素应该有相同的概率被返回。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>该题比想象中要简单很多，<strong>变长数组</strong>可以在 <code>O(1)</code> 的时间内完成<strong>随机访问元素</strong>操作，<strong>哈希表</strong>可以在 <code>O(1)</code> 的时间内完成<strong>插入和删除</strong>操作，所以该题只需要将变长数组结合哈希表进行存储即可。</li>
+<li>变长数组存储数值，哈希表用来保存值与数组中索引的映射：<ul>
+<li><code>insert(val)</code> 操作：首先需要在哈希表中查找是否已经存在，如果存在则返回 <code>false</code>，如果不存在则直接存入数组中，并将值与对应的索引存储在哈希表中。</li>
+<li><code>delete(val)</code> 操作：首先同样需要在哈希表中查找是否已经存在，如果不存在则返回 <code>false</code>，如果存在则要进行相应的删除。<ul>
+<li>有一种直接的办法，可以只擦除哈希表中对应的键值对，而不更新边长数组，因为查找操作只影响哈希表，且变长数组无法做到在 <code>O(1)</code> 时间内删除元素；但这种方法不可取，因为变长数组可能会一直增大。</li>
+<li>所以在删除哈希表对应键值对之前，需要首先把该值 <code>val</code> 与数组中最后一个数 <code>num</code> 进行交换，如此 <code>num</code> 的索引就变成了 <code>val</code> 的索引，再对 <code>val</code> 对应的键值对删除即可，同时变长数组可以弹出最后一个元素，使得数组大小得到控制。</li>
+</ul>
+</li>
+<li><code>getRandom</code> 操作：<code>O(1)</code> 的随机访问操作说明容器可以通过索引访问，所以这里也说明了要实现该容器需要数组来存放数据。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/c211d73d.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/p/3e7bd6e8.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/maomao.jpg">
+      <meta itemprop="name" content="伊利">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cyl's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/3e7bd6e8.html" class="post-title-link" itemprop="url">【leetcode】【剑指offer Ⅱ】029. 排序的循环链表</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-08-17 15:48:54 / 修改时间：22:15:22" itemprop="dateCreated datePublished" datetime="2022-08-17T15:48:54+08:00">2022-08-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/%E5%89%91%E6%8C%87offer-%E2%85%A1/" itemprop="url" rel="index"><span itemprop="name">剑指offer Ⅱ</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
+<li>给定循环单调非递减链表中的一个点，向这个链表中插入一个新元素 <code>insertVal</code>，使这个链表仍保持单调非递增。<ul>
+<li>给定的指针可以是链表中任意一个节点的指针。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
+<li>由题目可知链表为循环单链，且顺着链表移动可以得知链表是单调非递增的，所以只需要遍历链表，在合适的位置插入节点即可。<ul>
+<li>插入的位置只有两种：在某两个数之间、在最大值和最小值之间。</li>
+<li>因而在遍历的过程中，遇到合适的位置就可以直接插入，即 <code>cur-&gt;val &lt;= insertVal and cur-&gt;next-&gt;val &gt;= insertVal</code>。</li>
+<li>但是遇到最大值节点和最小值节点的连接时不能直接插入，因为题目给定的起始指针不一定是链表中最小元素的指针，这就意味着从给定指针起移动到最大节点未必走完全程。【所以需要做的是保存好最大值指针，如果走完一遍全程仍无合适插入位置，则说明需要插入到最大值指针后面】</li>
+<li>如果链表为空，则创建一个自引的节点即可。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/3e7bd6e8.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/p/f0055286.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -875,326 +1193,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/p/94875a3b.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/maomao.jpg">
-      <meta itemprop="name" content="伊利">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cyl's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/p/94875a3b.html" class="post-title-link" itemprop="url">【leetcode】【剑指offer Ⅱ】024. 反转链表</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-08-14 11:21:41 / 修改时间：17:31:23" itemprop="dateCreated datePublished" datetime="2022-08-14T11:21:41+08:00">2022-08-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/%E5%89%91%E6%8C%87offer-%E2%85%A1/" itemprop="url" rel="index"><span itemprop="name">剑指offer Ⅱ</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>给定单链表的头节点 <code>head</code>，反转链表并返回反转后的链表的头节点。</li>
-</ul>
-<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
-<li>该题很有代表性，其可以写出原地反转链表的递归和迭代两个版本的解法。</li>
-<li><strong>迭代</strong>版本的解法相当于是从头到尾遍历链表并模拟断链并反转的过程。<ul>
-<li>迭代版本解法的步骤如下：<ol>
-<li>初始化三个指针 <code>pre</code>、<code>cur</code> 和 <code>next</code>，其中 <code>cur</code> 初始化为 <code>head</code>，另两个指针初始化为空指针。</li>
-<li>只要 <code>cur</code> 不为空，则一直进行下述操作：<ol>
-<li>将 <code>next</code> 置为 <code>cur</code> 的下一个节点，即 <code>next = cur-&gt;next</code>。【保存下一个节点，因为准备断开 <code>cur</code> 指向 <code>cur-&gt;next</code> 的链】</li>
-<li>将 <code>cur</code> 的下个节点置为 <code>pre</code>，即 <code>cur-&gt;next = pre</code>。【将 <code>cur</code> 的方向反转】</li>
-<li><code>pre</code> 置为 <code>cur</code>，即 <code>pre = cur</code>。【<code>pre</code> 向后移动】</li>
-<li><code>cur</code> 置为 <code>next</code>，即 <code>cur = next</code>。【<code>cur</code> 向后移动】</li>
-</ol>
-</li>
-<li>退出循环后，返回 <code>pre</code> 指针作为反转后的链表头部。</li>
-</ol>
-</li>
-<li>可以从例子中理解循环中的四个步骤：<ul>
-<li>第一步，保存下一个节点：<br><img src="/p/94875a3b/反转链表.jpg" alt="反转链表"></li>
-<li>第二步，将 <code>cur</code> 的方向反转：<br><img src="/p/94875a3b/反转链表_2.jpg" alt="反转链表"></li>
-<li>第三步，<code>pre</code> 向后移动：<br><img src="/p/94875a3b/反转链表_3.jpg" alt="反转链表"></li>
-<li>第四步，<code>cur</code> 向后移动：<br><img src="/p/94875a3b/反转链表_4.jpg" alt="反转链表"></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>由前面可以看出，迭代解法相当于从前往后反转链表，而递归解法相反，是从后往前反转链表。<ul>
-<li>普通<strong>递归</strong>版本解法的步骤如下：<ol>
-<li>判断 <code>head</code> 非空且 <code>head-&gt;next</code> 非空，如果其中一个为空则直接返回 <code>head</code>。【遇到链表的尾部才会在此处直接返回】</li>
-<li>递归调用自身，其参数为 <code>head-&gt;next</code>，并将返回结果置为 <code>newHead</code>。【<code>newHead</code> 是本次函数返回的结果，不难想象得出，函数一路递归遍历链表，最后会把链表尾部元素返回作为反转后的链表头部】</li>
-<li>将 <code>head-&gt;next</code> 的下一个节点置为 <code>head</code>，即 <code>head-&gt;next-&gt;next = head</code>。【将 <code>head-&gt;next</code> 的方向反转】</li>
-<li>将 <code>head</code> 的下一个节点置为空，即 <code>head-&gt;next = nullptr</code>。【此步较为关键，如果不置空，则会造成 <code>cur</code> 与 <code>cur-&gt;next</code> 互指的情况】</li>
-<li>最后返回 <code>newHead</code> 指针作为反转后的链表头部。</li>
-</ol>
-</li>
-<li>普通递归都可以进行<strong>尾递归优化</strong>。<ul>
-<li>尾递归写法仍然是递归方式的一种，但相比普通递归，其在递归栈的空间上更为节省。</li>
-<li>简单地说，尾递归的写法就是将<strong>普通递归的内部变量</strong>转为<strong>函数的参数</strong>，而尾递归的最后一步为调用自身。【在此不展开讲解尾递归，SICP 书中有详细介绍】</li>
-<li>神奇的地方在于，尾递归优化的解法与迭代解法是一致的，均是从前往后反转链表。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/p/94875a3b.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/p/81959714.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/maomao.jpg">
-      <meta itemprop="name" content="伊利">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cyl's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/p/81959714.html" class="post-title-link" itemprop="url">【leetcode】【剑指offer Ⅱ】023. 两个链表的第一个重合节点</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-08-14 10:43:53 / 修改时间：17:25:46" itemprop="dateCreated datePublished" datetime="2022-08-14T10:43:53+08:00">2022-08-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/%E5%89%91%E6%8C%87offer-%E2%85%A1/" itemprop="url" rel="index"><span itemprop="name">剑指offer Ⅱ</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>给定两个单链表的头节点 <code>headA</code> 和 <code>headB</code>，请找出并返回两个单链表相交的起始节点。<ul>
-<li>如果两个链表没有交点，返回 <code>null</code>。</li>
-</ul>
-</li>
-</ul>
-<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
-<li>最直观的做法是取得较长链表 <code>a</code> 的长度 <code>m</code> 和较短链表 <code>b</code> 的长度 <code>n</code>，接着设置两个指针，处于链表 <code>a</code> 的指针先走 <code>m-n</code> 步，后续两个指针再同时步进直到相遇。</li>
-<li>更简洁的做法不需要获得两个链表的长度。<ul>
-<li>设置两个指针分别从链表头同时步进，只要某个指针走完链表，就将其设置到另一个链表头，最后停止条件为双指针相等。</li>
-<li>也就是说，当处于链表 <code>a</code> 中的指针走完全程，就将其置于链表 <code>b</code> 的头部继续步进。</li>
-</ul>
-</li>
-<li>可以结合代码和例子理解方法二为什么能生效：<ul>
-<li>假设链 <code>a</code> 和链 <code>b</code> 重合的长度为 <code>len_c</code>，链 <code>a</code> 非重合长度为 <code>len_a</code>，链 <code>b</code> 非重合长度为 <code>len_b</code>，所以从链 <code>a</code> 出发的指针走完的路程长度为 <code>len_a + len_c + len_b</code>，而链 <code>b</code> 出发的指针走完的路程长度为 <code>len_b + len_c + len_a</code>。【因而最后必然会相遇】</li>
-<li>假设双链表没有重合部分，即 <code>len_c = 0</code>，且假设 <code>len_a != len_b</code>，则链 <code>a</code> 出发的指针走完的路程长度为 <code>len_a + len_b</code>，而链 <code>b</code> 出发的指针走完的路程长度为 <code>len_b + len_a</code>。【即最后同时为空指针则相遇，无论双链表长度是否相等，只要无重合，均会相遇于空指针处】</li>
-</ul>
-</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/p/81959714.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/p/337fd55d.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/maomao.jpg">
-      <meta itemprop="name" content="伊利">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cyl's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/p/337fd55d.html" class="post-title-link" itemprop="url">【leetcode】【2022/8/14】1422. 分割字符串的最大得分</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-08-14 10:08:30" itemprop="dateCreated datePublished" datetime="2022-08-14T10:08:30+08:00">2022-08-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-15 09:59:35" itemprop="dateModified" datetime="2022-08-15T09:59:35+08:00">2022-08-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%B7%E9%A2%98/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leetcode每日一题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><ul>
-<li>给定一个二进制字符串，将字符串分割为非空的左字符串和非空的右字符串，其中左字符串中统计 <code>0</code> 的个数，右字符串中统计 <code>1</code> 的个数，将数量相加即为分割所得分数，返回分割所能获得的最大分数。</li>
-</ul>
-<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><ul>
-<li>可以直接用前缀数组 + 后缀数组的方法来解决。<ul>
-<li>前缀数组记录 <code>0</code> 的个数，后缀数组记录 <code>1</code> 的个数，两次遍历统计完个数后再单次遍历所有的分割情况即可。</li>
-</ul>
-</li>
-<li>实际上不需要额外利用数组来统计前缀后缀。<ul>
-<li>可以单次遍历获得 <code>1</code> 的总数，接着再单次遍历获得前缀 <code>0</code> 的个数，过程中将前缀 <code>1</code> 的个数从总数中减去即可。</li>
-</ul>
-</li>
-</ul>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/p/337fd55d.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1266,20 +1264,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
