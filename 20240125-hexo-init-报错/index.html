@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Chen1li1998</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="Chen1li1998">
+  <title>hexo_init_报错 | Chen1li1998</title>
+  <meta name="keywords" content=" debug ">
+  <meta name="description" content="hexo_init_报错 | Chen1li1998">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -54,7 +54,7 @@
 
 
 <body>
-<aside class="nav mobile">
+<aside class="nav">
     <div class="nav-left">
         <a href="/"
    class="avatar_target">
@@ -388,12 +388,58 @@
         </div>
     </div>
 </aside>
-<div id="post" class="index">
+<div id="post">
     <div class="pjax">
-        <article class="index">
-            <div class="toc-ref">
+        <article id="post-hexo-init-报错" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%88%91"><span class="toc-text">关于我</span></a></li></ol>
+        <h1 class="article-title">hexo_init_报错</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="日常">日常</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color1">debug</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            发布时间 : <time class="date" title='最后更新: 2024-01-25 23:34:54'>2024-01-25 23:34</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#hexo-init-%E6%8A%A5%E9%94%99"><span class="toc-text">hexo init 报错</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%86%85%E5%AE%B9"><span class="toc-text">参考内容</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -406,17 +452,104 @@
     }
 </style>
 </div>
-            <h1 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h1><ul>
-<li>todo.</li>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="hexo-init-报错"><a href="#hexo-init-报错" class="headerlink" title="hexo init 报错"></a>hexo init 报错</h1><pre><code class="lang-shell">$ hexo init -g --clone=git@github.com:hexojs/hexo-starter.git
+INFO  Cloning hexo-starter https://github.com/hexojs/hexo-starter.git
+fatal: unable to access &#39;https://github.com/hexojs/hexo-starter.git/&#39;: Failed to connect to github.com port 443 after 21101 ms: Couldn&#39;t connect to server
+WARN  git clone failed. Copying data instead
+INFO  Install dependencies
+WARN  Failed to install dependencies. Please run &#39;npm install&#39; in &quot;D:\Program Files\GitHub\myblog&quot; folder.
+</code></pre>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><ul>
+<li><p>这是两个报错，需要分别解决：</p>
+<ol>
+<li>对于 <code>unable to access</code> 的报错，大概率是因为 GitHub 无法 ping 通，尝试了网上说的很多方法（包括连接梯子依然不可行），最后修改了 windows 系统的 hosts 文件才成功，具体来说，需要查找 GitHub 的 IP 地址，然后在 hosts 文件中添加一行 <code>IP github.com</code>，后续即可成功。<ul>
+<li>在 wins10 系统下 hosts 文件在 <code>C:\WINDOWS\system32\drivers\etc</code> 目录中。</li>
 </ul>
+</li>
+<li><p>对于第二个报错，网上推荐先用 <code>npm</code> 安装 <code>cnpm</code> ，接着运行 <code>cnpm install</code> 来代替 <code>npm install</code>，这样会更快，但是整个过程仍然报错（整个过程指的是用 <code>npm install cnpm</code> 或者 <code>npm install</code>）：</p>
+<pre><code class="lang-shell"> $ npm install -g cnpm --registry=https://registry.npm.taobao.org
+ npm ERR! code CERT_HAS_EXPIRED
+ npm ERR! errno CERT_HAS_EXPIRED
+ npm ERR! request to https://registry.npm.taobao.org/cnpm failed, reason: certificate has expired
 
-        </article>
-        
-        <p>
-            <a  class="dashang" onclick="dashangToggle()">赏</a>
-        </p>
-        
-        
+ npm ERR! A complete log of this run can be found in
+</code></pre>
+<p> 最后一行 error 不用在意，关键在于前三行，说的是认证过期，参考内容 3 给出了解决方案来取消 ssl 验证：</p>
+<pre><code class="lang-shell"> npm config set strict-ssl false
+</code></pre>
+</li>
+</ol>
+</li>
+</ul>
+<h1 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f52a20db0f85">hexo init 403超时报错</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904194852257805">解决ping github.com超时</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42761482/article/details/121018086">cnpm install或者npm install遇到的问题Error: certificate has expired</a></li>
+</ol>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+
+
+
+
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
+    
+
+
+
+
     </div>
     <div class="copyright">
         <p class="footer-entry">
@@ -425,11 +558,11 @@
 <p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
 
     </div>
-</div>
-<div class="full-toc">
-    <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
 <a class="" id="rocket" ></a>
 
+    </div>
 </div>
 
 <div class="hide_box" onclick="dashangToggle()"></div>

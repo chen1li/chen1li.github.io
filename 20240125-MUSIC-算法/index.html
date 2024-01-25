@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>MUSIC_算法 | Chen1li1998</title>
+  <meta name="keywords" content=" DoA ">
+  <meta name="description" content="MUSIC_算法 | Chen1li1998">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="categories">
+<meta property="og:url" content="http://chen1li.github.io/categories/index.html">
+<meta property="og:site_name" content="Chen1li1998">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-25T15:09:41.000Z">
+<meta property="article:modified_time" content="2024-01-25T15:09:41.344Z">
+<meta property="article:author" content="Yili Chen">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/darcula.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/avatar.jpg"/>
+</a>
+<div class="author">
+    <span>Yili Chen</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="rss"
+               href="/atom.xml"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-rss"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="github"
+               href="https://github.com/yelog"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="facebook"
+               href="https://www.facebook.com/faker.tops"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-facebook"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+    
+        
+            <a title="instagram"
+               href="https://www.facebook.com/faker.tops"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-instagram"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="reddit"
+               href="https://www.reddit.com/user/yelog/"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-reddit"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="weibo"
+               href="http://weibo.com/u/2307534817"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-weibo"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="jianshu"
+               href="https://www.jianshu.com/u/ff56736de7cf"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-jianshu"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="zhihu"
+               href="https://www.zhihu.com/people/jaytp/activities"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-zhihu"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+            <a title="oschina"
+               href="https://my.oschina.net/yelog"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-oschina"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+            <a title="email"
+               href="mailto:jaytp@qq.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="qq"
+               href="http://wpa.qq.com/msgrd?v=3&uin=872336115&site=qq&menu=yes"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-qq"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="kugou"
+               href="https://www.kugou.com/"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-kugou"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="neteasemusic"
+               href="https://music.163.com/#/user/home?id=88151013"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-neteasemusic"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="全部文章">全部文章
+            
+                <small>(2)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                
+    <li>
+        <div data-rel="日常">
+            
+            日常
+            <small>(1)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="算法">
+            
+            算法
+            <small>(1)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+            <a class="about  site_url"
+               
+               href="/about">关于</a>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="2">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">全部文章</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>debug</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>DoA</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        
+        <a  class="全部文章 算法 "
+           href="/20240125-MUSIC-%E7%AE%97%E6%B3%95/"
+           data-tag="DoA"
+           data-author="" >
+            <span class="post-title" title="MUSIC_算法">MUSIC_算法</span>
+            <span class="post-date" title="2024-01-25 23:35:30">2024/01/25</span>
+        </a>
+        
+        
+        <a  class="全部文章 日常 "
+           href="/20240125-hexo-init-%E6%8A%A5%E9%94%99/"
+           data-tag="debug"
+           data-author="" >
+            <span class="post-title" title="hexo_init_报错">hexo_init_报错</span>
+            <span class="post-date" title="2024-01-25 23:34:21">2024/01/25</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-MUSIC-算法" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">MUSIC_算法</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="算法">算法</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color4">DoA</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            发布时间 : <time class="date" title='最后更新: 2024-01-25 23:36:02'>2024-01-25 23:35</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#2-MUSIC-%E7%AE%97%E6%B3%95"><span class="toc-text">2 MUSIC 算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86"><span class="toc-text">2.1 算法原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4"><span class="toc-text">2.2 算法步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">2.3 代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E5%8F%82%E8%80%83%E5%86%85%E5%AE%B9"><span class="toc-text">2.4 参考内容</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="2-MUSIC-算法"><a href="#2-MUSIC-算法" class="headerlink" title="2 MUSIC 算法"></a>2 MUSIC 算法</h1><h2 id="2-1-算法原理"><a href="#2-1-算法原理" class="headerlink" title="2.1 算法原理"></a>2.1 算法原理</h2><p>&emsp;&emsp;根据信号模型，可以得到接收信号的协方差矩阵，理想协方差矩阵如下：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+    \mathbf{R} &= \mathrm{E}\{\mathbf{x}(t)\mathbf{x}^{H}(t)\} \\
+    &= \mathbf{A}\mathrm{E}\{\mathbf{s}(t)\mathbf{s}^{H}(t)\}\mathbf{A}^H + \mathrm{E}\{\mathbf{n}(t)\mathbf{n}^{H}(t)\} \\
+    &= \mathbf{A}\mathbf{R}_s\mathbf{A}^H + \sigma_n^2\mathbf{I}
+\end{aligned}</script><p>其中 $\mathbf{R}_s$ 和 $\sigma_n^2\mathbf{I}$ 分别代表信号协方差矩阵和噪声协方差矩阵，$\sigma_n^2$ 为噪声方差， $\mathbf{I}$ 为单位矩阵。需要注意到的是，由于信号源之间是独立的，$\mathbf{R}_s$ 是对角非奇异矩阵；$\mathbf{R}$ 是非奇异的，同时 $\mathbf{R} = \mathbf{R}^H$，因此 $\mathbf{R}$ 是 Hermitian 矩阵且是正定矩阵。<br>&emsp;&emsp;但因为采样数 $T$ 有限，理想协方差矩阵无法直接获得，此时通常用样本的协方差矩阵 $\hat{\mathbf{R}}$ 来代替：</p>
+<script type="math/tex; mode=display">
+\begin{equation*}
+    \mathbf{R} \triangleq \hat{\mathbf{R}} = \frac{1}{T} \sum_{t=1}^{T} \mathbf{x}(t)\mathbf{x}^{H}(t) = \frac{1}{T} \mathbf{X}\mathbf{X}^H
+\end{equation*}</script><p>&emsp;&emsp;对 $\mathbf{R}$ 进行特征值分解，可得到：</p>
+<script type="math/tex; mode=display">
+\begin{equation*}
+\begin{aligned}
+    \mathbf{R} &= \mathbf{U} \Sigma \mathbf{U}^H = \sum\limits_{i=1}^M \lambda_i \mathbf{u}_i \mathbf{u}_i^H \\
+    &=
+    \begin{bmatrix}
+        \mathbf{U}_s & \mathbf{U}_n
+    \end{bmatrix}
+    \begin{bmatrix}
+        \Sigma_s & \mathbf{O} \\
+        \mathbf{O} & \Sigma_n
+    \end{bmatrix}
+    \begin{bmatrix}
+        \mathbf{U}_s^H \\
+        \mathbf{U}_n^H
+    \end{bmatrix} \\
+    &= \mathbf{U}_s \Sigma_s \mathbf{U}_s^H + \mathbf{U}_n \Sigma_n \mathbf{U}_n^H
+\end{aligned}
+\end{equation*}</script><p>其中 $\lambda_i$ 和 $\mathbf{u}_i$ 分别为特征值和对应的特征向量，$\mathbf{O}$ 为全零矩阵，$\Sigma$ 为由 $M$ 个特征值 $\lambda_1, \cdots, \lambda_M$ 组成的对角矩阵：</p>
+<script type="math/tex; mode=display">
+\begin{equation*}
+    \Sigma = \operatorname{diag} \{\lambda_1, \cdots, \lambda_M\}
+\end{equation*}</script><p>且假设：</p>
+<script type="math/tex; mode=display">
+\begin{equation*}
+    \lambda_1 >  \cdots > \lambda_K > \lambda_{K+1} = \cdots = \lambda_M = \sigma_n^2
+\end{equation*}</script><p>$\Sigma_s$ 为由 $K$ 个较大特征值 $\lambda_1, \cdots, \lambda_K$ 组成的对角矩阵， $\Sigma_n$ 为由 $M-K$ 个较小特征值 $\lambda_{K+1}, \cdots, \lambda_M$ 组成的对角矩阵：</p>
+<script type="math/tex; mode=display">
+\begin{equation*}
+    \Sigma_s = \operatorname{diag} \{\lambda_1, \cdots, \lambda_K\},
+    \Sigma_n = \operatorname{diag} \{\lambda_{K+1}, \cdots, \lambda_M\}
+\end{equation*}</script><p>$\mathbf{U}_s$ 表示由 $K$ 个较大特征值 $\lambda_1, \cdots, \lambda_K$ 对应的特征矢量张成的信号子空间，$\mathbf{U}_n$ 表示由 $M-K$ 个较小特征值 $\lambda_{K+1}, \cdots, \lambda_M$ 对应的特征矢量张成的噪声子空间。注意，$\mathbf{U}$ 为酉矩阵。<br>&emsp;&emsp;将 $\mathbf{R} = \mathbf{A}\mathbf{R}_s\mathbf{A}^H + \sigma_n^2\mathbf{I}$ 左右两边乘以 $\mathbf{U}_n$ 可得：</p>
+<script type="math/tex; mode=display">
+\begin{equation*}
+    \mathbf{R}\mathbf{U}_n = \mathbf{A}\mathbf{R}_s\mathbf{A}^H \mathbf{U}_n+ \sigma_n^2\mathbf{U}_n
+\end{equation*}</script><p>&emsp;&emsp;同时将 $\mathbf{R} =\mathbf{U}_s \Sigma_s \mathbf{U}_s^H + \mathbf{U}_n \Sigma_n \mathbf{U}_n^H$ 左右两边乘以 $\mathbf{U}_n$ 可得：</p>
+<script type="math/tex; mode=display">
+\begin{equation*}
+    \mathbf{R}\mathbf{U}_n = \mathbf{U}_s \Sigma_s \mathbf{U}_s^H\mathbf{U}_n + \mathbf{U}_n \Sigma_n \mathbf{U}_n^H\mathbf{U}_n = \mathbf{O} + \sigma_n^2 \mathbf{U}_n = \sigma_n^2 \mathbf{U}_n
+\end{equation*}</script><p>&emsp;&emsp;联立上面两式子可得：</p>
+<script type="math/tex; mode=display">
+\begin{equation*}
+    \mathbf{A}\mathbf{R}_s\mathbf{A}^H \mathbf{U}_n = \mathbf{O}
+\end{equation*}</script><p>&emsp;&emsp;由于 $\mathbf{R}_s$ 和 $\mathbf{A}^H \mathbf{A}$ 均满秩，所以均可逆，因此上式两边同时乘以 $\mathbf{R}_s^{-1} (\mathbf{A}^H\mathbf{A})^{-1} \mathbf{A}^H$ 可得：</p>
+<script type="math/tex; mode=display">
+\begin{equation*}
+    \mathbf{R}_s^{-1} (\mathbf{A}^H\mathbf{A})^{-1} \mathbf{A}^H\mathbf{A}\mathbf{R}_s\mathbf{A}^H \mathbf{U}_n 
+    = \mathbf{R}_s^{-1} (\mathbf{A}^H\mathbf{A})^{-1} \mathbf{A}^H\mathbf{O}
+\end{equation*}</script><p>化简得：</p>
+<script type="math/tex; mode=display">
+\begin{equation*}
+    \mathbf{A}^H \mathbf{U}_n = \mathbf{O}
+\end{equation*}</script><p>或者可以写成如下形式：</p>
+<script type="math/tex; mode=display">
+\begin{equation*}
+    \mathbf{A}^H\mathbf{u}_i = \mathbf{0}, i = K+1, \cdots, M
+\end{equation*}</script><p>其中 $\mathbf{0}$ 为全零向量。上式表明：噪声特征值所对应的特征向量 $\mathbf{u}_i$ 与方向矢量矩阵 $\mathbf{A}$ 的列向量正交，而 $\mathbf{A}$ 的各列与信号源的方向相对应的，因此可以利用噪声子空间求解信号源方向。</p>
+<h2 id="2-2-算法步骤"><a href="#2-2-算法步骤" class="headerlink" title="2.2 算法步骤"></a>2.2 算法步骤</h2><p>&emsp;&emsp;MUSIC 算法步骤如下（输入为阵列接收矩阵 $\mathbf{X}$）：</p>
+<ol>
+<li>计算协方差矩阵 $\mathbf{R} = \frac{1}{T} \mathbf{X}\mathbf{X}^H$。</li>
+<li>对 $\mathbf{R}$ 进行特征值分解，并对特征值进行排序，然后取得 $M-K$ 个较小特征值对应的特征向量来组成噪声子空间 $\mathbf{U}_n$。</li>
+<li><p>以下式遍历 $\theta \in [-90^{\circ}, 90^{\circ}]$：</p>
+<script type="math/tex; mode=display">
+ \begin{equation*}
+     P(\theta) = \frac{1}{\mathbf{a}^H(\theta)\mathbf{U}_n\mathbf{U}_n^H\mathbf{a}(\theta)}
+ \end{equation*}</script><p> 此时得到一组 $P(\theta)$，$K$ 个最大值对应的 $\theta$ 就是需要返回的结果。</p>
+<h2 id="2-3-代码实现"><a href="#2-3-代码实现" class="headerlink" title="2.3 代码实现"></a>2.3 代码实现</h2><pre><code class="lang-matlab"> % music.m
+ clear;
+ clc;
+ close all;
+
+ % 参数设定
+ c = 3e8;                                              % 光速
+ fc = 500e6;                                           % 载波频率
+ lambda = c/fc;                                        % 波长
+ d = lambda/2;                                         % 阵元间距，可设 2*d = lambda
+ twpi = 2.0*pi;                                        % 2pi
+ derad = pi/180;                                       % 角度转弧度
+ theta = [-20, 30]*derad;                              % 待估计角度
+ idx = 0:1:7; idx = idx&#39;;                              % 阵元位置索引
+
+ M = length(idx);                                      % 阵元数
+ K = length(theta);                                    % 信源数
+ T = 512;                                              % 快拍数
+ SNR = 0;                                              % 信噪比
+
+ %% 信号模型建立
+ S = randn(K,T) + 1j*randn(K,T);                       % 复信号矩阵S，维度为K*T
+ % A = exp(-1j*twpi*d*idx*sin(theta)/lambda);           % 方向矢量矩阵A，维度为M*K
+ A = exp(-1j*pi*idx*sin(theta));                       % 2d = lambda，直接忽略不写
+ X = A*S;                                              % 接收矩阵X，维度为M*T
+ X = awgn(X,SNR,&#39;measured&#39;);                           % 添加噪声
+
+ %% MUSIC 算法
+ % 计算协方差矩阵
+ R = X*X&#39;/T;
+ % 特征值分解并取得噪声子空间
+ [U,D] = eig(R);                                       % 特征值分解
+ [D,I] = sort(diag(D));                                % 将特征值排序从小到大
+ U = fliplr(U(:, I));                                  % 对应特征矢量排序，fliplr 之后，较大特征值对应的特征矢量在前面
+ Un = U(:, K+1:M);                                     % 噪声子空间
+ Gn = Un*Un&#39;;
+ % 空间谱搜索
+ searchGrids = 0.1;                                    % 搜索间隔
+ ang = (-90:searchGrids:90)*derad;
+ Pmusic = zeros(1, length(ang));                       % 空间谱
+ for i = 1:length(ang)
+     a = exp(-1j*pi*idx*sin(ang(i)));
+     Pmusic(:, i) = 1/(a&#39;*Gn*a);
+ end
+ % 归一化处理，单位化为 db
+ Pmusic = abs(Pmusic);
+ Pmusic = 10*log10(Pmusic/max(Pmusic));
+ % 作图
+ figure;
+ plot(ang/derad, Pmusic, &#39;-&#39;, &#39;LineWidth&#39;, 1.5);
+ set(gca, &#39;XTick&#39;,(-90:30:90));
+ xlabel(&#39;\theta(\circ)&#39;, &#39;FontSize&#39;, 12, &#39;FontName&#39;, &#39;微软雅黑&#39;);
+ ylabel(&#39;空间谱(dB)&#39;, &#39;FontSize&#39;, 12, &#39;FontName&#39;, &#39;微软雅黑&#39;);
+ % 找出空间谱Pmusic中的峰值并得到其对应角度
+ [pks, locs] = findpeaks(Pmusic);                      % 找极大值
+ [pks, id] = sort(pks);
+ locs = locs(id(end-K+1:end))-1;
+ Theta = locs*searchGrids - 90;
+ Theta = sort(Theta);
+ disp(&#39;估计结果：&#39;);
+ disp(Theta);
+</code></pre>
+<h2 id="2-4-参考内容"><a href="#2-4-参考内容" class="headerlink" title="2.4 参考内容"></a>2.4 参考内容</h2></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xingshansi/p/7554200.html">【博客园】子空间分析方法</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xingshansi/p/7553746.html">【博客园】空间谱专题10：MUSIC算法</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36583373/article/details/109333087">【CSDN】子空间方法——MUSIC算法</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/S2849366069/article/details/120956470">【CSDN】Traditional Comm笔记【5】：基于MUSIC Algorithm的DoA/AoA估计以及MATLAB实现</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/613304918">【知乎】DoA 估计：多重信号分类 MUSIC 算法（附 MATLAB 代码）</a></li>
+</ol>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+
+
+
+
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Yelog
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
