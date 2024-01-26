@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>hexo_init_报错 | Chen1li1998</title>
-  <meta name="keywords" content=" debug ">
-  <meta name="description" content="hexo_init_报错 | Chen1li1998">
+  <title>unitary_MUSIC_算法 | Chen1li1998</title>
+  <meta name="keywords" content=" DoA ">
+  <meta name="description" content="unitary_MUSIC_算法 | Chen1li1998">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="todo.">
 <meta property="og:type" content="website">
@@ -416,9 +416,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-hexo-init-报错" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-unitary-MUSIC-算法" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">hexo_init_报错</h1>
+        <h1 class="article-title">unitary_MUSIC_算法</h1>
     
     <div class="article-meta">
         
@@ -428,7 +428,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="日常">日常</a>
+            <a  data-rel="论文">论文</a>
             
         </span>
         
@@ -436,14 +436,14 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color1">debug</a>
+            <a class="color4">DoA</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2024-01-25 23:34:54'>2024-01-25 23:34</time>
+            发布时间 : <time class="date" title='最后更新: 2024-01-26 21:50:09'>2024-01-26 21:29</time>
         
     </div>
     <div class="article-meta">
@@ -465,7 +465,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#hexo-init-%E6%8A%A5%E9%94%99"><span class="toc-text">hexo init 报错</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%86%85%E5%AE%B9"><span class="toc-text">参考内容</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#unitary-MUSIC-%E7%AE%97%E6%B3%95"><span class="toc-text">unitary MUSIC 算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86"><span class="toc-text">算法原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E4%B8%80%E6%AD%A5%E7%90%86%E8%A7%A3"><span class="toc-text">进一步理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4"><span class="toc-text">算法步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%86%85%E5%AE%B9"><span class="toc-text">参考内容</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -481,39 +481,181 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="hexo-init-报错"><a href="#hexo-init-报错" class="headerlink" title="hexo init 报错"></a>hexo init 报错</h1><pre><code class="lang-shell">$ hexo init -g --clone=git@github.com:hexojs/hexo-starter.git
-INFO  Cloning hexo-starter https://github.com/hexojs/hexo-starter.git
-fatal: unable to access &#39;https://github.com/hexojs/hexo-starter.git/&#39;: Failed to connect to github.com port 443 after 21101 ms: Couldn&#39;t connect to server
-WARN  git clone failed. Copying data instead
-INFO  Install dependencies
-WARN  Failed to install dependencies. Please run &#39;npm install&#39; in &quot;D:\Program Files\GitHub\myblog&quot; folder.
-</code></pre>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><ul>
-<li><p>这是两个报错，需要分别解决：</p>
+        <h1 id="unitary-MUSIC-算法"><a href="#unitary-MUSIC-算法" class="headerlink" title="unitary MUSIC 算法"></a>unitary MUSIC 算法</h1><p>&emsp;&emsp;论文 <em>A Unitary Transformation Method for Angle-of-Arrival Estimation</em> 中提出了 unitary MUSIC 的算法，直译就是酉 MUSIC 算法，即酉变换 MUSIC 算法。该算法的目的是简化计算复杂度，将传统 MUSIC 算法中的复数 SVD 和复数网格搜索计算转化为实数计算。在学习 unitary MUSIC 之前需要理解 Hermitian 矩阵及 Persymmetric 矩阵的概念及性质：</p>
 <ol>
-<li>对于 <code>unable to access</code> 的报错，大概率是因为 GitHub 无法 ping 通，尝试了网上说的很多方法（包括连接梯子依然不可行），最后修改了 windows 系统的 hosts 文件才成功，具体来说，需要查找 GitHub 的 IP 地址，然后在 hosts 文件中添加一行 <code>IP github.com</code>，后续即可成功。<ul>
-<li>在 wins10 系统下 hosts 文件在 <code>C:\WINDOWS\system32\drivers\etc</code> 目录中。</li>
-</ul>
-</li>
-<li><p>对于第二个报错，网上推荐先用 <code>npm</code> 安装 <code>cnpm</code> ，接着运行 <code>cnpm install</code> 来代替 <code>npm install</code>，这样会更快，但是整个过程仍然报错（整个过程指的是用 <code>npm install cnpm</code> 或者 <code>npm install</code>）：</p>
-<pre><code class="lang-shell"> $ npm install -g cnpm --registry=https://registry.npm.taobao.org
- npm ERR! code CERT_HAS_EXPIRED
- npm ERR! errno CERT_HAS_EXPIRED
- npm ERR! request to https://registry.npm.taobao.org/cnpm failed, reason: certificate has expired
+<li>Hermitian 矩阵指的是满足 $\mathbf{A}^H = \mathbf{A}$ 的矩阵 $\mathbf{A}$；</li>
+<li>Persymmetric 矩阵指的是满足 $\mathbf{A}\mathbf{J} = \mathbf{J}\mathbf{A}^T$ 的矩阵 $\mathbf{A}$，其中 $\mathbf{J}$ 其对角线从左下至右上，很多地方又称 $\mathbf{J}$ 为选择矩阵。</li>
+<li>假若矩阵 $\mathbf{A}$ 既为 Hermitian 矩阵又为 Persymmetric 矩阵，则满足：<script type="math/tex; mode=display">\mathbf{J}\mathbf{A}^*\mathbf{J}=\mathbf{A}</script>其中 $\mathbf{A}^*$ 为 $\mathbf{A}$ 的共轭。</li>
+</ol>
+<p>&emsp;&emsp;在接下来的讨论中，$\mathbf{I}$ 和 $\mathbf{J}$ 分别用作表示单位矩阵和选择矩阵，下文中将会出现这两种矩阵的运算，例如 $\mathbf{A}\mathbf{I}$ 或 $\mathbf{J}\mathbf{B}$，设 $\mathbf{A}$ 和 $\mathbf{B}$ 均为方阵，如果没有特别强调，则说明 $\mathbf{I}$ 和 $\mathbf{J}$ 分别和 $\mathbf{A}$ 和 $\mathbf{B}$ 同维度。</p>
+<h2 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h2><p>&emsp;&emsp;前面讨论的子空间算法中，复协方差矩阵的特征值分解是至关重要的一步，然而该步的计算量很高。为了降低计算量，unitary MUSIC 算法考虑利用一个酉矩阵将原先的复协方差矩阵 $\mathbf{R}$ 转换成实协方差矩阵，同时传统算法中的复空间搜索向量 $\mathbf{a}(\theta)$ 也用实向量来代替。<br>&emsp;&emsp;unitary MUSIC 算法的提出基于一个性质，即若不相关的窄带远场信号源射入均匀线阵中，其协方差矩阵不仅是 Hermitian，且 Persymmetric。通常估计的协方差矩阵 $\mathbf{R}\triangleq \hat{\mathbf{R}}$ 仅仅只是 Hermitian 矩阵但不满足 Persymmetric 性质，需要先获得一个满足 Persymmetric 性质的估计协方差矩阵：</p>
+<script type="math/tex; mode=display">
+\begin{equation*}
+\mathbf{R}\triangleq \frac{1}{2}(\hat{\mathbf{R}}+ \mathbf{J}\hat{\mathbf{R}}^*\mathbf{J})
+\end{equation*}</script><p>&emsp;&emsp;假设阵元数 $M$ 为偶数，unitary MUSIC 算法引入了一个酉矩阵 $\mathbf{Q}\in\mathbb{C}^{M\times M}$：</p>
+<script type="math/tex; mode=display">
+\mathbf{Q} = \frac{1}{\sqrt{2}}
+\begin{bmatrix}
+    \mathbf{I} & \mathbf{J} \\
+    \mathrm{j}\mathbf{J} & -\mathrm{j}\mathbf{I}
+\end{bmatrix}</script><p>其中 $\mathbf{I}$ 和 $\mathbf{J}$ 分别为单位矩阵和选择矩阵，且该两个矩阵维度均为 $\frac{M}{2}\times \frac{M}{2}$。易得 $\mathbf{Q}$ 为酉矩阵，即 $\mathbf{Q}^{-1} = \mathbf{Q}^H$，同时满足：</p>
+<script type="math/tex; mode=display">\mathbf{Q}^*\mathbf{J} = \mathbf{Q}</script><p>&emsp;&emsp;至此到了本算法的关键，它在于证明<strong>由于 $\mathbf{R}$ 是 Hermitian 且 Persymmetric 矩阵，$\mathbf{Q}\mathbf{R}\mathbf{Q}^H$ 是实对称矩阵</strong>：</p>
+<blockquote>
+<p>因为 $\mathbf{R}$ 为 Hermitian，易得 $\mathbf{Q}\mathbf{R}\mathbf{Q}^H$ 为 Hermitian；因此只需要证明 $\mathbf{Q}\mathbf{R}\mathbf{Q}^H$ 是实矩阵，即证明 $(\mathbf{Q}\mathbf{R}\mathbf{Q}^H)^* = \mathbf{Q}\mathbf{R}\mathbf{Q}^H$：</p>
+<script type="math/tex; mode=display">
+\begin{equation*}
+    \begin{aligned}
+    &(\mathbf{Q}\mathbf{R}\mathbf{Q}^H)^* \\
+    = &\mathbf{Q}^*\mathbf{R}^*\mathbf{Q}^T \\
+    = &(\mathbf{Q}^*\mathbf{J})(\mathbf{J}\mathbf{R}^*\mathbf{J})(\mathbf{J}\mathbf{Q}^T)\\
+    = &\mathbf{Q}\mathbf{R}\mathbf{Q}^H
+    \end{aligned}
+\end{equation*}</script><p>由此得证。</p>
+</blockquote>
+<p>&emsp;&emsp;综上所述，unitary MUSIC 算法引入酉矩阵 $\mathbf{Q}$ 并令 $\mathbf{R}\triangleq\mathbf{Q}\mathbf{R}\mathbf{Q}^H$，使得酉变换后的协方差矩阵变为实对称矩阵，接着对其特征值分解即可进行后续的搜索步骤。而 ULA 的搜索方向矢量为：</p>
+<script type="math/tex; mode=display">
+\mathbf{a}(\theta) = \left[1, e^{-\mathrm{j}2\pi d\sin\theta/\lambda},\cdots,e^{-\mathrm{j}(M-1)2\pi d\sin\theta/\lambda}\right]^T</script><p>则 unitary MUSIC 算法的搜索方向矢量为 $\mathbf{a}(\theta)\triangleq\mathbf{Q}\mathbf{a}(\theta)$。<br>&emsp;&emsp;为了进一步降低算法计算复杂度，Unitary MUSIC 算法考虑将搜索方向矢量也用实变量代替，做法如下：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+    \mathbf{a}(\theta) &\triangleq e^{j\frac{M-1}{2}2\pi d\sin\theta/\lambda}\mathbf{Q}\mathbf{a}(\theta) \\
+    &= \mathbf{Q}\left[e^{\mathrm{j}\frac{M-1}{2}2\pi d\sin\theta/\lambda},\cdots, e^{\mathrm{j}\frac{1}{2}2\pi d\sin\theta/\lambda},e^{-\mathrm{j}\frac{1}{2}2\pi d\sin\theta/\lambda},\cdots,e^{-\mathrm{j}\frac{M-1}{2}2\pi d\sin\theta/\lambda}\right]^T
+\end{aligned}</script><p>不难看出原方向矢量对应的阵列索引位置为 $\{0,1,\cdots,M-1\}$，而更新后方向矢量对应的阵列索引位置为 $\{-\frac{M-1}{2},-\frac{M-3}{2},\cdots,-\frac{1}{2},\frac{1}{2},\cdots,\frac{M-3}{2},\frac{M-1}{2}\}$。此时 unitary MUSIC 算法的搜索方向矢量更新为：</p>
+<script type="math/tex; mode=display">
+    \begin{aligned}
+        \overline{\mathbf{a}}(\theta)&= e^{\mathrm{j}\frac{M-1}{2}2\pi d\sin\theta/\lambda}\mathbf{Q}\mathbf{a}(\theta) \\
+        &= \sqrt{2}
+        \begin{bmatrix}
+            \cos\left(\frac{M-1}{2}2\pi d\sin\theta/\lambda\right) \\
+            \vdots \\
+            \cos\left(\frac{1}{2}2\pi d\sin\theta/\lambda\right) \\
+            \sin\left(-\frac{1}{2}2\pi d\sin\theta/\lambda\right) \\
+            \vdots \\
+            \sin\left(-\frac{M-1}{2}2\pi d\sin\theta/\lambda\right)
+        \end{bmatrix}
+    \end{aligned}</script><p>&emsp;&emsp;当 $M$ 为奇数时，酉矩阵 $\mathbf{Q}$ 的形式为：</p>
+<script type="math/tex; mode=display">
+\mathbf{Q} = \frac{1}{\sqrt{2}}
+\begin{bmatrix}
+    \mathbf{I} & \mathbf{O} & \mathbf{J} \\
+    \mathbf{O}^T & \sqrt{2} & \mathbf{O}^T \\
+    \mathrm{j}\mathbf{J} & \mathbf{O} & -\mathrm{j}\mathbf{I}
+\end{bmatrix}</script><p>其中 $\mathbf{O}$ 为零矩阵。</p>
+<h2 id="进一步理解"><a href="#进一步理解" class="headerlink" title="进一步理解"></a>进一步理解</h2><p>&emsp;&emsp;在上一小节中，我整理了论文对于 unitary MUSIC 算法的解释及证明，其核心思想在于酉矩阵 $\mathbf{Q}$ 的提出。在本小节中，我将进一步对 $\mathbf{Q}$ 的作用谈谈自己的理解。<br>&emsp;&emsp;在论文中，unitary 算法一直强调 $\mathbf{R}$ 的 Hermitian 及 Persymmetric 性质，因为假若 $\mathbf{R}$ 不满足这两个性质，$\mathbf{Q}\mathbf{R}\mathbf{Q}^H$ 将不是实矩阵，但是利用 $\mathrm{Re}(\mathbf{Q}\mathbf{R}\mathbf{Q}^H)$ 来进行后续的估计其实是可以估计角度的。假设 $M=4$ 和 $\varphi = 2\pi d \sin\theta/\lambda$，展开 $\mathbf{Q}\mathbf{a}(\theta)$：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf{Q}\mathbf{a}(\theta) &= \sqrt{2} \begin{bmatrix}
+1 & 0 & 0 & 1 \\
+0 & 1 & 1 & 0 \\
+0 & \mathrm{j} & -\mathrm{j} & 0 \\
+\mathrm{j} & 0 & 0 & -\mathrm{j}
+\end{bmatrix}
+\begin{bmatrix}
+1\\
+e^{-\mathrm{j}\varphi}\\
+e^{-\mathrm{j}2\varphi}\\
+e^{-\mathrm{j}3\varphi}
+\end{bmatrix} \\
+&=\sqrt{2}\begin{bmatrix}
+1 + e^{-\mathrm{j}3\varphi}\\
+e^{-\mathrm{j}\varphi} + e^{-\mathrm{j}2\varphi}\\
+\mathrm{j}(e^{-\mathrm{j}\varphi} - e^{-\mathrm{j}2\varphi})\\
+\mathrm{j}(1 - e^{-\mathrm{j}3\varphi})
+\end{bmatrix}\\
+&=\sqrt{2}e^{-\mathrm{j}\frac{3}{2}\varphi}\begin{bmatrix}
+e^{\mathrm{j}\frac{3}{2}\varphi} + e^{-\mathrm{j}\frac{3}{2}\varphi}\\
+e^{\mathrm{j}\frac{1}{2}\varphi} + e^{-\mathrm{j}\frac{1}{2}\varphi}\\
+\mathrm{j}(e^{\mathrm{j}\frac{1}{2}\varphi} - e^{-\mathrm{j}\frac{1}{2}\varphi})\\
+\mathrm{j}(e^{\mathrm{j}\frac{3}{2}\varphi} - e^{-\mathrm{j}\frac{3}{2}\varphi})
+\end{bmatrix}\\
+&=\sqrt{2}e^{-\mathrm{j}\frac{3}{2}\varphi}\begin{bmatrix}
+\cos(\frac{3}{2}\varphi) \\
+\cos(\frac{1}{2}\varphi) \\
+\sin(-\frac{1}{2}\varphi) \\
+\sin(-\frac{3}{2}\varphi)
+\end{bmatrix}\\
+&=e^{-\mathrm{j}\frac{3}{2}\varphi}\overline{\mathbf{a}}(\theta)
+\end{aligned}</script><p>&emsp;&emsp;至此可以得到 $\mathbf{Q}\mathbf{a}(\theta)=e^{-\mathrm{j}\frac{M-1}{2}\varphi}\overline{\mathbf{a}}(\theta)$，进一步我们可以得到：</p>
+<script type="math/tex; mode=display">\mathbf{Q}\mathbf{A}=e^{-\mathrm{j}\frac{M-1}{2}\varphi}\overline{\mathbf{A}}</script><p>其中 $\overline{\mathbf{A}}\in\mathbb{R}^{M\times K}$ 是由 $K$ 个形如 $\overline{\mathbf{a}}(\theta)$ 的实向量组成的矩阵。最后一步，我们可以得到：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf{Q}\mathbf{R}\mathbf{Q}^H&=\left(e^{-\mathrm{j}\frac{M-1}{2}\varphi}\overline{\mathbf{A}}\right)\mathbf{R}_s\left(e^{\mathrm{j}\frac{M-1}{2}\varphi}\overline{\mathbf{A}}^T\right)\\
+&=\overline{\mathbf{A}}\mathbf{R}_s\overline{\mathbf{A}}^T
+\end{aligned}</script><p>因此有 $\mathrm{Re}(\mathbf{Q}\mathbf{R}\mathbf{Q}^H) = \overline{\mathbf{A}}\mathrm{Re}(\mathbf{R}_s)\overline{\mathbf{A}}^T$，不难看出即使 $\mathbf{R}$ 不满足 Hermitian 及 Persymmetric 性质，仍然不会破坏正交性。<br>&emsp;&emsp;总的来说，$\mathbf{Q}$ 的作用就是使得方向矢量转为实向量，如此便可以利用协方差矩阵的实部进行后续的计算。</p>
+<h2 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h2><p>&emsp;&emsp;unitary MUSIC 算法步骤如下（输入为阵列接收矩阵 $\mathbf{X}$）：</p>
+<ol>
+<li>计算协方差矩阵 $\mathbf{R} = \frac{1}{T} \mathbf{X}\mathbf{X}^H$ 和酉矩阵 $\mathbf{Q}$，接着以 $\mathbf{R}\triangleq\mathbf{Q}\mathbf{R}\mathbf{Q}^H$ 更新协方差矩阵。</li>
+<li>对 $\mathbf{R}$ 进行特征值分解，并对特征值进行排序，然后取得 $M-K$ 个较小特征值对应的特征向量来组成噪声子空间 $\mathbf{U}_n$。</li>
+<li><p>以下式遍历 $\theta \in [-90^{\circ}, 90^{\circ}]$：</p>
+<script type="math/tex; mode=display">
+ \begin{equation*}
+     P(\theta) = \frac{1}{\overline{\mathbf{a}}^H(\theta)\mathbf{U}_n\mathbf{U}_n^T\overline{\mathbf{a}}(\theta)}
+ \end{equation*}</script><p> 此时得到一组 $P(\theta)$，$K$ 个最大值对应的 $\theta$ 就是需要返回的结果。</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><pre><code class="lang-matlab"> clear; close all; clc;
 
- npm ERR! A complete log of this run can be found in
-</code></pre>
-<p> 最后一行 error 不用在意，关键在于前三行，说的是认证过期，参考内容 3 给出了解决方案来取消 ssl 验证：</p>
-<pre><code class="lang-shell"> npm config set strict-ssl false
+ %% Parameters
+ lambda     = 3e8/1e9;         % wavelength, c/f
+ d          = lambda/4;        % distance between sensors
+ theta      = [10,20];         % true DoAs, 1 times K vector
+ theta      = sort(theta);
+ M          = 16;              % # of sensors
+ T          = 500;             % # of snapshots
+ K          = length(theta);   % # of signals
+ noise_flag = 1;
+ SNR        = 0;               % signal-to-noise ratio
+ grid       = 0.1;             % search grid
+
+ %% Signals
+ R = generateSignal(M,K,T,theta,lambda,d,noise_flag,SNR);
+
+ %% DoA 
+ % unitary-MUSIC
+ [theta_unitary_music,P_unitary_music] = unitaryMUSIC(R,M,K,lambda,d,grid);
+
+ %% plot
+ figure;
+ hold on;
+ ang_list = -90:grid:90;
+ plot(ang_list, P_unitary_music);
+ hold off;
+
+ function [R,X,A,S] = generateSignal(M,K,T,theta,lambda,d,noise_flag,SNR)
+     S = exp(1j*2*pi*randn(K,T)); % signal matrix
+     A = exp(-1j*(0:M-1)&#39;*2*pi*d/lambda*sind(theta)); % steering vector matrix
+     N = noise_flag.*sqrt(10.^(-SNR/10))*(1/sqrt(2))*(randn(M,T)+1j*randn(M,T)); % noise matrix
+     X = A*S+N; % received matrix
+     R = X*X&#39;/T; % covariance matrix
+ end
+
+ function [theta,P] = unitaryMUSIC(R,M,K,lambda,d,grid)
+     M_half = floor(M/2);
+     O = zeros(M_half,1);
+     I = eye(M_half);
+     J = fliplr(I);
+     if mod(M,2) == 0
+         Q = [I,J;1j*J,-1j*I]./sqrt(2);
+     else
+         Q = [I,O,J;O&#39;,sqrt(2),O&#39;;1j*J,O,-1j*I]./sqrt(2);
+     end
+     R = real(Q*R*Q&#39;);
+     [U,~] = svd(R);
+     Un = U(:, K+1:M);
+
+     a_list = exp(-1j*(0:M-1).&#39;*2*pi*d/lambda*sind(-90:grid:90));
+     a_list = a_list.*exp(1j*(M-1)*ones(M,1)*pi*d/lambda*sind(-90:grid:90));
+     a_list = real(Q*a_list);
+     P = arrayfun(@(i) 1/norm(Un&#39;*a_list(:,i),&#39;fro&#39;),1:size(a_list,2)); % spectral spectrum grid search
+     P = 10*log10(P./max(P));
+
+     [~, idx] = findpeaks(P,&#39;NPeaks&#39;,K,&#39;SortStr&#39;,&#39;descend&#39;); % find K peaks
+     theta = sort((idx-1)*grid-90);
+ end
 </code></pre>
 </li>
 </ol>
-</li>
-</ul>
-<h1 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h1><ol>
-<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f52a20db0f85">hexo init 403超时报错</a></li>
-<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904194852257805">解决ping github.com超时</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42761482/article/details/121018086">cnpm install或者npm install遇到的问题Error: certificate has expired</a></li>
+<h2 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h2><ol>
+<li>Huarng K C, Yeh C C. A unitary transformation method for angle-of-arrival estimation[J]. IEEE Transactions on Signal Processing, 1991, 39(4): 975-977.</li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Persymmetric_matrix">【wikipedia】Persymmetric matrix</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Hermitian_matrix">【wikipedia】Hermitian matrix</a></li>
 </ol>
 
       
